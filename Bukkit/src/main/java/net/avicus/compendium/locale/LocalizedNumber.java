@@ -1,19 +1,25 @@
 package net.avicus.compendium.locale;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.text.NumberFormat;
 import java.util.Locale;
 
 public class LocalizedNumber implements Localizable {
-    private final Number number;
+    @Getter private final Number number;
+    @Getter @Setter int minimumDecimals = -1;
+    @Getter @Setter int maximumDecimals = 5;
 
     public LocalizedNumber(Number number) {
         this.number = number;
     }
 
-    // todo: add rounding/number of decimals
-
     @Override
     public String translate(Locale locale) {
-        return NumberFormat.getInstance(locale).format(this.number);
+        NumberFormat formatter = NumberFormat.getInstance(locale);
+        formatter.setMinimumFractionDigits(this.minimumDecimals);
+        formatter.setMaximumFractionDigits(this.maximumDecimals);
+        return formatter.format(this.number);
     }
 }
