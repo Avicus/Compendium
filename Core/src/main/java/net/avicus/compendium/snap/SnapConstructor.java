@@ -18,17 +18,17 @@ public class SnapConstructor<T> implements Annotationable {
 
     public T newInstance(Object... arguments) {
         if (this.argumentTypes.length != arguments.length)
-            throw new SnapException("constructor expected " + argumentTypes.length + " args but provided " + arguments.length);
+            throw new SnapException("Constructor expected " + argumentTypes.length + " arguments but provided " + arguments.length + ".");
 
         Constructor<T> constructor = getConstructor();
         try {
             return constructor.newInstance(arguments);
         } catch (InstantiationException e) {
-            throw new SnapException("failed to instantiate", e);
+            throw new SnapException("Failed to instantiate.", e);
         } catch (IllegalAccessException e) {
-            throw new SnapException("illegal access", e);
+            throw new SnapException("Illegal constructor access.", e);
         } catch (InvocationTargetException e) {
-            throw new SnapException("invocation failure", e);
+            throw new SnapException("Constructor invocation failed.", e);
         }
     }
 
@@ -42,7 +42,7 @@ public class SnapConstructor<T> implements Annotationable {
         try {
             return (Constructor<T>) snapClass.getClazz().getConstructor(this.argumentTypes);
         } catch (NoSuchMethodException e) {
-            throw new SnapException("no constructor for " + Arrays.toString(this.argumentTypes), e);
+            throw new SnapException("No constructor for " + Arrays.toString(this.argumentTypes) + " found.", e);
         }
     }
 }
