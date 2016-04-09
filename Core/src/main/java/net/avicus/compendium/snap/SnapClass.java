@@ -29,15 +29,15 @@ public class SnapClass<T> implements Annotationable {
         return new SnapConstructor<>(this, argumentTypes);
     }
 
-    public SnapMethod<T, ?> getMethod(String name, Class<?>[] argumentTypes) {
+    public SnapMethod<T, ?> getMethod(String name, Class<?>... argumentTypes) {
         return new SnapMethod<>(this, Object.class, name, argumentTypes);
     }
 
-    public <V> SnapMethod<T, V> getMethod(String name, Class<V> value, Class<?>[] argumentTypes) {
+    public <V> SnapMethod<T, V> getMethod(String name, Class<V> value, Class<?>... argumentTypes) {
         return new SnapMethod<>(this, value, name, argumentTypes);
     }
 
-    public SnapField<T, ?> getField(String name) {
+    public SnapField<T, Object> getField(String name) {
         return new SnapField<>(this, Object.class, name);
     }
 

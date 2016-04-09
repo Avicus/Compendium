@@ -38,7 +38,7 @@ public class SnapConstructor<T> implements Annotationable {
     }
 
     @SuppressWarnings("unchecked")
-    public Constructor<T> getConstructor() {
+    private Constructor<T> getConstructor() {
         try {
             return (Constructor<T>) snapClass.getClazz().getConstructor(this.argumentTypes);
         } catch (NoSuchMethodException e) {

@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class SnapMethod<C,T> implements Annotationable {
+public class SnapMethod<C,T extends Object> implements Annotationable {
     @Getter private final SnapClass<C> snapClass;
     @Getter private final Class<T> fieldType;
     @Getter private final String name;
@@ -26,7 +26,7 @@ public class SnapMethod<C,T> implements Annotationable {
         return get(Optional.of(instance), args);
     }
 
-    public T get(Object... args) throws SnapException {
+    public T getStatic(Object... args) throws SnapException {
         return get(Optional.empty(), args);
     }
 
