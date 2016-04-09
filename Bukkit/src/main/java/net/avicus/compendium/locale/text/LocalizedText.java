@@ -27,6 +27,7 @@ public class LocalizedText extends TextStyle<LocalizedText> implements Localizab
     public TextComponent toComponent(Locale locale) {
         String format = this.base.translate(locale);
         UnlocalizedText text = new UnlocalizedText(format, this.arguments, this.extras);
+        text.inherit(this);
         return text.toComponent(locale);
     }
 }

@@ -37,7 +37,7 @@ public class LocaleTests {
         {
             UnlocalizedText arg = new UnlocalizedText("completed").bold(true).color(ChatColor.RED);
 
-            LocalizedText text = bundle.getText("done-msg", arg);
+            LocalizedText text = bundle.getText("done-msg", arg).color(ChatColor.DARK_RED).italic(true);
 
             System.out.println(text.toComponent(en).toLegacyText());
         }
