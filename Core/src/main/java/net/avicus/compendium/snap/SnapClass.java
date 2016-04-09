@@ -25,18 +25,8 @@ public class SnapClass<T> implements Annotationable {
         }
     }
 
-    public T create(Object... arguments)  {
-        try {
-            return this.clazz.getConstructor(SnapUtils.objectsToTypes(arguments)).newInstance(arguments);
-        } catch (InstantiationException e) {
-            throw new SnapException("failed to instantiate", e);
-        } catch (IllegalAccessException e) {
-            throw new SnapException("illegal access", e);
-        } catch (InvocationTargetException e) {
-            throw new SnapException("invocation error", e);
-        } catch (NoSuchMethodException e) {
-            throw new SnapException("constructor not found", e);
-        }
+    public SnapConstructor<T> getConstructor(Class<?>... argumentTypes)  {
+        return new SnapConstructor<>(this, argumentTypes);
     }
 
     public SnapMethod<T, ?> getMethod(String name, Class<?>[] argumentTypes) {
