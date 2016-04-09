@@ -1,10 +1,12 @@
 package net.avicus.compendium.snap;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
+import java.util.List;
 
-public class SnapConstructor<T> {
+public class SnapConstructor<T> implements Annotationable {
     private final SnapClass<T> snapClass;
     private final Class[] argumentTypes;
 
@@ -28,6 +30,11 @@ public class SnapConstructor<T> {
         } catch (InvocationTargetException e) {
             throw new SnapException("invocation failure", e);
         }
+    }
+
+    @Override
+    public List<Annotation> getAnnotations() {
+        return Arrays.asList(getConstructor().getAnnotations());
     }
 
     @SuppressWarnings("unchecked")
