@@ -1,24 +1,21 @@
 package net.avicus.compendium;
 
-import net.avicus.compendium.locale.LocaleBundle;
-import net.avicus.compendium.locale.LocaleStrings;
-import net.avicus.compendium.locale.LocalizedFormat;
-import net.avicus.compendium.locale.UnlocalizedString;
-import net.avicus.compendium.locale.text.LocalizedText;
-import net.avicus.compendium.locale.text.UnlocalizedText;
+import net.avicus.compendium.locale.*;
 import org.bukkit.ChatColor;
 import org.junit.Test;
 
+import java.util.Date;
 import java.util.Locale;
 
 public class LocaleTests {
     private final Locale en = new Locale("en");
+    private final Locale es = new Locale("es", "ES");
 
     @Test
     public void text() {
         System.out.println("\n=== TEXT ===");
 
-        UnlocalizedText text = new UnlocalizedText("Hello, Mr. {0}!", new UnlocalizedString("Bill"));
+        UnlocalizedText text = new UnlocalizedText("Hello, Mr. {0}!", new UnlocalizedText("Bill"));
         System.out.println(text.toComponent(null).toLegacyText());
     }
 
@@ -35,7 +32,7 @@ public class LocaleTests {
 
         // Strings
         {
-            System.out.println(bundle.getString("test-msg", new UnlocalizedString("locale")).translate(en));
+            System.out.println(bundle.getText("test-msg", new UnlocalizedText("locale")).toLegacyText(en));
         }
 
         // Text
@@ -52,18 +49,33 @@ public class LocaleTests {
     public void constants() {
         System.out.println("\n=== CONSTANTS ===");
 
-        System.out.println(ChatConstant.HELLO.toComponent(this.en).toLegacyText());
-        System.out.println(ChatConstant.HELLO_SOMEONE.text().toComponent(this.en).toLegacyText());
+        // No args
+        {
+            System.out.println(ChatConstant.HELLO.text().toComponent(this.en).toLegacyText());
+            System.out.println(ChatConstant.HELLO_SOMEONE.text().toComponent(this.en).toLegacyText());
+        }
 
-        UnlocalizedText arg = new UnlocalizedText("Keenan");
-        arg.bold(true);
+        // Right args, colors
+        {
+            LocalizedText alex = ChatConstant.ALEX.text().bold(true);
+            LocalizedText text = ChatConstant.HELLO_SOMEONE.text(alex).color(ChatColor.RED);
 
-        LocalizedFormat format = ChatConstant.HELLO_SOMEONE;
+            System.out.println(text.toComponent(this.en).toLegacyText());
+            System.out.println(text.toComponent(this.es).toLegacyText());
+        }
 
-        LocalizedText text = format.text(arg);
-        text.color(ChatColor.RED);
+        // Date
+        {
+            LocalizedText text = ChatConstant.TIME_IS.text(new LocalizedDate(new Date(), LocalizedDate.Type.TIME));
+            System.out.println(text.toPlainText(this.en));
+            System.out.println(text.toPlainText(this.es));
+        }
 
-        System.out.println(text.toComponent(this.en).toLegacyText());
-
+        // Money
+        {
+            LocalizedText text = ChatConstant.THAT_COSTS.text(new LocalizedNumber(5.49));
+            System.out.println(text.toPlainText(this.en));
+            System.out.println(text.toPlainText(this.es));
+        }
     }
 }

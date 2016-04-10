@@ -3,7 +3,6 @@ package net.avicus.compendium;
 import net.avicus.compendium.locale.LocaleBundle;
 import net.avicus.compendium.locale.LocaleStrings;
 import net.avicus.compendium.locale.LocalizedFormat;
-import net.avicus.compendium.locale.text.LocalizedText;
 
 import java.util.Locale;
 
@@ -19,15 +18,23 @@ public class ChatConstant {
         LocaleStrings strings = new LocaleStrings();
         strings.add("hello", "Hello.");
         strings.add("hello-someone", "Hello, {0}.");
+        strings.add("alex", "Alexander");
+        strings.add("time-is", "The time is {0}.");
+        strings.add("that-costs", "That costs {0}.");
         bundle.add(en, strings);
 
         strings = new LocaleStrings();
         strings.add("hello", "Hola.");
         strings.add("hello-someone", "Hola, {0}.");
+        strings.add("time-is", "La hora es {0}.");
+        strings.add("that-costs", "Eso cuesta {0}.");
         bundle.add(es, strings);
     }
 
-    public static final LocalizedText HELLO = bundle.getFormat("hello").text();
+    public static final LocalizedFormat HELLO = bundle.getFormat("hello");
     public static final LocalizedFormat HELLO_SOMEONE = bundle.getFormat("hello-someone");
+    public static final LocalizedFormat ALEX = bundle.getFormat("alex");
+    public static final LocalizedFormat TIME_IS = bundle.getFormat("time-is");
+    public static final LocalizedFormat THAT_COSTS = bundle.getFormat("that-costs");
 
 }

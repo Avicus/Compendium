@@ -1,7 +1,5 @@
 package net.avicus.compendium.locale;
 
-import net.avicus.compendium.locale.text.LocalizedText;
-
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -55,7 +53,7 @@ public class LocaleBundle {
         if (!strings.isPresent())
             return Optional.empty();
 
-        Optional<String> result = strings.get().getString(key);
+        Optional<String> result = strings.get().get(key);
 
         if (result.isPresent())
             return Optional.of(result.get());
@@ -72,13 +70,8 @@ public class LocaleBundle {
         return get(locale, key).isPresent();
     }
 
-    public LocalizedString getString(String key, Localizable... arguments) {
-        return new LocalizedString(this, key, arguments);
-    }
-
     public LocalizedText getText(String key, LocalizableText... arguments) {
-        LocalizedString string = getString(key);
-        return new LocalizedText(string, arguments);
+        return new LocalizedText(this, key, arguments);
     }
 
     public LocalizedFormat getFormat(String key) {

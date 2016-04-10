@@ -1,4 +1,4 @@
-package net.avicus.compendium.locale.text;
+package net.avicus.compendium.locale;
 
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -21,9 +21,9 @@ public class TextStyle<T extends TextStyle> {
     /**
      * Takes styles from the provided TextStyle writes them
      * into this TextStyle if they aren't present.
-     * @param style
+     * @param style The style to inherit from.
      */
-    protected void inherit(TextStyle style) {
+    public T inherit(TextStyle style) {
         this.color = this.color.isPresent() ? this.color : style.color;
         this.bold = this.bold.isPresent() ? this.bold : style.bold;
         this.italic = this.italic.isPresent() ? this.italic : style.italic;
@@ -32,6 +32,7 @@ public class TextStyle<T extends TextStyle> {
         this.strike = this.strike.isPresent() ? this.strike : style.strike;
         this.clickEvent = this.clickEvent.isPresent() ? this.clickEvent : style.clickEvent;
         this.hoverEvent = this.hoverEvent.isPresent() ? this.hoverEvent : style.hoverEvent;
+        return (T) this;
     }
 
     public T color(ChatColor color) {
@@ -93,9 +94,5 @@ public class TextStyle<T extends TextStyle> {
         if (this.hoverEvent.isPresent())
             message.setHoverEvent(this.hoverEvent.get());
         return message;
-    }
-
-    protected String toLegacyText(String text) {
-        return toComponent(text).toLegacyText();
     }
 }

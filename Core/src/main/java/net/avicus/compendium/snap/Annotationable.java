@@ -4,6 +4,7 @@ import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Optional;
 
+@SuppressWarnings("ALL")
 public interface Annotationable {
     List<Annotation> getAnnotations();
 

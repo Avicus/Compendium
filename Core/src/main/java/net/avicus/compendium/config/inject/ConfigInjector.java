@@ -21,6 +21,7 @@ public class ConfigInjector {
         inject(new SnapClass<>(this.clazz), Optional.of(this.section));
     }
 
+    @SuppressWarnings("unchecked")
     private void inject(SnapClass<?> snap, Optional<Config> section) throws ConfigInjectionException {
         for (SnapField field : snap.getFields()) {
             if (!field.hasAnnotation(ConfigKey.class))
@@ -35,7 +36,7 @@ public class ConfigInjector {
 
             if (required && !exists)
                 throw new ConfigInjectionException("Missing required key: '" + key + "'.");
-            else if (!exists && !required)
+            else if (!exists)
                 continue;
 
             Object value = nested.get().get(key);

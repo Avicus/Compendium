@@ -1,6 +1,5 @@
-package net.avicus.compendium.locale.text;
+package net.avicus.compendium.locale;
 
-import net.avicus.compendium.locale.LocalizableText;
 import net.md_5.bungee.api.chat.TextComponent;
 
 import java.util.ArrayList;
@@ -8,13 +7,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-public class UnlocalizedText extends TextStyle<UnlocalizedText> implements LocalizableText {
+public class UnlocalizedText extends LocalizableText<UnlocalizedText> {
     private final String format;
     private final List<LocalizableText> arguments;
     private final List<LocalizableText> extras;
 
     public UnlocalizedText(String format, LocalizableText... arguments) {
-        this(format, Arrays.asList(arguments), new ArrayList<>());
+        this(format, new ArrayList<>(Arrays.asList(arguments)));
+    }
+
+    public UnlocalizedText(String format, List<LocalizableText> arguments) {
+        this(format, arguments, new ArrayList<>());
     }
 
     public UnlocalizedText(String format, List<LocalizableText> arguments, List<LocalizableText> extras) {
@@ -34,15 +37,12 @@ public class UnlocalizedText extends TextStyle<UnlocalizedText> implements Local
 
         // Replace {0}, {1}, etc.
         for (int i = 0; i < this.arguments.size(); i++) {
-            LocalizableText curr = this.arguments.get(i);
+            LocalizableText curr = this.arguments.get(i).duplicate();
 
             if (format.contains("{" + i + "}")) {
                 String[] split = format.split("\\{" + i + "\\}");
 
-                TextStyle currStyle = new TextStyle();
-                if (curr instanceof TextStyle)
-                    currStyle = (TextStyle) curr;
-                currStyle.inherit(this);
+                curr.inherit(this);
 
                 parts.add(toComponent(split[0]));
                 parts.add(curr.toComponent(locale));
@@ -68,14 +68,24 @@ public class UnlocalizedText extends TextStyle<UnlocalizedText> implements Local
 
         // Extras
         for (LocalizableText extra : this.extras) {
-            TextStyle style = this;
-            if (extra instanceof TextStyle)
-                style = (TextStyle) extra;
-            style.inherit(this);
-
-            result.addExtra(extra.toComponent(locale));
+            LocalizableText text = extra.duplicate();
+            text.inherit(this);
+            result.addExtra(text.toComponent(locale));
         }
 
         return result;
+    }
+    @Override
+    public UnlocalizedText duplicate() {
+        List<LocalizableText> arguments = new ArrayList<>();
+        List<LocalizableText> extras = new ArrayList<>();
+        for (LocalizableText arg : this.arguments)
+            arguments.add(arg.duplicate());
+        for (LocalizableText extra : this.extras)
+            extras.add(extra.duplicate());
+
+        UnlocalizedText text = new UnlocalizedText(this.format, arguments, extras);
+        text.inherit(this);
+        return text;
     }
 }

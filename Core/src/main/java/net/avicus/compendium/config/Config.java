@@ -22,6 +22,7 @@ public class Config {
         this.data = new LinkedHashMap<>();
     }
 
+    @SuppressWarnings("unchecked")
     private Config(Object object) {
         this((Map<String, Object>) object);
     }

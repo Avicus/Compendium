@@ -15,7 +15,7 @@ public class LocaleStrings {
         this.strings.put(key, value);
     }
 
-    public Optional<String> getString(String key) {
+    public Optional<String> get(String key) {
         return Optional.ofNullable(this.strings.get(key));
     }
 }
