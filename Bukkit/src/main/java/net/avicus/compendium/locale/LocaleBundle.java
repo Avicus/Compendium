@@ -80,4 +80,8 @@ public class LocaleBundle {
         LocalizedString string = getString(key);
         return new LocalizedText(string, arguments);
     }
+
+    public LocalizedFormat getFormat(String key) {
+        return new LocalizedFormat(this, key);
+    }
 }

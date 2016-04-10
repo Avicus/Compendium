@@ -16,7 +16,7 @@ public class LocalizedText extends TextStyle<LocalizedText> implements Localizab
 
     public LocalizedText(LocalizedString base, LocalizableText... arguments) {
         this.base = base;
-        this.arguments = Arrays.asList(arguments);
+        this.arguments = new ArrayList<>(Arrays.asList(arguments));
         this.extras = new ArrayList<>();
     }
 

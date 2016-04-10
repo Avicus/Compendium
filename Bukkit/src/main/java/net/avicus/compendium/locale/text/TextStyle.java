@@ -23,7 +23,7 @@ public class TextStyle<T extends TextStyle> {
      * into this TextStyle if they aren't present.
      * @param style
      */
-    public void inherit(TextStyle style) {
+    protected void inherit(TextStyle style) {
         this.color = this.color.isPresent() ? this.color : style.color;
         this.bold = this.bold.isPresent() ? this.bold : style.bold;
         this.italic = this.italic.isPresent() ? this.italic : style.italic;
@@ -74,7 +74,7 @@ public class TextStyle<T extends TextStyle> {
         return (T) this;
     }
 
-    public TextComponent toComponent(String text) {
+    protected TextComponent toComponent(String text) {
         TextComponent message = new TextComponent(text);
         if (this.color.isPresent())
             message.setColor(net.md_5.bungee.api.ChatColor.valueOf(this.color.get().name()));
@@ -95,7 +95,7 @@ public class TextStyle<T extends TextStyle> {
         return message;
     }
 
-    public String toLegacyText(String text) {
+    protected String toLegacyText(String text) {
         return toComponent(text).toLegacyText();
     }
 }
