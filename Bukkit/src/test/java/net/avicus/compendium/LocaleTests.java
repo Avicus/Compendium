@@ -1,6 +1,10 @@
 package net.avicus.compendium;
 
 import net.avicus.compendium.locale.*;
+import net.avicus.compendium.locale.text.LocalizedDate;
+import net.avicus.compendium.locale.text.LocalizedNumber;
+import net.avicus.compendium.locale.text.LocalizedText;
+import net.avicus.compendium.locale.text.UnlocalizedText;
 import org.bukkit.ChatColor;
 import org.junit.Test;
 

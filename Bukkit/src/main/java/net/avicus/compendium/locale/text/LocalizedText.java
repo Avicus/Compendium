@@ -1,5 +1,6 @@
-package net.avicus.compendium.locale;
+package net.avicus.compendium.locale.text;
 
+import net.avicus.compendium.locale.LocaleBundle;
 import net.md_5.bungee.api.chat.TextComponent;
 
 import java.util.ArrayList;

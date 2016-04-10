@@ -1,6 +1,10 @@
-package net.avicus.compendium.locale;
+package net.avicus.compendium.locale.format;
 
-public class LocalizedFormat {
+import net.avicus.compendium.locale.LocaleBundle;
+import net.avicus.compendium.locale.text.LocalizableText;
+import net.avicus.compendium.locale.text.LocalizedText;
+
+public class LocalizedFormat implements LocalizableFormat {
     private final LocaleBundle bundle;
     private final String key;
 
@@ -9,6 +13,7 @@ public class LocalizedFormat {
         this.key = key;
     }
 
+    @Override
     public LocalizedText text(LocalizableText... arguments) {
         return new LocalizedText(this.bundle, this.key, arguments);
     }

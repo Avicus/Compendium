@@ -2,7 +2,7 @@ package net.avicus.compendium;
 
 import net.avicus.compendium.locale.LocaleBundle;
 import net.avicus.compendium.locale.LocaleStrings;
-import net.avicus.compendium.locale.LocalizedFormat;
+import net.avicus.compendium.locale.format.LocalizedFormat;
 
 import java.util.Locale;
 

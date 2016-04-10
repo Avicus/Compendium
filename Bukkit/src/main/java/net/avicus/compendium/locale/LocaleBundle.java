@@ -1,5 +1,9 @@
 package net.avicus.compendium.locale;
 
+import net.avicus.compendium.locale.format.LocalizedFormat;
+import net.avicus.compendium.locale.text.LocalizableText;
+import net.avicus.compendium.locale.text.LocalizedText;
+
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
