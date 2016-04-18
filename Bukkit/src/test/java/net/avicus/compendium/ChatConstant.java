@@ -12,19 +12,16 @@ public class ChatConstant {
     static {
         bundle = new LocaleBundle();
 
-        Locale en = new Locale("en");
-        Locale es = new Locale("es");
+        LocaleStrings en = new LocaleStrings(new Locale("en"));
+        en.add("hello", "Hello, {0}.");
+        en.add("name", "Alexander");
 
-        LocaleStrings enStrings = new LocaleStrings();
-        enStrings.add("hello", "Hello, {0}.");
-        enStrings.add("name", "Alexander");
+        LocaleStrings es = new LocaleStrings(new Locale("es"));
+        es.add("hello", "Hola, {0}.");
+        es.add("name", "Alejandro");
 
-        LocaleStrings esStrings = new LocaleStrings();
-        esStrings.add("hello", "Hola, {0}.");
-        esStrings.add("name", "Alejandro");
-
-        bundle.add(en, enStrings);
-        bundle.add(es, esStrings);
+        bundle.add(en);
+        bundle.add(es);
     }
 
     public static LocalizedFormat HELLO = new LocalizedFormat(bundle, "hello");

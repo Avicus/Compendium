@@ -22,6 +22,10 @@ public class UnlocalizedText implements Localizable {
         this(text, style, new ArrayList<>(Arrays.asList(arguments)));
     }
 
+    public UnlocalizedText(String text, ChatColor color) {
+        this(text, TextStyle.ofColor(color));
+    }
+
     public UnlocalizedText(String text, TextStyle style, List<Localizable> arguments) {
         this.text = text;
         this.arguments = arguments;
@@ -74,11 +78,5 @@ public class UnlocalizedText implements Localizable {
             arguments.add(argument.duplicate());
 
         return new UnlocalizedText(this.text, this.style, arguments);
-    }
-
-    @Override
-    public UnlocalizedText color(ChatColor color) {
-        style().color(color);
-        return this;
     }
 }

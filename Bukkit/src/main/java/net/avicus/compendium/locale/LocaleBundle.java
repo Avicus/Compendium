@@ -4,41 +4,52 @@ import net.avicus.compendium.locale.text.Localizable;
 import net.avicus.compendium.locale.text.LocalizedFormat;
 import net.avicus.compendium.locale.text.LocalizedText;
 
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Optional;
 
 public class LocaleBundle {
-    private Map<Locale, LocaleStrings> locales;
+    private List<LocaleStrings> locales;
     private boolean defaultFallback;
 
     public LocaleBundle() {
-        this.locales = new LinkedHashMap<>();
-        this.defaultFallback = true;
+        this(new ArrayList<>());
+    }
+
+    public LocaleBundle(List<LocaleStrings> locales) {
+        this(locales, true);
+    }
+
+    public LocaleBundle(List<LocaleStrings> locales, boolean defaultFallback) {
+        this.locales = locales;
+        this.defaultFallback = defaultFallback;
     }
 
     public Optional<Locale> getDefaultLocale() {
-        if (this.defaultFallback && this.locales.size() > 0)
-            return Optional.of(this.locales.keySet().iterator().next());
+        Optional<LocaleStrings> strings = getDefaultStrings();
+        if (strings.isPresent())
+            return Optional.of(strings.get().getLocale());
         return Optional.empty();
     }
 
     public Optional<LocaleStrings> getDefaultStrings() {
-        Optional<Locale> def = getDefaultLocale();
-        if (def.isPresent())
-            return Optional.of(this.locales.get(def.get()));
+        if (this.defaultFallback && this.locales.size() > 0)
+            return Optional.of(this.locales.get(0));
         return Optional.empty();
     }
 
     public Optional<LocaleStrings> getStringsRoughly(Locale locale) {
-        if (this.locales.keySet().contains(locale))
-            return Optional.of(this.locales.get(locale));
-
-        for (Locale test : this.locales.keySet()) {
-            if (test.getLanguage().equals(locale.getLanguage()))
-                return Optional.of(this.locales.get(test));
+        LocaleStrings match = null;
+        for (LocaleStrings test : this.locales) {
+            if (test.getLocale().equals(locale))
+                return Optional.of(test);
+            else if (test.getLocale().getLanguage().equals(locale.getLanguage()))
+                match = test;
         }
+
+        if (match != null)
+            return Optional.of(match);
 
         return getDefaultStrings();
     }
@@ -47,8 +58,8 @@ public class LocaleBundle {
         this.defaultFallback = defaultFallback;
     }
 
-    public void add(Locale locale, LocaleStrings strings) {
-        this.locales.put(locale, strings);
+    public void add(LocaleStrings strings) {
+        this.locales.add(strings);
     }
 
     public Optional<String> get(Locale locale, String key) {

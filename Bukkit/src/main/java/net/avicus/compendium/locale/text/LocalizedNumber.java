@@ -2,7 +2,6 @@ package net.avicus.compendium.locale.text;
 
 import net.avicus.compendium.TextStyle;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.ChatColor;
 
 import java.util.Locale;
 
@@ -33,11 +32,5 @@ public class LocalizedNumber implements Localizable {
     @Override
     public Localizable duplicate() {
         return new LocalizedNumber(this.number, this.style.duplicate());
-    }
-
-    @Override
-    public LocalizedNumber color(ChatColor color) {
-        style().color(color);
-        return this;
     }
 }

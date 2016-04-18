@@ -14,11 +14,11 @@ public class LocaleTests {
     @Test
     public void bundles() {
         System.out.println("=== BUNDLES ===");
-        LocaleStrings en = new LocaleStrings();
+        LocaleStrings en = new LocaleStrings(new Locale("en"));
         en.add("hello", "Hello {0}!");
 
         LocaleBundle bundle = new LocaleBundle();
-        bundle.add(Locale.ENGLISH, en);
+        bundle.add(en);
 
         System.out.println(bundle.get(Locale.ENGLISH, "hello"));
 
