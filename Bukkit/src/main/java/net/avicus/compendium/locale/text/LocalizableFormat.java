@@ -7,6 +7,10 @@ public interface LocalizableFormat<T extends Localizable> {
 
     T with(Localizable... arguments);
 
+    default T with() {
+        return with(new Localizable[] {});
+    }
+
     default T with(TextStyle style) {
         return with(style, new Localizable[] {});
     }
