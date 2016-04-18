@@ -11,6 +11,7 @@
 
     <artifactId>compendium-bungee</artifactId>
 
+
     <dependencies>
         <dependency>
             <groupId>net.avicus</groupId>

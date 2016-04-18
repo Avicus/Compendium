@@ -17,14 +17,21 @@
 
     <distributionManagement>
         <repository>
-            <id>avicus-repo</id>
+            <id>avicus-public</id>
             <url>https://repo.avicus.net/content/repositories/releases/</url>
         </repository>
         <snapshotRepository>
-            <id>avicus-repo</id>
+            <id>avicus-public</id>
             <url>https://repo.avicus.net/content/repositories/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>avicus-public</id>
+            <url>https://repo.avicus.net/content/groups/public/</url>
+        </repository>
+    </repositories>
 
     <dependencies>
         <dependency>
