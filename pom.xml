@@ -44,8 +44,6 @@
 
     <!-- Build Settings -->
     <build>
-        <sourceDirectory>${basedir}/src/main/java/</sourceDirectory>
-
         <!-- Resources -->
         <resources>
             <resource>

@@ -44,7 +44,9 @@ public class LocaleStrings {
         String lang = el.getAttributeValue("lang");
         String country = el.getAttributeValue("country");
 
-        Locale locale = new Locale(lang, country);
+        Locale locale = new Locale(lang);
+        if (country != null)
+            locale = new Locale(lang, country);
 
         LocaleStrings strings = new LocaleStrings(locale);
 
