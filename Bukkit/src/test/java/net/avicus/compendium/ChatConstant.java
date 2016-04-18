@@ -2,12 +2,12 @@ package net.avicus.compendium;
 
 import net.avicus.compendium.locale.LocaleBundle;
 import net.avicus.compendium.locale.LocaleStrings;
-import net.avicus.compendium.locale.format.LocalizedFormat;
+import net.avicus.compendium.locale.text.LocalizedFormat;
 
 import java.util.Locale;
 
 public class ChatConstant {
-    private static final LocaleBundle bundle;
+    private static LocaleBundle bundle;
 
     static {
         bundle = new LocaleBundle();
@@ -15,26 +15,18 @@ public class ChatConstant {
         Locale en = new Locale("en");
         Locale es = new Locale("es");
 
-        LocaleStrings strings = new LocaleStrings();
-        strings.add("hello", "Hello.");
-        strings.add("hello-someone", "Hello, {0}.");
-        strings.add("alex", "Alexander");
-        strings.add("time-is", "The time is {0}.");
-        strings.add("that-costs", "That costs {0}.");
-        bundle.add(en, strings);
+        LocaleStrings enStrings = new LocaleStrings();
+        enStrings.add("hello", "Hello, {0}.");
+        enStrings.add("name", "Alexander");
 
-        strings = new LocaleStrings();
-        strings.add("hello", "Hola.");
-        strings.add("hello-someone", "Hola, {0}.");
-        strings.add("time-is", "La hora es {0}.");
-        strings.add("that-costs", "Eso cuesta {0}.");
-        bundle.add(es, strings);
+        LocaleStrings esStrings = new LocaleStrings();
+        esStrings.add("hello", "Hola, {0}.");
+        esStrings.add("name", "Alejandro");
+
+        bundle.add(en, enStrings);
+        bundle.add(es, esStrings);
     }
 
-    public static final LocalizedFormat HELLO = bundle.getFormat("hello");
-    public static final LocalizedFormat HELLO_SOMEONE = bundle.getFormat("hello-someone");
-    public static final LocalizedFormat ALEX = bundle.getFormat("alex");
-    public static final LocalizedFormat TIME_IS = bundle.getFormat("time-is");
-    public static final LocalizedFormat THAT_COSTS = bundle.getFormat("that-costs");
-
+    public static LocalizedFormat HELLO = new LocalizedFormat(bundle, "hello");
+    public static LocalizedFormat NAME = new LocalizedFormat(bundle, "name");
 }

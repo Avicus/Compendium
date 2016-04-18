@@ -1,7 +1,7 @@
 package net.avicus.compendium.locale;
 
-import net.avicus.compendium.locale.format.LocalizedFormat;
-import net.avicus.compendium.locale.text.LocalizableText;
+import net.avicus.compendium.locale.text.Localizable;
+import net.avicus.compendium.locale.text.LocalizedFormat;
 import net.avicus.compendium.locale.text.LocalizedText;
 
 import java.util.LinkedHashMap;
@@ -74,11 +74,11 @@ public class LocaleBundle {
         return get(locale, key).isPresent();
     }
 
-    public LocalizedText getText(String key, LocalizableText... arguments) {
-        return new LocalizedText(this, key, arguments);
-    }
-
     public LocalizedFormat getFormat(String key) {
         return new LocalizedFormat(this, key);
+    }
+
+    public LocalizedText getText(String key, Localizable... arguments) {
+        return new LocalizedText(this, key, arguments);
     }
 }

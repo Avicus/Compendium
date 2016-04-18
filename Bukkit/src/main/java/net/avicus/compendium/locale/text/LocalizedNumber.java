@@ -1,38 +1,36 @@
 package net.avicus.compendium.locale.text;
 
+import net.avicus.compendium.TextStyle;
 import net.md_5.bungee.api.chat.TextComponent;
 
-import java.text.NumberFormat;
 import java.util.Locale;
 
-public class LocalizedNumber extends LocalizableText<LocalizedNumber> {
+public class LocalizedNumber implements Localizable {
     private final Number number;
-    private final int minimumDecimals;
-    private final int maximumDecimals;
+    private final TextStyle style;
+
+    public LocalizedNumber(Number number, TextStyle style) {
+        this.number = number;
+        this.style = style;
+    }
 
     public LocalizedNumber(Number number) {
-        this(number, -1, 5);
-    }
-
-    public LocalizedNumber(Number number, int minimumDecimals, int maximumDecimals) {
-        this.number = number;
-        this.minimumDecimals = minimumDecimals;
-        this.maximumDecimals = maximumDecimals;
+        this(number, TextStyle.create());
     }
 
     @Override
-    public TextComponent toComponent(Locale locale) {
-        NumberFormat formatter = NumberFormat.getInstance(locale);
-        formatter.setMinimumFractionDigits(this.minimumDecimals);
-        formatter.setMaximumFractionDigits(this.maximumDecimals);
-        String result = formatter.format(this.number);
-        return super.toComponent(result);
+    public TextComponent translate(Locale locale) {
+        // Todo: Better implementation
+        return new UnlocalizedText(this.number + "", this.style).translate(locale);
     }
 
     @Override
-    public LocalizedNumber duplicate() {
-        LocalizedNumber dup = new LocalizedNumber(this.number, this.minimumDecimals, this.maximumDecimals);
-        dup.inherit(this);
-        return dup;
+    public TextStyle style() {
+        return this.style;
+    }
+
+    @Override
+    public Localizable duplicate() {
+        return new LocalizedNumber(this.number, this.style.duplicate());
     }
 }
