@@ -3,6 +3,7 @@ package net.avicus.compendium.locale.text;
 import net.avicus.compendium.TextStyle;
 import net.avicus.compendium.locale.LocaleBundle;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.ChatColor;
 
 import java.util.*;
 
@@ -57,5 +58,11 @@ public class LocalizedText implements Localizable {
             arguments.add(argument.duplicate());
 
         return new LocalizedText(this.bundle, this.key, this.style.duplicate(), arguments);
+    }
+
+    @Override
+    public LocalizedText color(ChatColor color) {
+        style().color(color);
+        return this;
     }
 }

@@ -72,16 +72,16 @@ public class Config {
         this.data.put(key, value);
     }
 
-    public List<String> getStringList(String key) throws ClassCastException {
+    public List<String> getStringList(String key) {
         return getList(key, String.class);
     }
 
-    public List<Integer> getIntList(String key) throws ClassCastException {
+    public List<Integer> getIntList(String key) {
         return getList(key, Integer.class);
     }
 
     @SuppressWarnings("unchecked")
-    public <T> List<T> getList(String key, Class<T> cast) throws ClassCastException {
+    public <T> List<T> getList(String key, Class<T> cast) {
         List list = get(key, List.class);
         for (Object object : list) {
             if (!cast.isAssignableFrom(object.getClass()))
@@ -90,28 +90,56 @@ public class Config {
         return (List<T>) list;
     }
 
-    public int getInt(String key) throws ClassCastException {
+    public int getInt(String key) {
         return get(key, Number.class).intValue();
     }
 
-    public long getLong(String key) throws ClassCastException {
+    public int getInt(String key, int def) {
+        return contains(key) ? getInt(key) : def;
+    }
+
+    public long getLong(String key) {
         return get(key, Number.class).longValue();
     }
 
-    public double getDouble(String key) throws ClassCastException {
+    public long getLong(String key, long def) {
+        return contains(key) ? getLong(key) : def;
+    }
+
+    public double getDouble(String key) {
         return get(key, Number.class).doubleValue();
     }
 
-    public String getString(String key) throws ClassCastException {
+    public double getDouble(String key, double def) {
+        return contains(key) ? getDouble(key) : def;
+    }
+
+    public String getString(String key) {
         return get(key, String.class);
     }
 
-    public String getAsString(String key) throws ClassCastException {
+    public String getString(String key, String def) {
+        return contains(key) ? getString(key) : def;
+    }
+
+    public String getAsString(String key) {
         return contains(key) ? get(key).toString() : null;
     }
 
+    public String getAsString(String key, String def) {
+        return contains(key) ? getAsString(key) : def;
+    }
+    
+    public boolean getBoolean(String key) {
+        return get(key, Boolean.class);
+    }
+
+    public boolean getBoolean(String key, boolean def) {
+        return contains(key) ? getBoolean(key) : def;
+    }
+
     @SuppressWarnings("unchecked")
-    public Config getConfig(String key) throws ClassCastException {
+    public Config getConfig(String key) {
         Map<String, Object> map = (Map<String, Object>) get(key, Map.class);
         return new Config(map);
     }
@@ -121,7 +149,7 @@ public class Config {
     }
 
     @SuppressWarnings("unchecked")
-    public <T> T get(String key, Class<T> cast) throws ClassCastException {
+    public <T> T get(String key, Class<T> cast) {
         return (T) this.data.get(key);
     }
 

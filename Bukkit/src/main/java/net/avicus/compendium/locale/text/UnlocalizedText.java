@@ -2,6 +2,7 @@ package net.avicus.compendium.locale.text;
 
 import net.avicus.compendium.TextStyle;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.ChatColor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -73,5 +74,11 @@ public class UnlocalizedText implements Localizable {
             arguments.add(argument.duplicate());
 
         return new UnlocalizedText(this.text, this.style, arguments);
+    }
+
+    @Override
+    public UnlocalizedText color(ChatColor color) {
+        style().color(color);
+        return this;
     }
 }
