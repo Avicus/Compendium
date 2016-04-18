@@ -140,8 +140,7 @@ public class Config {
 
     @SuppressWarnings("unchecked")
     public Config getConfig(String key) {
-        Map<String, Object> map = (Map<String, Object>) get(key, Map.class);
-        return new Config(map);
+        return get(key, Config.class);
     }
 
     public Object get(String key) {
@@ -150,6 +149,9 @@ public class Config {
 
     @SuppressWarnings("unchecked")
     public <T> T get(String key, Class<T> cast) {
+        Object value = this.data.get(key);
+        if (value instanceof Map)
+            return (T) new Config(value);
         return (T) this.data.get(key);
     }
 
