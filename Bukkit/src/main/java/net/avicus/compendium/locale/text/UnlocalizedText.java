@@ -45,7 +45,9 @@ public class UnlocalizedText implements Localizable {
             if (format.contains("{" + i + "}")) {
                 String[] split = format.split("\\{" + i + "\\}");
 
-                parts.add(this.style.apply(split[0]));
+                if (split.length > 0)
+                    parts.add(this.style.apply(split[0]));
+                
                 parts.add(curr.translate(locale));
 
                 if (split.length > 1)
