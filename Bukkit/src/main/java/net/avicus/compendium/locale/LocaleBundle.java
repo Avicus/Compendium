@@ -11,19 +11,19 @@ import java.util.Optional;
 
 public class LocaleBundle {
     private List<LocaleStrings> locales;
-    private boolean defaultFallback;
 
     public LocaleBundle() {
         this(new ArrayList<>());
     }
 
     public LocaleBundle(List<LocaleStrings> locales) {
-        this(locales, true);
+        this.locales = locales;
     }
 
-    public LocaleBundle(List<LocaleStrings> locales, boolean defaultFallback) {
+    public LocaleBundle(List<LocaleStrings> locales, LocaleStrings defaultStrings) {
         this.locales = locales;
-        this.defaultFallback = defaultFallback;
+        this.locales.remove(defaultStrings);
+        this.locales.add(0, defaultStrings);
     }
 
     public Optional<Locale> getDefaultLocale() {
@@ -34,7 +34,7 @@ public class LocaleBundle {
     }
 
     public Optional<LocaleStrings> getDefaultStrings() {
-        if (this.defaultFallback && this.locales.size() > 0)
+        if (this.locales.size() > 0)
             return Optional.of(this.locales.get(0));
         return Optional.empty();
     }
@@ -52,10 +52,6 @@ public class LocaleBundle {
             return Optional.of(match);
 
         return getDefaultStrings();
-    }
-
-    public void setDefaultFallback(boolean defaultFallback) {
-        this.defaultFallback = defaultFallback;
     }
 
     public void add(LocaleStrings strings) {
