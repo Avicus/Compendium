@@ -79,6 +79,6 @@ public class UnlocalizedText implements Localizable {
         for (Localizable argument : this.arguments)
             arguments.add(argument.duplicate());
 
-        return new UnlocalizedText(this.text, this.style, arguments);
+        return new UnlocalizedText(this.text, this.style.duplicate(), arguments);
     }
 }
