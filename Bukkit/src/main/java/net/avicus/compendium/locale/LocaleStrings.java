@@ -2,6 +2,7 @@ package net.avicus.compendium.locale;
 
 import com.google.common.base.Preconditions;
 import lombok.Getter;
+import lombok.ToString;
 import org.jdom2.Content;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -15,6 +16,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
+@ToString
 public class LocaleStrings {
     @Getter private final Locale locale;
     private final Map<String, String> strings;
@@ -54,7 +56,7 @@ public class LocaleStrings {
             if (content instanceof Element) {
                 Element child = (Element) content;
 
-                if (child.getChildren().size() == 0)
+                if (child.getChildren().size() > 0)
                     continue;
 
                 String path = getPath(el, child);
