@@ -5,6 +5,7 @@ import net.avicus.compendium.config.inject.ConfigInjector;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -152,6 +153,16 @@ public class Config {
         Object value = this.data.get(key);
         if (value instanceof Map)
             return (T) new Config(value);
+        if (value instanceof List) {
+            List list = new ArrayList<>();
+            for (Object item : (List) value) {
+                if (item instanceof Map)
+                    list.add(new Config(item));
+                else
+                    list.add(item);
+            }
+            return (T) list;
+        }
         return (T) this.data.get(key);
     }
 
