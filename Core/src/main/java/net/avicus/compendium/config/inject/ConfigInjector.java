@@ -18,11 +18,11 @@ public class ConfigInjector {
     }
 
     public void inject() throws ConfigInjectionException {
-        inject(new SnapClass<>(this.clazz), Optional.of(this.section));
+        inject(new SnapClass(this.clazz), Optional.of(this.section));
     }
 
     @SuppressWarnings("unchecked")
-    private void inject(SnapClass<?> snap, Optional<Config> section) throws ConfigInjectionException {
+    private void inject(SnapClass snap, Optional<Config> section) throws ConfigInjectionException {
         for (SnapField field : snap.getFields()) {
             if (!field.hasAnnotation(ConfigKey.class))
                 continue;
@@ -45,7 +45,7 @@ public class ConfigInjector {
                 value = Optional.ofNullable(value);
 
             try {
-                field.set(value);
+                field.setStatic(value);
             } catch (SnapException e) {
                 throw new ConfigInjectionException("Unable to set key: '" + key + "'.", e);
             }

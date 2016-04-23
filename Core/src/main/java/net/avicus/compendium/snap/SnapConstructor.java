@@ -6,21 +6,21 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 
-public class SnapConstructor<T> implements Annotationable {
-    private final SnapClass<T> snapClass;
+public class SnapConstructor implements Annotationable {
+    private final SnapClass snapClass;
     private final Class[] argumentTypes;
 
-    public SnapConstructor(SnapClass<T> snapClass, Class[] argumentTypes) {
+    public SnapConstructor(SnapClass snapClass, Class[] argumentTypes) {
         this.snapClass = snapClass;
         this.argumentTypes = argumentTypes;
         getConstructor(); // ensures this is a valid constructor
     }
 
-    public T newInstance(Object... arguments) {
+    public Object newInstance(Object... arguments) {
         if (this.argumentTypes.length != arguments.length)
             throw new SnapException("Constructor expected " + argumentTypes.length + " arguments but provided " + arguments.length + ".");
 
-        Constructor<T> constructor = getConstructor();
+        Constructor constructor = getConstructor();
         try {
             return constructor.newInstance(arguments);
         } catch (InstantiationException e) {
@@ -37,10 +37,9 @@ public class SnapConstructor<T> implements Annotationable {
         return Arrays.asList(getConstructor().getAnnotations());
     }
 
-    @SuppressWarnings("unchecked")
-    private Constructor<T> getConstructor() {
+    private Constructor getConstructor() {
         try {
-            return (Constructor<T>) snapClass.getClazz().getConstructor(this.argumentTypes);
+            return this.snapClass.getClazz().getConstructor(this.argumentTypes);
         } catch (NoSuchMethodException e) {
             throw new SnapException("No constructor for " + Arrays.toString(this.argumentTypes) + " found.", e);
         }

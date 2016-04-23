@@ -8,40 +8,32 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SnapClass<T> implements Annotationable {
-    @Getter private final Class<? extends T> clazz;
+public class SnapClass implements Annotationable {
+    @Getter private final Class<?> clazz;
 
-    public SnapClass(Class<? extends T> clazz) {
+    public SnapClass(Class clazz) {
         this.clazz = clazz;
     }
 
     @SuppressWarnings("unchecked")
     public SnapClass(String forName) {
         try {
-            this.clazz = (Class<T>) Class.forName(forName);
+            this.clazz = Class.forName(forName);
         } catch (ClassNotFoundException e) {
             throw new SnapException("class not found", e);
         }
     }
 
-    public SnapConstructor<T> getConstructor(Class<?>... argumentTypes)  {
-        return new SnapConstructor<>(this, argumentTypes);
+    public SnapConstructor getConstructor(Class<?>... argumentTypes)  {
+        return new SnapConstructor(this, argumentTypes);
     }
 
-    public SnapMethod<T, ?> getMethod(String name, Class<?>... argumentTypes) {
-        return new SnapMethod<>(this, Object.class, name, argumentTypes);
+    public SnapMethod getMethod(String name, Class<?>... argumentTypes) {
+        return new SnapMethod(this, name, argumentTypes);
     }
 
-    public <V> SnapMethod<T, V> getMethod(String name, Class<V> value, Class<?>... argumentTypes) {
-        return new SnapMethod<>(this, value, name, argumentTypes);
-    }
-
-    public SnapField<T, Object> getField(String name) {
-        return new SnapField<>(this, Object.class, name);
-    }
-
-    public <V> SnapField<T, V> getField(String name, Class<V> value) {
-        return new SnapField<>(this, value, name);
+    public SnapField getField(String name) {
+        return new SnapField(this, name);
     }
 
     public List<SnapField> getFields() {
@@ -52,11 +44,11 @@ public class SnapClass<T> implements Annotationable {
         return getFields(this.clazz.getFields());
     }
 
-    public List<SnapClass<?>> getClasses() {
+    public List<SnapClass> getClasses() {
         return getClasses(this.clazz.getDeclaredClasses());
     }
 
-    public List<SnapClass<?>> getPublicClasses() {
+    public List<SnapClass> getPublicClasses() {
         return getClasses(this.clazz.getClasses());
     }
 
@@ -65,17 +57,17 @@ public class SnapClass<T> implements Annotationable {
         return Arrays.asList(this.clazz.getDeclaredAnnotations());
     }
 
-    private List<SnapClass<?>> getClasses(Class[] classesArray) {
-        List<SnapClass<?>> classes = new ArrayList<>();
+    private List<SnapClass> getClasses(Class[] classesArray) {
+        List<SnapClass> classes = new ArrayList<>();
         for (Class<?> clazz : classesArray)
-            classes.add(new SnapClass<>(clazz));
+            classes.add(new SnapClass(clazz));
         return classes;
     }
 
     private List<SnapField> getFields(Field[] fieldsArray) {
         List<SnapField> fields = new ArrayList<>();
         for (Field field : fieldsArray)
-            fields.add(new SnapField<>(this, field.getType(), field.getName()));
+            fields.add(new SnapField(this, field.getName()));
         return fields;
     }
 }

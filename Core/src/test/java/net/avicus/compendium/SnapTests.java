@@ -7,13 +7,13 @@ import org.junit.Test;
 public class SnapTests {
     @Test
     public void user() {
-        SnapClass<?> clazz = new SnapClass("net.avicus.compendium.SnapUser");
+        SnapClass clazz = new SnapClass("net.avicus.compendium.SnapUser");
         Object instance = clazz.getConstructor(int.class, String.class).newInstance(1, "keenan");
 
         System.out.println("Constructed: " + clazz.getMethod("toString").get(instance));
 
-        SnapField id = clazz.getField("id", int.class);
-        SnapField name = clazz.getField("name", String.class);
+        SnapField id = clazz.getField("id");
+        SnapField name = clazz.getField("name");
 
         assert id.get(instance).equals(1);
         assert name.get(instance).equals("keenan");

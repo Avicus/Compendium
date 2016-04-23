@@ -9,24 +9,22 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class SnapMethod<C,T> implements Annotationable {
-    @Getter private final SnapClass<C> snapClass;
-    @Getter private final Class<T> fieldType;
+public class SnapMethod implements Annotationable {
+    @Getter private final SnapClass snapClass;
     @Getter private final String name;
     @Getter private final Class<?>[] argumentTypes;
 
-    public SnapMethod(SnapClass<C> snapClass, Class<T> methodType, String name, Class<?>... argumentTypes) {
+    public SnapMethod(SnapClass snapClass, String name, Class<?>... argumentTypes) {
         this.snapClass = snapClass;
-        this.fieldType = methodType;
         this.name = name;
         this.argumentTypes = argumentTypes;
     }
 
-    public T get(Object instance, Object... args) throws SnapException {
+    public Object get(Object instance, Object... args) throws SnapException {
         return get(Optional.of(instance), args);
     }
 
-    public T getStatic(Object... args) throws SnapException {
+    public Object getStatic(Object... args) throws SnapException {
         return get(Optional.empty(), args);
     }
 
@@ -35,10 +33,9 @@ public class SnapMethod<C,T> implements Annotationable {
         return Arrays.asList(getMethod().getDeclaredAnnotations());
     }
 
-    @SuppressWarnings("unchecked")
-    private T get(Optional<Object> instance, Object... args) throws SnapException {
+    private Object get(Optional<Object> instance, Object... args) throws SnapException {
         try {
-            return (T) getMethod().invoke(instance.orElse(null), args);
+            return getMethod().invoke(instance.orElse(null), args);
         } catch (IllegalAccessException e) {
             throw new SnapException("illegal access", e);
         } catch (ClassCastException e) {
