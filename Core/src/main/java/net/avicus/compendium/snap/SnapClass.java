@@ -11,7 +11,7 @@ import java.util.List;
 public class SnapClass implements Annotationable {
     @Getter private final Class<?> clazz;
 
-    public SnapClass(Class clazz) {
+    public SnapClass(Class<?> clazz) {
         this.clazz = clazz;
     }
 
