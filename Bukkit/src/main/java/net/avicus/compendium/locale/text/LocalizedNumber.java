@@ -3,6 +3,7 @@ package net.avicus.compendium.locale.text;
 import net.avicus.compendium.TextStyle;
 import net.md_5.bungee.api.chat.TextComponent;
 
+import java.text.NumberFormat;
 import java.util.Locale;
 
 public class LocalizedNumber implements Localizable {
@@ -20,8 +21,8 @@ public class LocalizedNumber implements Localizable {
 
     @Override
     public TextComponent translate(Locale locale) {
-        // Todo: Better implementation
-        return new UnlocalizedText(this.number + "", this.style).translate(locale);
+        NumberFormat format = NumberFormat.getInstance(locale);
+        return new UnlocalizedText(format.format(this.number), this.style).translate(locale);
     }
 
     @Override
