@@ -14,6 +14,13 @@
         <module>Bukkit</module>
         <module>Bungee</module>
     </modules>
+    
+    <!-- Version Control -->
+    <scm>
+        <connection>scm:git://github.com/Avicus/Compendium.git</connection>
+        <developerConnection>scm:git:ssh://github.com/Avicus/Compendium.git</developerConnection>
+        <url>https://github.com/Avicus/Compendium</url>
+    </scm>
 
     <distributionManagement>
         <repository>
