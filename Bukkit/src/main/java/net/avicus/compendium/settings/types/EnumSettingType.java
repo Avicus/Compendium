@@ -65,7 +65,7 @@ public class EnumSettingType<E extends Enum> implements SettingType<EnumSettingV
 
         @Override
         public String serialize() {
-            return this.raw.name();
+            return this.raw.name().toLowerCase();
         }
 
         @Override

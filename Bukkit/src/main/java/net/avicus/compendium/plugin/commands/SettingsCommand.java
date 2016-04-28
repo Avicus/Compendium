@@ -1,9 +1,21 @@
 package net.avicus.compendium.plugin.commands;
 
 import net.avicus.compendium.Paginator;
+import net.avicus.compendium.TextStyle;
 import net.avicus.compendium.locale.Locales;
+import net.avicus.compendium.locale.text.Localizable;
+import net.avicus.compendium.locale.text.LocalizedNumber;
+import net.avicus.compendium.locale.text.UnlocalizedFormat;
+import net.avicus.compendium.locale.text.UnlocalizedText;
+import net.avicus.compendium.plugin.Messages;
 import net.avicus.compendium.plugin.PlayerSettings;
+import net.avicus.compendium.plugin.Players;
 import net.avicus.compendium.settings.Setting;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ClickEvent.Action;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -21,7 +33,7 @@ public class SettingsCommand implements CommandExecutor, TabCompleter {
 
         List<Setting> list = new ArrayList<>(PlayerSettings.settings());
 
-        int page = 0;
+        int page = 1;
         if (args.length > 0) {
             String query = args[0];
 
@@ -48,6 +60,9 @@ public class SettingsCommand implements CommandExecutor, TabCompleter {
             }
         }
 
+        // page index = page - 1
+        page--;
+
         Paginator<Setting> paginator = new Paginator<>(list, 5);
         paginator.sort(new Comparator<Setting>() {
             @Override
@@ -61,9 +76,30 @@ public class SettingsCommand implements CommandExecutor, TabCompleter {
         if (!paginator.hasPage(page))
             return false;
 
+        // Page Header
+        UnlocalizedText line = new UnlocalizedText("--------------", TextStyle.ofColor(ChatColor.RED).strike());
+        UnlocalizedFormat header = new UnlocalizedFormat("{0} {1} ({2}/{3}) {4}");
+        LocalizedNumber pageNumber = new LocalizedNumber(page + 1);
+        LocalizedNumber pagesNumber = new LocalizedNumber(paginator.getPageCount());
+        Localizable title = Messages.GENERIC_SETTINGS.with(ChatColor.YELLOW);
+        Players.message(sender, header.with(line, title, pageNumber, pagesNumber, line));
+
+        // Setting Format
+        UnlocalizedFormat format = new UnlocalizedFormat("{0}: {1}");
+
+        // Click me!
+        TextComponent[] clickMe = new TextComponent[] {Messages.GENERIC_CLICK_ME.with(ChatColor.WHITE).translate(locale)};
+
         for (Setting setting : paginator.getList()) {
-            String name = setting.getName().translate(locale).toPlainText();
-            sender.sendMessage(name);
+            Localizable name = setting.getName().duplicate();
+            name.style().click(new ClickEvent(Action.RUN_COMMAND, "/setting " + name.translate(locale).toPlainText()));
+            name.style().hover(new HoverEvent(HoverEvent.Action.SHOW_TEXT, clickMe));
+            name.style().underlined();
+            name.style().color(ChatColor.YELLOW);
+
+            Localizable summary = setting.getSummary().duplicate();
+
+            Players.message(sender, format.with(ChatColor.WHITE, name, summary));
         }
 
         return true;
