@@ -1,0 +1,54 @@
+package net.avicus.compendium.settings.types;
+
+import net.avicus.compendium.settings.SettingType;
+import net.avicus.compendium.settings.SettingValueToggleable;
+import net.avicus.compendium.settings.types.BooleanSettingType.BooleanSettingValue;
+
+import java.util.Optional;
+
+public class BooleanSettingType implements SettingType<BooleanSettingValue, Boolean> {
+    @Override
+    public Optional<BooleanSettingValue> parse(String raw) {
+        raw = raw.toLowerCase();
+        switch (raw) {
+            case "true":
+            case "on":
+            case "yes":
+                return Optional.of(parse(true));
+            case "false":
+            case "off":
+            case "no":
+                return Optional.of(parse(false));
+            default:
+                return Optional.empty();
+        }
+    }
+
+    @Override
+    public BooleanSettingValue parse(Boolean raw) {
+        return new BooleanSettingValue(raw);
+    }
+
+    public static class BooleanSettingValue implements SettingValueToggleable<Boolean> {
+        private final boolean value;
+
+        public BooleanSettingValue(boolean value) {
+            this.value = value;
+        }
+
+        @Override
+        public Boolean raw() {
+            return this.value;
+        }
+
+        @Override
+        public String serialize() {
+            return String.valueOf(this.value);
+        }
+
+        @Override
+        public Boolean next() {
+            return !this.value;
+        }
+    }
+}
