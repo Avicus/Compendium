@@ -9,6 +9,13 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <properties>
+        <plugin.name>Compendium</plugin.name>
+        <plugin.mainClass>net.avicus.compendium.plugin.CompendiumPlugin</plugin.mainClass>
+        <project.description>A compendium of Bukkit tools.</project.description>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <artifactId>compendium-bukkit</artifactId>
 
     <repositories>
@@ -49,6 +56,17 @@
     </dependencies>
 
     <build>
+        <sourceDirectory>${basedir}/src/main/java/</sourceDirectory>
+
+        <!-- Resources -->
+        <resources>
+            <resource>
+                <targetPath>.</targetPath>
+                <filtering>true</filtering>
+                <directory>${basedir}/src/main/resources/</directory>
+            </resource>
+        </resources>
+
         <plugins>
             <!-- JAR -->
             <plugin>
@@ -74,6 +92,23 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+
+            <!-- git commit versions -->
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <version>2.2.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <failOnNoGitDirectory>true</failOnNoGitDirectory>
+                </configuration>
             </plugin>
         </plugins>
     </build>

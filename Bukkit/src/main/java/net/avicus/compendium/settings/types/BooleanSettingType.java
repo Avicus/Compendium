@@ -46,7 +46,7 @@ public class BooleanSettingType implements SettingType<BooleanSettingValue, Bool
 
         @Override
         public String serialize() {
-            return String.valueOf(this.value);
+            return this.value ? "on" : "off";
         }
 
         @Override

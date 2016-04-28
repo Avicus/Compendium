@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<locale lang="en">
+    <generic>
+        <settings>Settings</settings>
+        <click-me>Click for more information.</click-me>
+        <summary>Summary: {0}</summary>
+        <description>Description: {0}</description>
+        <default>Default: {0}</default>
+        <current>Current: {0}</current>
+        <toggle>Toggle</toggle>
+        <setting-set>{0} has been set to {1}.</setting-set>
+    </generic>
+
+    <errors>
+        <not-player>You must be a player to use this command.</not-player>
+        <settings-help>Use "/settings" to show available settings.</settings-help>
+        <not-toggle>That setting cannot be toggled.</not-toggle>
+        <invalid-value>You have provided an invalid value.</invalid-value>
+    </errors>
+</locale>

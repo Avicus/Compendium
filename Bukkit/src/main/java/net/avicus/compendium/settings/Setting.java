@@ -4,7 +4,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import net.avicus.compendium.locale.text.Localizable;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -44,5 +46,25 @@ public class Setting<R> {
         this.aliases = aliases;
         this.summary = summary;
         this.description = description;
+    }
+
+    public List<String> getAllAliases(Locale locale) {
+        List<String> result = new ArrayList<>();
+        result.add(this.name.translate(locale).toPlainText());
+        for (Localizable alias : this.aliases)
+            result.add(alias.translate(locale).toPlainText());
+        return result;
+    }
+
+    public static Optional<Setting> search(Locale locale, String query, List<Setting> settings) {
+        for (Setting<?> setting : settings) {
+            List<String> names = setting.getAllAliases(locale);
+            for (String name : names) {
+                if (name.equalsIgnoreCase(query)) {
+                    return Optional.of(setting);
+                }
+            }
+        }
+        return Optional.empty();
     }
 }
