@@ -6,6 +6,9 @@ import net.avicus.compendium.settings.types.BooleanSettingType.BooleanSettingVal
 
 import java.util.Optional;
 
+/**
+ * True or false setting.
+ */
 public class BooleanSettingType implements SettingType<BooleanSettingValue, Boolean> {
     @Override
     public Optional<BooleanSettingValue> parse(String raw) {
@@ -14,18 +17,18 @@ public class BooleanSettingType implements SettingType<BooleanSettingValue, Bool
             case "true":
             case "on":
             case "yes":
-                return Optional.of(parse(true));
+                return Optional.of(value(true));
             case "false":
             case "off":
             case "no":
-                return Optional.of(parse(false));
+                return Optional.of(value(false));
             default:
                 return Optional.empty();
         }
     }
 
     @Override
-    public BooleanSettingValue parse(Boolean raw) {
+    public BooleanSettingValue value(Boolean raw) {
         return new BooleanSettingValue(raw);
     }
 

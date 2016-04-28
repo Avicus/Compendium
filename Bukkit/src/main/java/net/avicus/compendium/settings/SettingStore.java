@@ -9,10 +9,10 @@ import java.util.Map.Entry;
  * Stores any number of settings for any number of keys (such as users).
  * @param <K>
  */
-public class SettingsStore<K> {
+public class SettingStore<K> {
     private final ArrayListMultimap<K, SettingContext> settings;
 
-    public SettingsStore() {
+    public SettingStore() {
         this.settings = ArrayListMultimap.create();
     }
 
@@ -33,7 +33,7 @@ public class SettingsStore<K> {
             }
         }
 
-        this.settings.put(key, new SettingContext<>(setting, setting.getType().parse(value)));
+        this.settings.put(key, new SettingContext<>(setting, setting.getType().value(value)));
         return value;
     }
 
@@ -124,7 +124,7 @@ public class SettingsStore<K> {
     public <R> Optional<R> toggle(K key, Setting<R> setting) {
         R current = get(key, setting);
 
-        SettingValue<R> value = setting.getType().parse(current);
+        SettingValue<R> value = setting.getType().value(current);
 
         if (value instanceof SettingValueToggleable) {
             SettingValueToggleable toggle = (SettingValueToggleable) value;
@@ -143,8 +143,8 @@ public class SettingsStore<K> {
      */
     @Override
     public boolean equals(Object object) {
-        if (object instanceof SettingsStore) {
-            SettingsStore store = (SettingsStore) object;
+        if (object instanceof SettingStore) {
+            SettingStore store = (SettingStore) object;
             return store.get().equals(get());
         }
         return false;

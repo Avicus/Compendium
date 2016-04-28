@@ -6,6 +6,10 @@ import net.avicus.compendium.settings.types.EnumSettingType.EnumSettingValue;
 
 import java.util.Optional;
 
+/**
+ * Any type of enumerator setting.
+ * @param <E>
+ */
 public class EnumSettingType<E extends Enum> implements SettingType<EnumSettingValue<E>, E> {
     private final Class<E> type;
 
@@ -37,11 +41,11 @@ public class EnumSettingType<E extends Enum> implements SettingType<EnumSettingV
         if (result == null)
             return Optional.empty();
 
-        return Optional.of(parse(result));
+        return Optional.of(value(result));
     }
 
     @Override
-    public EnumSettingValue<E> parse(E raw) {
+    public EnumSettingValue<E> value(E raw) {
         return new EnumSettingValue<>(this.type, raw);
     }
 

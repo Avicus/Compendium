@@ -2,7 +2,7 @@ package net.avicus.compendium;
 
 import net.avicus.compendium.locale.text.UnlocalizedText;
 import net.avicus.compendium.settings.Setting;
-import net.avicus.compendium.settings.SettingsStore;
+import net.avicus.compendium.settings.SettingStore;
 import net.avicus.compendium.settings.types.BooleanSettingType;
 import net.avicus.compendium.settings.types.EnumSettingType;
 import net.avicus.compendium.settings.types.NumberSettingType;
@@ -39,7 +39,7 @@ public class SettingTests {
 
     @Test
     public void settings() {
-        SettingsStore<UUID> store = new SettingsStore<>();
+        SettingStore<UUID> store = new SettingStore<>();
 
         UUID jimmy = UUID.randomUUID();
 
@@ -69,7 +69,7 @@ public class SettingTests {
         System.out.println("=== Output ===");
         System.out.println(store);
 
-        SettingsStore<UUID> clone = new SettingsStore<>();
+        SettingStore<UUID> clone = new SettingStore<>();
         clone.set(store.get(), Arrays.asList(JOIN_MESSAGES, SPAM, VIEW_DISTANCE));
         System.out.println("=== Clone ===");
         System.out.println(clone);

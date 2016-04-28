@@ -7,6 +7,10 @@ import net.avicus.compendium.settings.types.NumberSettingType.NumberSettingValue
 import java.lang.reflect.Method;
 import java.util.Optional;
 
+/**
+ * Any type of number setting.
+ * @param <N>
+ */
 public class NumberSettingType<N extends Number> implements SettingType<NumberSettingValue<N>, N> {
     private final Class<N> type;
 
@@ -22,14 +26,14 @@ public class NumberSettingType<N extends Number> implements SettingType<NumberSe
             valueOf.setAccessible(true);
 
             N number = (N) valueOf.invoke(null, raw);
-            return Optional.of(parse(number));
+            return Optional.of(value(number));
         } catch (Exception e) {
             return Optional.empty();
         }
     }
 
     @Override
-    public NumberSettingValue<N> parse(N raw) {
+    public NumberSettingValue<N> value(N raw) {
         return new NumberSettingValue<N>(raw);
     }
 

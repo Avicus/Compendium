@@ -7,6 +7,10 @@ import net.avicus.compendium.locale.text.Localizable;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Represents a configurable option, a setting silly!
+ * @param <R>
+ */
 @EqualsAndHashCode
 public class Setting<R> {
     @Getter private final String id;
