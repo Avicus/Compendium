@@ -12,9 +12,6 @@ public class Messages {
     public static LocalizedFormat GENERIC_TOGGLE = get("generic.toggle");
     public static LocalizedFormat GENERIC_SETTING_SET = get("generic.setting-set");
 
-    public static LocalizedFormat TIME_AGO = get("time.ago");
-    public static LocalizedFormat TIME_FROM_NOW = get("time.from-now");
-
     public static LocalizedFormat ERRORS_NOT_PLAYER = get("errors.not-player");
     public static LocalizedFormat ERRORS_SETTINGS_HELP = get("errors.settings-help");
     public static LocalizedFormat ERRORS_NO_SETTING = get("errors.no-setting");

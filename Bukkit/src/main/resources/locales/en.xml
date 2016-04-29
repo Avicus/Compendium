@@ -11,11 +11,6 @@
         <setting-set>{0} has been set to {1}.</setting-set>
     </generic>
 
-    <time>
-        <ago>{0} ago</ago>
-        <from-now>{0} from now</from-now>
-    </time>
-
     <errors>
         <not-player>You must be a player to use this command.</not-player>
         <settings-help>Use "/settings" to show available settings.</settings-help>
