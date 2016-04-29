@@ -19,11 +19,10 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 
 import java.util.*;
 
-public class SettingsCommand implements CommandExecutor, TabCompleter {
+public class SettingsCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length > 2)
@@ -94,7 +93,7 @@ public class SettingsCommand implements CommandExecutor, TabCompleter {
             Localizable name = setting.getName().duplicate();
             name.style().click(new ClickEvent(Action.RUN_COMMAND, "/setting " + name.translate(locale).toPlainText()));
             name.style().hover(new HoverEvent(HoverEvent.Action.SHOW_TEXT, clickMe));
-            name.style().underlined();
+            name.style().italic();
             name.style().color(ChatColor.YELLOW);
 
             Localizable summary = setting.getSummary().duplicate();
@@ -103,10 +102,5 @@ public class SettingsCommand implements CommandExecutor, TabCompleter {
         }
 
         return true;
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] strings) {
-        return null;
     }
 }

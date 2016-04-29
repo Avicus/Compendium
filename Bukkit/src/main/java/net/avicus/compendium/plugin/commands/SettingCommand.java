@@ -16,15 +16,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-public class SettingCommand implements CommandExecutor, TabCompleter {
+public class SettingCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length != 1)
@@ -54,7 +51,7 @@ public class SettingCommand implements CommandExecutor, TabCompleter {
         Players.message(sender, header.with(ChatColor.YELLOW, line, name, line));
 
         // Summary
-        Localizable summary = setting.getName().duplicate();
+        Localizable summary = setting.getSummary().duplicate();
         summary.style().color(ChatColor.WHITE);
         Players.message(sender, Messages.GENERIC_SUMMARY.with(ChatColor.YELLOW, summary));
 
@@ -82,30 +79,12 @@ public class SettingCommand implements CommandExecutor, TabCompleter {
 
         if (setting.getType().value(setting.getDefaultValue()) instanceof SettingValueToggleable) {
             Localizable toggle = Messages.GENERIC_TOGGLE.with(ChatColor.YELLOW);
-            toggle.style().underlined();
+            toggle.style().italic();
             toggle.style().click(new ClickEvent(Action.RUN_COMMAND, "/toggle " + name.translate(locale).toPlainText()));
 
             Players.message(sender, toggle);
         }
 
         return true;
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, Command cmd, String alias, String[] args) {
-        Locale locale = Locales.getLocale(sender);
-
-        List<String> list = new ArrayList<>();
-
-        if (args.length <= 1) {
-            for (Setting setting : PlayerSettings.settings()) {
-                String name = setting.getName().translate(locale).toPlainText();
-                boolean add = args.length == 0 || name.toLowerCase().startsWith(args[0].toLowerCase());
-                if (add)
-                    list.add(name);
-            }
-        }
-
-        return list;
     }
 }

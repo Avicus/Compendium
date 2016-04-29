@@ -12,12 +12,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.Locale;
+import java.util.Optional;
 
-public class SetCommand implements CommandExecutor, TabCompleter {
+public class SetCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length != 2)
@@ -56,23 +56,5 @@ public class SetCommand implements CommandExecutor, TabCompleter {
         Localizable set = new UnlocalizedText(value.get().serialize());
         Players.message(player, Messages.GENERIC_SETTING_SET.with(ChatColor.GOLD, name, set));
         return true;
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, Command cmd, String alias, String[] args) {
-        Locale locale = Locales.getLocale(sender);
-
-        List<String> list = new ArrayList<>();
-
-        if (args.length <= 1) {
-            for (Setting setting : PlayerSettings.settings()) {
-                String name = setting.getName().translate(locale).toPlainText();
-                boolean add = args.length == 0 || name.toLowerCase().startsWith(args[0].toLowerCase());
-                if (add)
-                    list.add(name);
-            }
-        }
-
-        return list;
     }
 }
