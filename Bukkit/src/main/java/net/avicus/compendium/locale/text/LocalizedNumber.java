@@ -5,23 +5,40 @@ import net.md_5.bungee.api.chat.TextComponent;
 
 import java.text.NumberFormat;
 import java.util.Locale;
+import java.util.TimerTask;
 
 public class LocalizedNumber implements Localizable {
     private final Number number;
+    private final int minDecimals;
+    private final int maxDecimals;
     private final TextStyle style;
 
-    public LocalizedNumber(Number number, TextStyle style) {
+    public LocalizedNumber(Number number, int minDecimals, int maxDecimals, TextStyle style) {
         this.number = number;
+        this.minDecimals = minDecimals;
+        this.maxDecimals = maxDecimals;
         this.style = style;
+    }
+
+    public LocalizedNumber(Number number, int minDecimals, int maxDecimals) {
+        this(number, minDecimals, maxDecimals, TextStyle.create());
+    }
+
+    public LocalizedNumber(Number number, TextStyle style) {
+        this(number, 0, 3, style);
     }
 
     public LocalizedNumber(Number number) {
         this(number, TextStyle.create());
     }
 
+
     @Override
     public TextComponent translate(Locale locale) {
         NumberFormat format = NumberFormat.getInstance(locale);
+        format.setMinimumFractionDigits(this.minDecimals);
+        format.setMaximumFractionDigits(this.maxDecimals);
+
         return new UnlocalizedText(format.format(this.number), this.style).translate(locale);
     }
 
@@ -32,6 +49,6 @@ public class LocalizedNumber implements Localizable {
 
     @Override
     public Localizable duplicate() {
-        return new LocalizedNumber(this.number, this.style.duplicate());
+        return new LocalizedNumber(this.number, this.minDecimals, this.maxDecimals, this.style.duplicate());
     }
 }
