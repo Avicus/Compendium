@@ -80,7 +80,7 @@ public class Paginator<T> {
      */
     public int getIndex(T item) throws IllegalArgumentException {
         if (!this.list.contains(item))
-            throw new IllegalArgumentException("item is not in list");
+            throw new IllegalArgumentException("Item is not in the list.");
         return this.list.indexOf(item);
     }
 
@@ -92,7 +92,7 @@ public class Paginator<T> {
      */
     public int getPageIndex(T item) throws IllegalArgumentException {
         if (!this.list.contains(item))
-            throw new IllegalArgumentException("item is not in the list");
+            throw new IllegalArgumentException("Item is not in the list.");
 
         int index = this.list.indexOf(item);
         return index / this.perPage;
@@ -125,8 +125,8 @@ public class Paginator<T> {
      * @throws IllegalArgumentException If the page is invalid.
      */
     public List<T> getPage(int pageIndex) throws IllegalArgumentException {
-        if (pageIndex < 0 || pageIndex * this.perPage >= getPageCount())
-            throw new IllegalArgumentException("invalid page index");
+        if (!hasPage(pageIndex))
+            throw new IllegalArgumentException("Invalid page.");
 
         int from = pageIndex * this.perPage;
         int to = Math.min(this.list.size(), from + this.perPage);
