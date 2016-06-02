@@ -1,6 +1,8 @@
 package net.avicus.compendium.utils;
 
 import com.google.common.base.Preconditions;
+import net.avicus.compendium.locale.text.Localizable;
+import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
@@ -119,6 +121,10 @@ public class Strings {
 
     public static String padChatMessage(TextComponent message, String padChar, ChatColor padColor, ChatColor messageColor) {
         return padChatMessage(message.getText(), padChar, padColor, messageColor);
+    }
+
+    public static TextComponent padChatComponent(TextComponent message, String padChar, ChatColor padColor, ChatColor messageColor) {
+        return new TextComponent(padChatMessage(message.toPlainText(), padChar, padColor, messageColor));
     }
 
     public static String padChatMessage(String message, String padChar, ChatColor padColor, ChatColor messageColor) {
