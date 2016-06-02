@@ -117,14 +117,14 @@ public class Strings {
         return text;
     }
 
-    public static String dashedChatMessage(TextComponent message, String c, ChatColor dashColor, ChatColor messageColor) {
-        return dashedChatMessage(message.getText(), c, dashColor, messageColor);
+    public static String padChatMessage(TextComponent message, String padChar, ChatColor padColor, ChatColor messageColor) {
+        return padChatMessage(message.getText(), padChar, padColor, messageColor);
     }
 
-    public static String dashedChatMessage(String message, String c, ChatColor dashColor, ChatColor messageColor) {
+    public static String padChatMessage(String message, String padChar, ChatColor padColor, ChatColor messageColor) {
         message = " " + message + " ";
-        String dashes = com.google.common.base.Strings.repeat(c, (ChatPaginator.GUARANTEED_NO_WRAP_CHAT_PAGE_WIDTH - ChatColor.stripColor(message).length() - 2) / (c.length() * 2));
-        return dashColor + dashes + ChatColor.RESET + messageColor + message + ChatColor.RESET + dashColor + dashes;
+        String pad = com.google.common.base.Strings.repeat(padChar, (ChatPaginator.GUARANTEED_NO_WRAP_CHAT_PAGE_WIDTH - ChatColor.stripColor(message).length() - 2) / (padChar.length() * 2));
+        return padColor + pad + ChatColor.RESET + messageColor + message + ChatColor.RESET + padColor + pad;
     }
 
     public interface Stringify<T> {
