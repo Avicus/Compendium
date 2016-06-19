@@ -1,7 +1,5 @@
 package net.avicus.compendium.plugin;
 
-import com.google.common.base.Optional;
-import net.avicus.compendium.locale.Locales;
 import net.avicus.compendium.locale.text.Localizable;
 import net.avicus.compendium.utils.Strings;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -12,6 +10,7 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Locale;
+import java.util.Optional;
 
 public class PlayersBase {
     public static Locale getLocale(CommandSender sender) {
@@ -23,7 +22,7 @@ public class PlayersBase {
     }
 
     public static void message(CommandSender sender, TextComponent text) {
-        message(sender, text, Optional.absent(), Optional.absent(), Optional.absent());
+        message(sender, text, Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     public static void message(CommandSender sender, TextComponent text, Optional<String> padChar, Optional<ChatColor> messageColor, Optional<ChatColor> padColor) {
@@ -37,7 +36,7 @@ public class PlayersBase {
     }
 
     public static void message(CommandSender sender, Localizable... messages) {
-        message(sender, Optional.absent(), Optional.absent(), Optional.absent(), messages);
+        message(sender, Optional.empty(), Optional.empty(), Optional.empty(), messages);
     }
 
     public static void message(CommandSender sender, Optional<String> padChar, Optional<ChatColor> messageColor, Optional<ChatColor> padColor, Localizable... messages) {
@@ -63,7 +62,7 @@ public class PlayersBase {
     }
 
     public static void broadcast(Localizable... messages) {
-        broadcast(Optional.absent(), Optional.absent(), Optional.absent(), messages);
+        broadcast(Optional.empty(), Optional.empty(), Optional.empty(), messages);
     }
 
     public static void console(Localizable... messages) {
