@@ -5,7 +5,7 @@ import net.avicus.compendium.locale.text.Localizable;
 import net.avicus.compendium.locale.text.UnlocalizedText;
 import net.avicus.compendium.plugin.Messages;
 import net.avicus.compendium.plugin.PlayerSettings;
-import net.avicus.compendium.plugin.Players;
+import net.avicus.compendium.plugin.PlayersBase;
 import net.avicus.compendium.settings.Setting;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -23,7 +23,7 @@ public class ToggleCommand implements CommandExecutor {
             return false;
 
         if (!(sender instanceof Player)) {
-            Players.message(sender, Messages.ERRORS_NOT_PLAYER.with(ChatColor.RED));
+            PlayersBase.message(sender, Messages.ERRORS_NOT_PLAYER.with(ChatColor.RED));
             return true;
         }
 
@@ -33,7 +33,7 @@ public class ToggleCommand implements CommandExecutor {
         Optional<Setting> search = Setting.search(locale, query, PlayerSettings.settings());
 
         if (!search.isPresent()) {
-            Players.message(sender, Messages.ERRORS_SETTINGS_HELP.with(ChatColor.RED));
+            PlayersBase.message(sender, Messages.ERRORS_SETTINGS_HELP.with(ChatColor.RED));
             return true;
         }
 
@@ -45,10 +45,10 @@ public class ToggleCommand implements CommandExecutor {
             Localizable name = setting.getName().duplicate();
             Localizable value = new UnlocalizedText(setting.getType().value(result.get()).serialize());
 
-            Players.message(sender, Messages.GENERIC_SETTING_SET.with(ChatColor.GOLD, name, value));
+            PlayersBase.message(sender, Messages.GENERIC_SETTING_SET.with(ChatColor.GOLD, name, value));
         }
         else {
-            Players.message(sender, Messages.ERRORS_NOT_TOGGLE.with(ChatColor.RED));
+            PlayersBase.message(sender, Messages.ERRORS_NOT_TOGGLE.with(ChatColor.RED));
         }
 
         return true;

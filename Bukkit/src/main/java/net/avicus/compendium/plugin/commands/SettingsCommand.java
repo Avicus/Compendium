@@ -9,7 +9,7 @@ import net.avicus.compendium.locale.text.UnlocalizedFormat;
 import net.avicus.compendium.locale.text.UnlocalizedText;
 import net.avicus.compendium.plugin.Messages;
 import net.avicus.compendium.plugin.PlayerSettings;
-import net.avicus.compendium.plugin.Players;
+import net.avicus.compendium.plugin.PlayersBase;
 import net.avicus.compendium.settings.Setting;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ClickEvent.Action;
@@ -81,7 +81,7 @@ public class SettingsCommand implements CommandExecutor {
         LocalizedNumber pageNumber = new LocalizedNumber(page + 1);
         LocalizedNumber pagesNumber = new LocalizedNumber(paginator.getPageCount());
         Localizable title = Messages.GENERIC_SETTINGS.with(ChatColor.YELLOW);
-        Players.message(sender, header.with(line, title, pageNumber, pagesNumber, line));
+        PlayersBase.message(sender, header.with(line, title, pageNumber, pagesNumber, line));
 
         // Setting Format
         UnlocalizedFormat format = new UnlocalizedFormat("{0}: {1}");
@@ -98,7 +98,7 @@ public class SettingsCommand implements CommandExecutor {
 
             Localizable summary = setting.getSummary().duplicate();
 
-            Players.message(sender, format.with(ChatColor.WHITE, name, summary));
+            PlayersBase.message(sender, format.with(ChatColor.WHITE, name, summary));
         }
 
         return true;

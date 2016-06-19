@@ -5,7 +5,7 @@ import net.avicus.compendium.locale.text.Localizable;
 import net.avicus.compendium.locale.text.UnlocalizedText;
 import net.avicus.compendium.plugin.Messages;
 import net.avicus.compendium.plugin.PlayerSettings;
-import net.avicus.compendium.plugin.Players;
+import net.avicus.compendium.plugin.PlayersBase;
 import net.avicus.compendium.settings.Setting;
 import net.avicus.compendium.settings.SettingValue;
 import org.bukkit.ChatColor;
@@ -26,7 +26,7 @@ public class SetCommand implements CommandExecutor {
         Locale locale = Locales.getLocale(sender);
 
         if (!(sender instanceof Player)) {
-            Players.message(sender, Messages.ERRORS_NOT_PLAYER.with(ChatColor.RED));
+            PlayersBase.message(sender, Messages.ERRORS_NOT_PLAYER.with(ChatColor.RED));
             return true;
         }
 
@@ -37,7 +37,7 @@ public class SetCommand implements CommandExecutor {
         Optional<Setting> search = Setting.search(locale, query, PlayerSettings.settings());
 
         if (!search.isPresent()) {
-            Players.message(sender, Messages.ERRORS_SETTINGS_HELP.with(ChatColor.RED));
+            PlayersBase.message(sender, Messages.ERRORS_SETTINGS_HELP.with(ChatColor.RED));
             return true;
         }
 
@@ -46,7 +46,7 @@ public class SetCommand implements CommandExecutor {
         Optional<SettingValue> value = (Optional<SettingValue>) setting.getType().parse(args[1]);
 
         if (!value.isPresent()) {
-            Players.message(sender, Messages.ERRORS_INVALID_VALUE.with(ChatColor.RED));
+            PlayersBase.message(sender, Messages.ERRORS_INVALID_VALUE.with(ChatColor.RED));
             return true;
         }
 
@@ -54,7 +54,7 @@ public class SetCommand implements CommandExecutor {
 
         Localizable name = setting.getName().duplicate();
         Localizable set = new UnlocalizedText(value.get().serialize());
-        Players.message(player, Messages.GENERIC_SETTING_SET.with(ChatColor.GOLD, name, set));
+        PlayersBase.message(player, Messages.GENERIC_SETTING_SET.with(ChatColor.GOLD, name, set));
         return true;
     }
 }
