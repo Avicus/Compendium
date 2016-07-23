@@ -4,9 +4,13 @@ import net.avicus.compendium.menu.IndexedMenuItem;
 
 import java.util.*;
 
-public class DefaultInventoryIndexer implements InventoryIndexer {
+/**
+ * A standard inventory indexer that resolves indexes by IndexedMenuItem's getIndex() method, or
+ * linearly from 0.
+ */
+public class IndexedInventoryIndexer implements InventoryIndexer {
     @Override
-    public Map<Integer, InventoryMenuItem> getIndices(InventoryMenu view, Collection<InventoryMenuItem> items) {
+    public Map<Integer, InventoryMenuItem> getIndices(InventoryMenu menu, Collection<InventoryMenuItem> items) {
         Map<Integer, InventoryMenuItem> map = new HashMap<>();
         List<Integer> indicesTaken = new ArrayList<>();
         int lastIndex = 0;

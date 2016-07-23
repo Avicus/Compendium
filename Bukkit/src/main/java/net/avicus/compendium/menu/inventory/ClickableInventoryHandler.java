@@ -4,7 +4,10 @@ import net.avicus.compendium.menu.ClickableMenuItem;
 
 import java.util.Optional;
 
-public class DefaultInventoryHandler implements InventoryHandler {
+/**
+ * A standard inventory handler that resolves clicks to ClickableMenuItem's onClick call.
+ */
+public class ClickableInventoryHandler implements InventoryHandler {
     @Override
     public void onClick(InventoryMenu menu, int index, Optional<InventoryMenuItem> item) {
         if (item.isPresent()) {

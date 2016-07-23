@@ -5,7 +5,7 @@ package net.avicus.compendium.menu.inventory;
  */
 public abstract class StaticInventoryMenuItem implements InventoryMenuItem {
     @Override
-    public boolean update() {
+    public boolean shouldUpdate() {
         return false;
     }
 }

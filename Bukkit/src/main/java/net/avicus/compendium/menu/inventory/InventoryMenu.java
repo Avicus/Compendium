@@ -2,6 +2,7 @@ package net.avicus.compendium.menu.inventory;
 
 import net.avicus.compendium.menu.Menu;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
@@ -9,15 +10,21 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public abstract class InventoryMenu implements Menu {
+/**
+ * A type of menu that is a virtual chest inventory that stores items, associated
+ * by an index.
+ */
+public class InventoryMenu implements Menu {
     private final Plugin plugin;
     private final Player player;
     private final InventoryIndexer indexer;
@@ -28,15 +35,19 @@ public abstract class InventoryMenu implements Menu {
     private Inventory inventory;
 
     public InventoryMenu(Plugin plugin, Player player, List<InventoryMenuItem> items, int rows) {
-        this(plugin, player, items, rows, new DefaultInventoryIndexer(), new DefaultInventoryHandler());
+        this(plugin, player, items, rows, new IndexedInventoryIndexer(), new ClickableInventoryHandler());
     }
 
     public InventoryMenu(Plugin plugin, Player player, List<InventoryMenuItem> items, int rows, InventoryHandler handler) {
-        this(plugin, player, items, rows, new DefaultInventoryIndexer(), handler);
+        this(plugin, player, items, rows, new IndexedInventoryIndexer(), handler);
     }
 
     public InventoryMenu(Plugin plugin, Player player, List<InventoryMenuItem> items, int rows, InventoryIndexer indexer) {
-        this(plugin, player, items, rows, indexer, new DefaultInventoryHandler());
+        this(plugin, player, items, rows, indexer, new ClickableInventoryHandler());
+    }
+
+    public InventoryMenu(Plugin plugin, Player player, List<InventoryMenuItem> items, int rows, InventoryHandler handler, InventoryIndexer indexer) {
+        this(plugin, player, items, rows, indexer, handler);
     }
 
     public InventoryMenu(Plugin plugin, Player player, List<InventoryMenuItem> items, int rows, InventoryIndexer indexer, InventoryHandler handler) {
@@ -58,7 +69,7 @@ public abstract class InventoryMenu implements Menu {
             InventoryMenuItem newItem = newIndices.get(i);
 
             boolean update = force || oldItem != newItem;
-            boolean updateRequested = (oldItem != null && oldItem.update()) || (newItem != null && newItem.update());
+            boolean updateRequested = (oldItem != null && oldItem.shouldUpdate()) || (newItem != null && newItem.shouldUpdate());
 
             if (update || updateRequested) {
                 ItemStack stack = newItem == null ? null : newItem.getItemStack();
@@ -80,6 +91,14 @@ public abstract class InventoryMenu implements Menu {
         HandlerList.unregisterAll(this.listener);
     }
 
+    @Override
+    public Collection getItems() {
+        return this.items.values();
+    }
+
+    /**
+     * Handles clicks and closing the inventory.
+     */
     private class InventoryMenuListener implements Listener {
         @EventHandler
         public void onInventoryClose(InventoryOpenEvent event) {
@@ -89,11 +108,21 @@ public abstract class InventoryMenu implements Menu {
 
         @EventHandler
         public void onInventoryClose(InventoryCloseEvent event) {
-            close();
+            if (event.getPlayer().equals(player))
+                close();
+        }
+
+        @EventHandler
+        public void onPlayerQuit(PlayerQuitEvent event) {
+            if (event.getPlayer().equals(player))
+                close();
         }
 
         @EventHandler
         public void onInventoryClick(InventoryClickEvent event) {
+            if (!event.getWhoClicked().equals(player))
+                return;
+
             InventoryMenu menu = InventoryMenu.this;
 
             int index = event.getSlot();
@@ -101,17 +130,16 @@ public abstract class InventoryMenu implements Menu {
 
             Optional<InventoryMenuItem> item = Optional.empty();
 
-            if (clicked != null) {
+            if (clicked != null && clicked.getType() != Material.AIR) {
                 item = Optional.ofNullable(menu.items.get(index));
 
                 if (!item.isPresent()) {
-                    System.err.println("Clicked itemstack that doesn't have InventoryMenuItem.");
+                    System.err.println("Clicked an ItemStack that isn't an InventoryMenuItem.");
                     return;
                 }
             }
 
             menu.handler.onClick(menu, index, item);
-
             event.setCancelled(true);
         }
     }
