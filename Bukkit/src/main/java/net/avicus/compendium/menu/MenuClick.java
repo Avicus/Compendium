@@ -2,6 +2,10 @@ package net.avicus.compendium.menu;
 
 import org.bukkit.entity.Player;
 
-public interface MenuClick {
+import java.util.Optional;
+
+public interface MenuClick<T extends MenuItem> {
+    Optional<T> getItem();
+
     Player getWhoClicked();
 }
