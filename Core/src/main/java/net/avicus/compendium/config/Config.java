@@ -2,6 +2,8 @@ package net.avicus.compendium.config;
 
 import lombok.Getter;
 import net.avicus.compendium.config.inject.ConfigInjector;
+import org.yaml.snakeyaml.DumperOptions;
+import org.yaml.snakeyaml.DumperOptions.FlowStyle;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
@@ -11,7 +13,15 @@ import java.util.List;
 import java.util.Map;
 
 public class Config {
-    protected static final Yaml yaml = new Yaml();
+    protected static final Yaml yaml;
+
+    static {
+        DumperOptions options = new DumperOptions();
+        options.setDefaultFlowStyle(FlowStyle.BLOCK);
+        options.setPrettyFlow(true);
+        options.setIndent(2);
+        yaml = new Yaml(options);
+    }
 
     @Getter private final Map<String, Object> data;
 
