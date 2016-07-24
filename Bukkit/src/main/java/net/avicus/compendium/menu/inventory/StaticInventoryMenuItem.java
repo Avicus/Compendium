@@ -8,4 +8,9 @@ public abstract class StaticInventoryMenuItem implements InventoryMenuItem {
     public boolean shouldUpdate() {
         return false;
     }
+
+    @Override
+    public void onUpdate() {
+        // not needed
+    }
 }

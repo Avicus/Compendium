@@ -16,4 +16,9 @@ public interface InventoryMenuItem extends MenuItem {
      * @return
      */
     boolean shouldUpdate();
+
+    /**
+     * Called after updating the display of this item.
+     */
+    void onUpdate();
 }

@@ -1,7 +1,5 @@
 package net.avicus.compendium.menu.inventory;
 
-import com.google.common.base.Preconditions;
-import lombok.Builder;
 import net.avicus.compendium.menu.Menu;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -17,35 +15,79 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
-import java.util.*;
+import javax.annotation.Nullable;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * A type of menu that is a virtual chest inventory that stores items, associated
  * by an index.
  */
-@Builder
-public class InventoryMenu implements Menu {
+public class InventoryMenu implements Menu<InventoryMenuItem> {
     private final Plugin plugin;
     private final Player player;
     private final InventoryIndexer indexer;
     private final InventoryHandler handler;
-    private final Map<Integer, InventoryMenuItem> items;
-    private final int rows;
-    private final Listener listener;
     private final Inventory inventory;
+    private final Map<Integer, InventoryMenuItem> items;
+    private final Listener listener;
 
-    InventoryMenu(Plugin plugin, Player player, Collection<InventoryMenuItem> items, Integer rows, InventoryIndexer indexer, InventoryHandler handler) {
-        Preconditions.checkNotNull(plugin, "plugin");
-        Preconditions.checkNotNull(player, "player");
+    public InventoryMenu(Plugin plugin,
+                         Player player,
+                         String title,
+                         int rows) {
+        this(plugin, player, title, rows, null, null);
+    }
 
+    public InventoryMenu(Plugin plugin,
+                         Player player,
+                         String title,
+                         int rows,
+                         Collection<InventoryMenuItem> items) {
+        this(plugin, player, title, rows, null, null, items);
+    }
+
+    public InventoryMenu(Plugin plugin,
+                         Player player,
+                         String title,
+                         int rows,
+                         @Nullable InventoryHandler handler) {
+        this(plugin, player, title, rows, null, handler);
+    }
+
+    public InventoryMenu(Plugin plugin,
+                         Player player,
+                         String title,
+                         int rows,
+                         @Nullable InventoryIndexer indexer) {
+        this(plugin, player, title, rows, indexer, null);
+    }
+
+    public InventoryMenu(Plugin plugin,
+                         Player player,
+                         String title,
+                         int rows,
+                         @Nullable InventoryIndexer indexer,
+                         @Nullable InventoryHandler handler) {
+        this(plugin, player, title, rows, indexer, handler, null);
+    }
+
+    public InventoryMenu(Plugin plugin,
+                  Player player,
+                  String title,
+                  int rows,
+                  @Nullable InventoryIndexer indexer,
+                  @Nullable InventoryHandler handler,
+                  @Nullable Collection<InventoryMenuItem> items) {
         this.plugin = plugin;
         this.player = player;
-        this.rows = rows == null ? 5 : rows;
         this.indexer = indexer == null ? new IndexedInventoryIndexer() : indexer;
         this.handler = handler == null ? new ClickableInventoryHandler() : handler;
+        this.inventory = Bukkit.createInventory(this.player, rows * 9, title);
         this.items = this.indexer.getIndices(this, items == null ? Collections.emptyList() : items);
         this.listener = new InventoryMenuListener();
-        this.inventory = Bukkit.createInventory(this.player, this.rows * 9);
     }
 
     public void update(boolean force) {
@@ -60,20 +102,22 @@ public class InventoryMenu implements Menu {
             boolean updateRequested = (oldItem != null && oldItem.shouldUpdate()) || (newItem != null && newItem.shouldUpdate());
 
             if (update || updateRequested) {
-                ItemStack stack = newItem == null ? null : newItem.getItemStack();
+                ItemStack stack = null;
+                if (newItem != null) {
+                    stack = newItem.getItemStack();
+                    newItem.onUpdate();
+                }
                 this.inventory.setItem(i, null);
                 this.inventory.setItem(i, stack);
             }
         }
-
-        this.player.updateInventory();
     }
 
     @Override
     public void open() {
+        update(true);
         this.player.getServer().getPluginManager().registerEvents(this.listener, this.plugin);
         this.player.openInventory(this.inventory);
-        update(true);
     }
 
     @Override
@@ -86,6 +130,7 @@ public class InventoryMenu implements Menu {
      * @param item
      */
     public void add(InventoryMenuItem item) {
+        // generate an index that is not used
         int index = -1;
         while (this.items.containsKey(index))
             index--;
@@ -94,25 +139,55 @@ public class InventoryMenu implements Menu {
     }
 
     /**
+     * Add multiple items to this menu.
+     * @param items
+     */
+    public void add(Collection<InventoryMenuItem> items) {
+        for (InventoryMenuItem item : items)
+            add(item);
+    }
+
+    /**
      * Remove an existing item from this menu.
      * @param item
      */
     public void remove(InventoryMenuItem item) {
-        List<Integer> remove = new ArrayList<>();
-        for (int index : this.items.keySet()) {
-            InventoryMenuItem found = this.items.get(index);
-            if (Objects.equals(found, item))
-                remove.add(index);
-        }
-
-        for (int index : remove)
-            this.items.remove(index);
-
+        this.items.values().remove(item);
         update(true);
     }
 
+    /**
+     * Removes multiple items from this menu.
+     * @param items
+     */
+    public void removeAll(Collection<InventoryMenuItem> items) {
+        this.items.values().removeAll(items);
+        update(true);
+    }
+
+    /**
+     * Removes all items from the menu.
+     */
+    public void clear() {
+        this.items.clear();
+        update(true);
+    }
+
+    /**
+     * Get the current index of a specific menu item.
+     * @param item The item.
+     * @return The index.
+     * @throws IllegalArgumentException If this menu does not contain the item.
+     */
+    public int getIndex(InventoryMenuItem item) throws IllegalArgumentException {
+        for (int index : this.items.keySet())
+            if (this.items.get(index).equals(item))
+                return index;
+        throw new IllegalArgumentException("Menu does not contain provided item.");
+    }
+
     @Override
-    public Collection getItems() {
+    public Collection<InventoryMenuItem> getItems() {
         return this.items.values();
     }
 
