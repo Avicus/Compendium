@@ -1,20 +1,20 @@
-package net.avicus.compendium;
+package net.avicus.compendium.alternator;
 
 import java.util.*;
 
 /**
- * Alternates between a set of objects.
+ * Alternates between a set of objects by calling {@link #next()}.
  */
-public class Alternator<T> {
+public class ManualAlternator<T> implements Alternator<T> {
     private final List<T> items;
     private int next;
 
-    public Alternator(Collection<T> items) {
+    public ManualAlternator(Collection<T> items) {
         this.items = new ArrayList<>(items);
         this.next = 0;
     }
 
-    public Alternator(T... items) {
+    public ManualAlternator(T... items) {
         this(Arrays.asList(items));
     }
 
