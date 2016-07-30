@@ -62,8 +62,7 @@ public class SettingsCommand implements CommandExecutor {
         // page index = page - 1
         page--;
 
-        Paginator<Setting> paginator = new Paginator<>(list, 5);
-        paginator.sort(new Comparator<Setting>() {
+        list.sort(new Comparator<Setting>() {
             @Override
             public int compare(Setting o1, Setting o2) {
                 String n1 = o1.getName().translate(locale).toPlainText();
@@ -71,6 +70,8 @@ public class SettingsCommand implements CommandExecutor {
                 return n1.compareTo(n2);
             }
         });
+
+        Paginator<Setting> paginator = new Paginator<>(list, 5);
 
         if (!paginator.hasPage(page))
             return false;
@@ -89,7 +90,7 @@ public class SettingsCommand implements CommandExecutor {
         // Click me!
         TextComponent[] clickMe = new TextComponent[] {Messages.GENERIC_CLICK_ME.with(ChatColor.WHITE).translate(locale)};
 
-        for (Setting setting : paginator.getList()) {
+        for (Setting setting : paginator.getCollection()) {
             Localizable name = setting.getName().duplicate();
             name.style().click(new ClickEvent(Action.RUN_COMMAND, "/setting " + name.translate(locale).toPlainText()));
             name.style().hover(new HoverEvent(HoverEvent.Action.SHOW_TEXT, clickMe));
