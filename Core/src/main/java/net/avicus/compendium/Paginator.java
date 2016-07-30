@@ -1,49 +1,38 @@
 package net.avicus.compendium;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
- * Pagintes a list of items.
+ * Pagintes a collection of items.
  * @param <T>
  */
 public class Paginator<T> {
-    private List<T> list;
+    private Collection<T> collection;
     private int perPage;
 
     /**
-     * @param list The full list of items.
+     * @param collection The full collection of items.
      * @param perPage The number of items per page.
      */
-    public Paginator(List<T> list, int perPage) {
-        this.list = new ArrayList<>(list);
+    public Paginator(Collection<T> collection, int perPage) {
+        this.collection = new ArrayList<>(collection);
         this.perPage = perPage;
     }
 
     /**
-     * Sort the list.
-     * @param comparator
+     * Set the full collection of items.
+     * @param list The full collection of items.
      */
-    public void sort(Comparator<T> comparator) {
-        Collections.sort(this.list, comparator);
+    public void setCollection(Collection<T> list) {
+        this.collection = new ArrayList<>(list);
     }
 
     /**
-     * Set the full list of items.
-     * @param list The full list of items.
+     * Get the full collection of items.
+     * @return The full collection of items.
      */
-    public void setList(List<T> list) {
-        this.list = new ArrayList<>(list);
-    }
-
-    /**
-     * Get the full list of items.
-     * @return The full list of items.
-     */
-    public List<T> getList() {
-        return this.list;
+    public Collection<T> getCollection() {
+        return this.collection;
     }
 
     /**
@@ -67,44 +56,49 @@ public class Paginator<T> {
      * @return The number of pages.
      */
     public int getPageCount() {
-        if (this.list.isEmpty())
+        if (this.collection.isEmpty())
             return 0;
-        return (int) Math.ceil((double) this.list.size() / (double) this.perPage);
+        return (int) Math.ceil((double) this.collection.size() / (double) this.perPage);
     }
 
     /**
      * Get the index of an item.
      * @param item The item.
      * @return The index of the item.
-     * @throws IllegalArgumentException If the item is not in the list.
+     * @throws IllegalArgumentException If the item is not in the collection.
      */
     public int getIndex(T item) throws IllegalArgumentException {
-        if (!this.list.contains(item))
+        if (!this.collection.contains(item))
             throw new IllegalArgumentException("Item is not in the list.");
-        return this.list.indexOf(item);
+        Iterator<T> iterator = this.collection.iterator();
+        int index = 0;
+        while (iterator.hasNext()) {
+            T next = iterator.next();
+            if (Objects.equals(next, item))
+                break;
+            index++;
+        }
+        return index;
     }
 
     /**
      * Get the index of an item.
      * @param item The item.
      * @return The page index of the item.
-     * @throws IllegalArgumentException If the item is not in the list.
+     * @throws IllegalArgumentException If the item is not in the collection.
      */
     public int getPageIndex(T item) throws IllegalArgumentException {
-        if (!this.list.contains(item))
-            throw new IllegalArgumentException("Item is not in the list.");
-
-        int index = this.list.indexOf(item);
+        int index = getIndex(item);
         return index / this.perPage;
     }
 
     /**
      * Get the page of items that contains the given item.
      * @param item The item.
-     * @return The list of items.
-     * @throws IllegalArgumentException If the item is not in the list.
+     * @return The collection of items.
+     * @throws IllegalArgumentException If the item is not in the collection.
      */
-    public List<T> getPage(T item) throws IllegalArgumentException {
+    public Collection<T> getPage(T item) throws IllegalArgumentException {
         int index = getPageIndex(item);
         return getPage(index);
     }
@@ -121,16 +115,17 @@ public class Paginator<T> {
     /**
      * Get the page at the page index.
      * @param pageIndex The index of the page (0 = first)
-     * @return The list of items.
+     * @return The collection of items.
      * @throws IllegalArgumentException If the page is invalid.
      */
-    public List<T> getPage(int pageIndex) throws IllegalArgumentException {
+    public Collection<T> getPage(int pageIndex) throws IllegalArgumentException {
         if (!hasPage(pageIndex))
             throw new IllegalArgumentException("Invalid page.");
 
         int from = pageIndex * this.perPage;
-        int to = Math.min(this.list.size(), from + this.perPage);
+        int to = Math.min(this.collection.size(), from + this.perPage);
 
-        return this.list.subList(from, to);
+        List<T> list = new ArrayList<>(this.collection);
+        return list.subList(from, to);
     }
 }
