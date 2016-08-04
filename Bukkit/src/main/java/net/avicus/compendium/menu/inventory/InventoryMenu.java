@@ -16,8 +16,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
@@ -86,7 +86,7 @@ public class InventoryMenu implements Menu<InventoryMenuItem> {
         this.indexer = indexer == null ? new IndexedInventoryIndexer() : indexer;
         this.handler = handler == null ? new ClickableInventoryHandler() : handler;
         this.inventory = Bukkit.createInventory(this.player, rows * 9, title);
-        this.items = this.indexer.getIndices(this, items == null ? Collections.emptyList() : items);
+        this.items = this.indexer.getIndices(this, items == null ? new ArrayList<>() : items);
         this.listener = new InventoryMenuListener();
     }
 
@@ -111,6 +111,10 @@ public class InventoryMenu implements Menu<InventoryMenuItem> {
                 this.inventory.setItem(i, stack);
             }
         }
+
+        this.player.updateInventory();
+        this.items.clear();
+        this.items.putAll(newIndices);
     }
 
     @Override
@@ -130,7 +134,7 @@ public class InventoryMenu implements Menu<InventoryMenuItem> {
      * @param item
      */
     public void add(InventoryMenuItem item) {
-        // generate an index that is not used
+        // generate an index that is not used (can be negative, sorted later)
         int index = -1;
         while (this.items.containsKey(index))
             index--;
