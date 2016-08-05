@@ -1,8 +1,6 @@
 package net.avicus.compendium.utils;
 
 import com.google.common.base.Preconditions;
-import net.avicus.compendium.locale.text.Localizable;
-import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
@@ -55,7 +53,7 @@ public class Strings {
             case PURPLE:
                 return ChatColor.DARK_PURPLE;
             case BLUE:
-                return ChatColor.DARK_BLUE;
+                return ChatColor.BLUE;
             case BROWN:
                 return ChatColor.GOLD;
             case GREEN:
@@ -63,7 +61,7 @@ public class Strings {
             case RED:
                 return ChatColor.DARK_RED;
             case BLACK:
-                return ChatColor.BLACK;
+                return ChatColor.GRAY;
             default:
                 throw new IllegalArgumentException();
         }

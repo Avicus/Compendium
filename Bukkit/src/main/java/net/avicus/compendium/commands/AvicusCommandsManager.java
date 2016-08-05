@@ -6,7 +6,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class AvicusCommandsManager extends CommandsManager<CommandSender>
 {

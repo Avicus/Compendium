@@ -5,7 +5,6 @@ import net.md_5.bungee.api.chat.TextComponent;
 
 import java.text.NumberFormat;
 import java.util.Locale;
-import java.util.TimerTask;
 
 public class LocalizedNumber implements Localizable {
     private final Number number;
