@@ -22,6 +22,17 @@
         <url>https://github.com/Avicus/Compendium</url>
     </scm>
 
+    <repositories>
+        <repository>
+            <id>avicus-public</id>
+            <url>https://repo.avicus.net/content/groups/public</url>
+        </repository>
+        <repository>
+            <id>avicus-repo</id>
+            <url>https://repo.avicus.net/content/groups/private</url>
+        </repository>
+    </repositories>
+
     <distributionManagement>
         <repository>
             <id>avicus-repo</id>

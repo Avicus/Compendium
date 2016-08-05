@@ -16,10 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * A type of menu that is a virtual chest inventory that stores items, associated
@@ -127,6 +124,15 @@ public class InventoryMenu implements Menu<InventoryMenuItem> {
     @Override
     public void close() {
         HandlerList.unregisterAll(this.listener);
+        if (Objects.equals(this.player.getInventory(), this.inventory))
+            this.player.closeInventory();
+    }
+
+    /**
+     * Called when a player exits the inventory menu.
+     */
+    public void onExit() {
+        // Do nothing typically
     }
 
     /**
@@ -201,20 +207,27 @@ public class InventoryMenu implements Menu<InventoryMenuItem> {
     private class InventoryMenuListener implements Listener {
         @EventHandler
         public void onInventoryClose(InventoryOpenEvent event) {
+            // Close menu if the inventory being opened is not this one
             if (!event.getInventory().equals(inventory))
                 close();
         }
 
         @EventHandler
         public void onInventoryClose(InventoryCloseEvent event) {
-            if (event.getPlayer().equals(player))
+            // Close the menu if the player closes this inventory
+            if (event.getPlayer().equals(player) && event.getInventory().equals(inventory)) {
                 close();
+                onExit();
+            }
         }
 
         @EventHandler
         public void onPlayerQuit(PlayerQuitEvent event) {
-            if (event.getPlayer().equals(player))
+            // Close menu if player quits and had inventory open
+            if (event.getPlayer().equals(player) && Objects.equals(event.getPlayer().getInventory(), inventory)) {
                 close();
+                onExit();
+            }
         }
 
         @EventHandler
