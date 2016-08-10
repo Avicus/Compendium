@@ -46,7 +46,32 @@ public class WeightedRandomizer<T> {
     public WeightedRandomizer() {
         this(RANDOM);
     }
-    
+
+    /**
+     * Get the likelihood of picking a specific item.
+     * @param item The item.
+     * @return The probability in [0, 1].
+     * @throws NoSuchElementException
+     */
+    public double getLikelihood(T item) throws NoSuchElementException {
+        Double weight = this.items.get(item);
+        if (weight == null)
+            throw new NoSuchElementException();
+
+        return weight / totalWeight();
+    }
+
+    /**
+     * Generate the total weight.
+     * @return
+     */
+    private double totalWeight() {
+        double total = 0;
+        for (Double weight : this.items.values())
+            total += weight;
+        return total;
+    }
+
     /**
      * Select a number of next items randomly.
      * @return The next items.
@@ -57,9 +82,7 @@ public class WeightedRandomizer<T> {
             throw new NoSuchElementException();
 
         // Generate total value
-        double total = 0;
-        for (Double weight : this.items.values())
-            total += weight;
+        double total = totalWeight();
 
         // Generate association: item -> their chance of getting selected
         Map<T, Double> distribution = new HashMap<>();

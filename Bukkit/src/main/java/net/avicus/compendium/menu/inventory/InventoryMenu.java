@@ -117,6 +117,7 @@ public class InventoryMenu implements Menu<InventoryMenuItem> {
     @Override
     public void open() {
         update(true);
+        HandlerList.unregisterAll(this.listener);
         this.player.getServer().getPluginManager().registerEvents(this.listener, this.plugin);
         this.player.openInventory(this.inventory);
     }
