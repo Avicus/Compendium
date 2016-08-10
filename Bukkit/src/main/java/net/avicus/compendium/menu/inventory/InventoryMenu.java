@@ -1,5 +1,6 @@
 package net.avicus.compendium.menu.inventory;
 
+import net.avicus.compendium.Task;
 import net.avicus.compendium.menu.Menu;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -116,16 +117,25 @@ public class InventoryMenu implements Menu<InventoryMenuItem> {
 
     @Override
     public void open() {
+        // Update items
         update(true);
+
+        // Register listener
         HandlerList.unregisterAll(this.listener);
         this.player.getServer().getPluginManager().registerEvents(this.listener, this.plugin);
-        this.player.openInventory(this.inventory);
+
+        // Open inventory if not open
+        if (!Objects.equals(this.player.getOpenInventory(), this.inventory))
+            this.player.openInventory(this.inventory);
     }
 
     @Override
     public void close() {
+        // Unregister listener
         HandlerList.unregisterAll(this.listener);
-        if (Objects.equals(this.player.getInventory(), this.inventory))
+
+        // Close inventory if open
+        if (Objects.equals(this.player.getOpenInventory(), this.inventory))
             this.player.closeInventory();
     }
 
@@ -207,9 +217,9 @@ public class InventoryMenu implements Menu<InventoryMenuItem> {
      */
     private class InventoryMenuListener implements Listener {
         @EventHandler
-        public void onInventoryClose(InventoryOpenEvent event) {
+        public void onInventoryOpen(InventoryOpenEvent event) {
             // Close menu if the inventory being opened is not this one
-            if (!event.getInventory().equals(inventory))
+            if (event.getPlayer().equals(player) && !event.getInventory().equals(inventory))
                 close();
         }
 
@@ -218,7 +228,13 @@ public class InventoryMenu implements Menu<InventoryMenuItem> {
             // Close the menu if the player closes this inventory
             if (event.getPlayer().equals(player) && event.getInventory().equals(inventory)) {
                 close();
-                onExit();
+                new Task() {
+
+                    @Override
+                    public void run() throws Exception {
+                        onExit();
+                    }
+                }.now();
             }
         }
 
