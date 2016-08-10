@@ -17,10 +17,27 @@ public class WeightedRandomizer<T> {
     /**
      * Constructor. Uses provided random.
      * @param random The random generator.
+     * @param items The items to weight association.
+     */
+    public WeightedRandomizer(Random random, Map<T, Double> items) {
+        this.random = random;
+        this.items = items;
+    }
+
+    /**
+     * Constructor. Uses provided random.
+     * @param random The random generator.
      */
     public WeightedRandomizer(Random random) {
-        this.random = random;
-        this.items = new HashMap<>();
+        this(random, new HashMap<>());
+    }
+
+    /**
+     * Constructor. Uses standard random.
+     * @param items The items to weight association.
+     */
+    public WeightedRandomizer(Map<T, Double> items) {
+        this(RANDOM, items);
     }
 
     /**
@@ -29,13 +46,13 @@ public class WeightedRandomizer<T> {
     public WeightedRandomizer() {
         this(RANDOM);
     }
-
+    
     /**
-     * Select the next random item.
-     * @return The next item.
+     * Select a number of next items randomly.
+     * @return The next items.
      * @throws NoSuchElementException
      */
-    public T next() throws NoSuchElementException {
+    public List<T> next(int count) throws NoSuchElementException {
         if (this.items.isEmpty())
             throw new NoSuchElementException();
 
@@ -52,22 +69,35 @@ public class WeightedRandomizer<T> {
         }
 
         // Generate association: range [x ,x + probability] -> item
-        Map<Range, T> intervals = new HashMap<>();
+        Map<Range, T> ranges = new HashMap<>();
         double lastInterval = 0;
 
         for (T item : distribution.keySet()) {
             double max = lastInterval + distribution.get(item);
-            intervals.put(new Range(lastInterval, max), item);
+            ranges.put(new Range(lastInterval, max), item);
             lastInterval = max;
         }
 
-        double random = this.random.nextDouble();
+        List<T> items = new ArrayList<>();
 
-        for (Range range : intervals.keySet())
-            if (range.contains(random))
-                return intervals.get(range);
+        while (items.size() < count) {
+            double random = this.random.nextDouble();
 
-        throw new NoSuchElementException();
+            for (Range range : ranges.keySet())
+                if (range.contains(random))
+                    items.add(ranges.get(range));
+        }
+
+        return items;
+    }
+
+    /**
+     * Select the single next random item.
+     * @return The next item.
+     * @throws NoSuchElementException
+     */
+    public T next() throws NoSuchElementException {
+        return next(1).get(0);
     }
 
     /**
