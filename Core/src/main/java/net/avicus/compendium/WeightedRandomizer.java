@@ -169,4 +169,37 @@ public class WeightedRandomizer<T> {
             return value >= this.min && value < this.max;
         }
     }
+
+    public static <T> Builder<T> builder() {
+        return new Builder<>();
+    }
+
+    public static class Builder<T> {
+        private final Map<T, Double> items;
+        private Random random;
+
+        private Builder() {
+            this.items = new HashMap<>();
+            this.random = RANDOM;
+        }
+
+        public Builder<T> random(Random random) {
+            this.random = random;
+            return this;
+        }
+
+        public Builder<T> item(T item, double weight) {
+            this.items.put(item, weight);
+            return this;
+        }
+
+        public Builder<T> items(Map<T, Double> items) {
+            this.items.putAll(items);
+            return this;
+        }
+
+        public WeightedRandomizer<T> build() {
+            return new WeightedRandomizer<>(this.random, this.items);
+        }
+    }
 }
