@@ -1,16 +1,14 @@
 package net.avicus.compendium.config;
 
 import lombok.Getter;
+import net.avicus.compendium.config.inject.ConfigInjectionException;
 import net.avicus.compendium.config.inject.ConfigInjector;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.DumperOptions.FlowStyle;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Config {
     protected static final Yaml yaml;
@@ -140,7 +138,24 @@ public class Config {
     public String getAsString(String key, String def) {
         return contains(key) ? getAsString(key) : def;
     }
-    
+
+    public <E extends Enum<E>> E getAsEnum(String key, Class<E> clazz, E def) {
+        return contains(key) ?  getAsEnum(key, clazz) : def;
+    }
+
+    public <E extends Enum<E>> E getAsEnum(String key, Class<E> clazz) {
+        if (!contains(key))
+            return null;
+        
+        try {
+            String text = getAsString(key);
+            text = text.toUpperCase().replace(" ", "_").replace("-", "_");
+            return Enum.valueOf(clazz, text);
+        } catch (Exception e) {
+            throw new ConfigInjectionException("Could not find enum with supplied value.", e);
+        }
+    }
+
     public boolean getBoolean(String key) {
         return get(key, Boolean.class);
     }
