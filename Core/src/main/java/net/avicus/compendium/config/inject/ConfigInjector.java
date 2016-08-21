@@ -31,7 +31,7 @@ public class ConfigInjector {
             String key = info.key().length() > 0 ? info.key() : field.getName();
 
             Optional<Config> nested = navigateToPath(section, field);
-            boolean exists = !nested.isPresent() || nested.get().contains(key);
+            boolean exists = nested.isPresent() && nested.get().contains(key);
             boolean required = field.getFieldType() != Optional.class;
 
             if (required && !exists)
