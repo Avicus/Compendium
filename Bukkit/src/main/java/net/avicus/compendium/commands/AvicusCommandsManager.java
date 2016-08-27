@@ -33,7 +33,7 @@ public class AvicusCommandsManager extends CommandsManager<CommandSender>
      */
     public List<Command> registerCommandAnnotation(Method method, Command command) throws IllegalAccessException, InstantiationException {
         Map<String, Method> map;
-        List<Command> registered = new ArrayList<Command>();
+        List<Command> registered = new ArrayList<>();
 
         map = commands.get(null);
 

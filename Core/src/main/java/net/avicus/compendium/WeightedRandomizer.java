@@ -3,6 +3,7 @@ package net.avicus.compendium;
 import lombok.ToString;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * A handy utility for selecting weighted objects randomly.
@@ -106,9 +107,11 @@ public class WeightedRandomizer<T> {
         while (items.size() < count) {
             double random = this.random.nextDouble();
 
-            for (Range range : ranges.keySet())
-                if (range.contains(random))
-                    items.add(ranges.get(range));
+            items.addAll(ranges.keySet()
+                               .stream()
+                               .filter(range -> range.contains(random))
+                               .map(ranges::get)
+                               .collect(Collectors.toList()));
         }
 
         return items;

@@ -5,6 +5,7 @@ import net.avicus.compendium.locale.LocaleBundle;
 import net.md_5.bungee.api.chat.TextComponent;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class LocalizedText implements Localizable {
     private final LocaleBundle bundle;
@@ -51,10 +52,9 @@ public class LocalizedText implements Localizable {
 
     @Override
     public LocalizedText duplicate() {
-        List<Localizable> arguments = new ArrayList<>();
-
-        for (Localizable argument : this.arguments)
-            arguments.add(argument.duplicate());
+        List<Localizable> arguments = this.arguments.stream()
+                                                    .map(Localizable::duplicate)
+                                                    .collect(Collectors.toList());
 
         return new LocalizedText(this.bundle, this.key, this.style.duplicate(), arguments);
     }

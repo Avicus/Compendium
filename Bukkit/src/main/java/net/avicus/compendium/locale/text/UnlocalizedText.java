@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 public class UnlocalizedText implements Localizable {
     private final String text;
@@ -74,10 +75,9 @@ public class UnlocalizedText implements Localizable {
 
     @Override
     public UnlocalizedText duplicate() {
-        List<Localizable> arguments = new ArrayList<>();
-
-        for (Localizable argument : this.arguments)
-            arguments.add(argument.duplicate());
+        List<Localizable> arguments = this.arguments.stream()
+                                                    .map(Localizable::duplicate)
+                                                    .collect(Collectors.toList());
 
         return new UnlocalizedText(this.text, this.style.duplicate(), arguments);
     }

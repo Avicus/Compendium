@@ -37,7 +37,7 @@ public class AvicusCommandsRegistration extends CommandsManagerRegistration {
     public boolean unregisterCommands(Class clazz) throws Exception {
         CommandMap map = getCommandMap();
 
-        List<String> toRemove = new ArrayList<String>();
+        List<String> toRemove = new ArrayList<>();
         Map<String, Command> knownCommands = ReflectionUtil.getField(map, "knownCommands");
         Set<String> aliases = ReflectionUtil.getField(map, "aliases");
 
@@ -72,9 +72,7 @@ public class AvicusCommandsRegistration extends CommandsManagerRegistration {
                     i.remove();
             }
         }
-        for (String string : toRemove) {
-            knownCommands.remove(string);
-        }
+        toRemove.forEach(knownCommands::remove);
         return true;
     }
 
@@ -88,7 +86,7 @@ public class AvicusCommandsRegistration extends CommandsManagerRegistration {
     public boolean unregisterCommand(com.sk89q.minecraft.util.commands.Command command) throws Exception {
         CommandMap map = getCommandMap();
 
-        List<String> toRemove = new ArrayList<String>();
+        List<String> toRemove = new ArrayList<>();
         Map<String, Command> knownCommands = ReflectionUtil.getField(map, "knownCommands");
         Set<String> aliases = ReflectionUtil.getField(map, "aliases");
 
@@ -119,14 +117,12 @@ public class AvicusCommandsRegistration extends CommandsManagerRegistration {
                     i.remove();
             }
         }
-        for (String string : toRemove) {
-            knownCommands.remove(string);
-        }
+        toRemove.forEach(knownCommands::remove);
         return true;
     }
 
     private List<com.sk89q.minecraft.util.commands.Command> getCommandMethods(Class<?> cls, Method parent, Object obj) throws IllegalAccessException, InstantiationException, InvocationTargetException {
-        List<com.sk89q.minecraft.util.commands.Command> registered = new ArrayList<com.sk89q.minecraft.util.commands.Command>();
+        List<com.sk89q.minecraft.util.commands.Command> registered = new ArrayList<>();
 
         for (Method method : cls.getMethods()) {
             if (!method.isAnnotationPresent(com.sk89q.minecraft.util.commands.Command.class)) {

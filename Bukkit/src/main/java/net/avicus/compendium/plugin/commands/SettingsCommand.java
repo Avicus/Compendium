@@ -62,13 +62,10 @@ public class SettingsCommand implements CommandExecutor {
         // page index = page - 1
         page--;
 
-        list.sort(new Comparator<Setting>() {
-            @Override
-            public int compare(Setting o1, Setting o2) {
-                String n1 = o1.getName().translate(locale).toPlainText();
-                String n2 = o2.getName().translate(locale).toPlainText();
-                return n1.compareTo(n2);
-            }
+        list.sort((o1, o2) -> {
+            String n1 = o1.getName().translate(locale).toPlainText();
+            String n2 = o2.getName().translate(locale).toPlainText();
+            return n1.compareTo(n2);
         });
 
         Paginator<Setting> paginator = new Paginator<>(list, 5);

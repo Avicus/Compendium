@@ -34,7 +34,7 @@ public class NumberSettingType<N extends Number> implements SettingType<NumberSe
 
     @Override
     public NumberSettingValue<N> value(N raw) {
-        return new NumberSettingValue<N>(raw);
+        return new NumberSettingValue<>(raw);
     }
 
     public static class NumberSettingValue<N extends Number> implements SettingValue<N> {

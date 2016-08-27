@@ -32,9 +32,10 @@ public class LocalizedTime implements Localizable {
     public TextComponent translate(Locale locale) {
         PrettyTime pretty = new PrettyTime(locale);
         // "moments ago" only shows when less than 5 seconds
-        for (TimeUnit unit : pretty.getUnits())
-            if (unit instanceof JustNow)
-                ((JustNow) unit).setMaxQuantity(10000L);
+        pretty.getUnits()
+              .stream()
+              .filter(unit -> unit instanceof JustNow)
+              .forEach(unit -> ((JustNow) unit).setMaxQuantity(10000L));
         String time = pretty.format(this.date);
         return new UnlocalizedText(time, this.style).translate(locale);
     }

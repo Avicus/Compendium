@@ -49,14 +49,17 @@ public class SettingStore<K> {
             String id = entry.getKey();
             String value = entry.getValue();
 
-            for (Setting setting : settings) {
-                if (setting.getId().equals(id)) {
-                    Optional<SettingValue> parsed = setting.getType().parse(value);
-                    Object raw = parsed.isPresent() ? parsed.get().raw() : setting.getDefaultValue();
+            settings.stream()
+                    .filter(setting -> setting.getId()
+                                              .equals(id))
+                    .forEach(setting -> {
+                        Optional<SettingValue> parsed = setting.getType()
+                                                               .parse(value);
+                        Object raw = parsed.isPresent() ? parsed.get()
+                                                                .raw() : setting.getDefaultValue();
 
-                    this.set(key, setting, raw);
-                }
-            }
+                        this.set(key, setting, raw);
+                    });
         }
     }
 

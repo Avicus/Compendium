@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Represents a configurable option, a setting silly!
@@ -51,8 +52,10 @@ public class Setting<R> {
     public List<String> getAllAliases(Locale locale) {
         List<String> result = new ArrayList<>();
         result.add(this.name.translate(locale).toPlainText());
-        for (Localizable alias : this.aliases)
-            result.add(alias.translate(locale).toPlainText());
+        result.addAll(this.aliases.stream()
+                                  .map(alias -> alias.translate(locale)
+                                                     .toPlainText())
+                                  .collect(Collectors.toList()));
         return result;
     }
 

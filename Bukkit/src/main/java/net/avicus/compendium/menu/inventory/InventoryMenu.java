@@ -16,7 +16,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
-import javax.annotation.Nullable;
 import java.util.*;
 
 /**
@@ -164,8 +163,7 @@ public class InventoryMenu implements Menu<InventoryMenuItem> {
      * @param items
      */
     public void add(Collection<InventoryMenuItem> items) {
-        for (InventoryMenuItem item : items)
-            add(item);
+        items.forEach(this::add);
     }
 
     /**
