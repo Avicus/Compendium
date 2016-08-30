@@ -13,7 +13,7 @@ public abstract class Task {
     private static Plugin plugin;
 
     static {
-        plugin = Bukkit.getPluginManager().getPlugin("Atlas");
+        plugin = Bukkit.getPluginManager().getPlugin("Compendium");
     }
 
     @Getter private final List<BukkitTask> runnables = new ArrayList<>();
