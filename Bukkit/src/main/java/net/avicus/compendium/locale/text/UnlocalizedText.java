@@ -61,9 +61,16 @@ public class UnlocalizedText implements Localizable {
         if (format.length() > 0)
             parts.add(this.style.apply(format));
 
-        TextComponent result = new TextComponent(parts.get(0));
-        for (int i = 1; i < parts.size(); i++)
-            result.addExtra(parts.get(i));
+        TextComponent result;
+
+        if (parts.size() > 0) {
+            result = new TextComponent(parts.get(0));
+            for (int i = 1; i < parts.size(); i++)
+                result.addExtra(parts.get(i));
+        }
+        else {
+            result = new TextComponent("");
+        }
 
         return result;
     }

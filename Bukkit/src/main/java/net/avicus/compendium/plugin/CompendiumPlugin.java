@@ -1,5 +1,6 @@
 package net.avicus.compendium.plugin;
 
+import lombok.Getter;
 import net.avicus.compendium.locale.LocaleBundle;
 import net.avicus.compendium.locale.LocaleStrings;
 import net.avicus.compendium.plugin.commands.*;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompendiumPlugin extends JavaPlugin {
+    @Getter private static CompendiumPlugin instance;
     private static LocaleBundle bundle;
 
     public static LocaleBundle getLocaleBundle() {
@@ -19,6 +21,8 @@ public class CompendiumPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        instance = this;
+
         try {
             locales();
         } catch (Exception e) {

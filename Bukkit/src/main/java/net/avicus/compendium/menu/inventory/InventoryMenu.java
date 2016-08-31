@@ -1,7 +1,9 @@
 package net.avicus.compendium.menu.inventory;
 
-import net.avicus.compendium.Task;
 import net.avicus.compendium.menu.Menu;
+import net.avicus.compendium.plugin.CompendiumPlugin;
+import net.avicus.compendium.plugin.CompendiumTask;
+import net.avicus.compendium.utils.Task;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -227,7 +229,7 @@ public class InventoryMenu implements Menu<InventoryMenuItem> {
             // Close the menu if the player closes this inventory
             if (event.getPlayer().equals(player) && event.getInventory().equals(inventory)) {
                 close();
-                new Task() {
+                new CompendiumTask() {
 
                     @Override
                     public void run() throws Exception {
