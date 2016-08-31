@@ -1,9 +1,7 @@
 package net.avicus.compendium.menu.inventory;
 
 import net.avicus.compendium.menu.Menu;
-import net.avicus.compendium.plugin.CompendiumPlugin;
 import net.avicus.compendium.plugin.CompendiumTask;
-import net.avicus.compendium.utils.Task;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -257,6 +255,9 @@ public class InventoryMenu implements Menu<InventoryMenuItem> {
 
             int index = event.getSlot();
             ItemStack clicked = event.getCurrentItem();
+
+            if (event.getClickedInventory() == player.getInventory())
+                return;
 
             Optional<InventoryMenuItem> item = Optional.empty();
 
