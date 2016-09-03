@@ -1,7 +1,6 @@
 package net.avicus.compendium.settings;
 
 import com.google.common.collect.ArrayListMultimap;
-import org.bukkit.Bukkit;
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -34,13 +33,7 @@ public class SettingStore<K> {
             }
         }
 
-        SettingContext context = new SettingContext<>(setting, setting.getType().value(value));
-
-        SettingChangeEvent event = new SettingChangeEvent(key, context);
-
-        Bukkit.getPluginManager().callEvent(event);
-
-        this.settings.put(key, context);
+        this.settings.put(key, new SettingContext<>(setting, setting.getType().value(value)));
         return value;
     }
 
