@@ -32,6 +32,8 @@ public class SettingCommand implements CommandExecutor {
             return true;
         }
 
+        Player player = (Player) sender;
+
         Locale locale = Locales.getLocale(sender);
         String query = args[0];
 
@@ -63,7 +65,7 @@ public class SettingCommand implements CommandExecutor {
         }
 
         // Current value
-        Object currentRaw = PlayerSettings.store().get((Player) sender, setting);
+        Object currentRaw = PlayerSettings.store().get(((Player) sender).getUniqueId(), setting);
         String current = setting.getType().value(currentRaw).serialize();
         Localizable currentText = new UnlocalizedText(current, ChatColor.WHITE);
 
