@@ -50,7 +50,7 @@ public class SetCommand implements CommandExecutor {
             return true;
         }
 
-        PlayerSettings.store().set(player, setting, value.get().raw());
+        PlayerSettings.store().set(player.getUniqueId(), setting, value.get().raw());
 
         Localizable name = setting.getName().duplicate();
         Localizable set = new UnlocalizedText(value.get().serialize());

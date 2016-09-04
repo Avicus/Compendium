@@ -39,7 +39,7 @@ public class ToggleCommand implements CommandExecutor {
 
         Setting<Object> setting = search.get();
 
-        Optional<Object> result = PlayerSettings.store().toggle((Player) sender, setting);
+        Optional<Object> result = PlayerSettings.store().toggle(((Player) sender).getUniqueId(), setting);
 
         if (result.isPresent()) {
             Localizable name = setting.getName().duplicate();
