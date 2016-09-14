@@ -270,7 +270,7 @@ public class InventoryMenu implements Menu<InventoryMenuItem> {
                 }
             }
 
-            menu.handler.onClick(menu, index, item);
+            menu.handler.onClick(menu, index, item, event.getClick());
             event.setCancelled(true);
         }
     }
