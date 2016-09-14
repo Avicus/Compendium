@@ -19,9 +19,8 @@ public class PaginationTests {
         assert paginator.hasPage(2);
         assert paginator.hasPage(paginator.getPageCount() - 1);
 
-        System.out.println(paginator.getPage(0));
-        System.out.println(paginator.getPage(1));
-        System.out.println(paginator.getPage(2));
+        assert paginator.getPage(0).iterator().next() == 0;
+        assert paginator.getPage(1).iterator().next() == 5;
     }
 
     @Test
@@ -29,7 +28,8 @@ public class PaginationTests {
         Paginator<Integer> paginator = new Paginator<>(Arrays.asList(1), 5);
 
         assert paginator.hasPage(0);
+        assert !paginator.hasPage(1);
 
-        System.out.println(paginator.getPage(0));
+        assert paginator.getPage(0).iterator().next() == 1;
     }
 }
