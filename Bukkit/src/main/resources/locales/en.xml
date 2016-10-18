@@ -9,6 +9,9 @@
         <current>Current: {0}</current>
         <toggle>Toggle</toggle>
         <setting-set>{0} has been set to {1}.</setting-set>
+
+        <restarting>Restarting the server in {0} second.</restarting>
+        <restarting-plural>Restarting the server in {0} seconds.</restarting-plural>
     </generic>
 
     <errors>
@@ -17,4 +20,5 @@
         <not-toggle>That setting cannot be toggled.</not-toggle>
         <invalid-value>You have provided an invalid value.</invalid-value>
     </errors>
+
 </locale>

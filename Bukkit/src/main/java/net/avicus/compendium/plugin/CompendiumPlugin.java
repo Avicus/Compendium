@@ -1,5 +1,6 @@
 package net.avicus.compendium.plugin;
 
+import com.keenant.bossy.Bossy;
 import lombok.Getter;
 import net.avicus.compendium.locale.LocaleBundle;
 import net.avicus.compendium.locale.LocaleStrings;
@@ -14,6 +15,8 @@ import java.util.List;
 public class CompendiumPlugin extends JavaPlugin {
     @Getter private static CompendiumPlugin instance;
     private static LocaleBundle bundle;
+
+    @Getter private static Bossy bossy;
 
     public static LocaleBundle getLocaleBundle() {
         return bundle;
@@ -39,6 +42,8 @@ public class CompendiumPlugin extends JavaPlugin {
         getCommand("settings").setTabCompleter(new SettingTabCompleter());
         getCommand("toggle").setExecutor(new ToggleCommand());
         getCommand("toggle").setTabCompleter(new SettingTabCompleter());
+
+        bossy = new Bossy(this);;
     }
 
     private void locales() throws JDOMException, IOException {

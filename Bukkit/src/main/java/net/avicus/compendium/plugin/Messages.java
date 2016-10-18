@@ -18,6 +18,9 @@ public class Messages {
     public static LocalizedFormat ERRORS_NOT_TOGGLE = get("errors.not-toggle");
     public static LocalizedFormat ERRORS_INVALID_VALUE = get("errors.invalid-value");
 
+    public static final LocalizedFormat GENERIC_RESTARTING = get("generic.restarting");
+    public static final LocalizedFormat GENERIC_RESTARTING_PLURAL = get("generic.restarting-plural");
+
     public static LocalizedFormat get(String path) {
         return CompendiumPlugin.getLocaleBundle().getFormat(path);
     }
