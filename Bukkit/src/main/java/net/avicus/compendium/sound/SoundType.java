@@ -19,7 +19,8 @@ public enum SoundType {
     PIANO(Sound.NOTE_PIANO),
     PLING(Sound.NOTE_PLING),
     PLOP(Sound.ITEM_PICKUP),
-    ENDERDRAGON(Sound.ENDERDRAGON_GROWL);
+    ENDERDRAGON(Sound.ENDERDRAGON_GROWL),
+    GOLEM_DEATH(Sound.IRONGOLEM_DEATH);
     private final Sound sound;
 
     SoundType(Sound sound) {
