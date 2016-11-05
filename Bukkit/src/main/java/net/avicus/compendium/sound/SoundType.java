@@ -1,6 +1,6 @@
 package net.avicus.compendium.sound;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
@@ -21,7 +21,7 @@ public enum SoundType {
     PLOP(Sound.ITEM_PICKUP),
     ENDERDRAGON(Sound.ENDERDRAGON_GROWL),
     GOLEM_DEATH(Sound.IRONGOLEM_DEATH);
-    
+
     private final Sound sound;
 
     SoundType(Sound sound) {
@@ -29,7 +29,7 @@ public enum SoundType {
     }
 
     public String prettyName() {
-        return StringUtils.capitalize(name().toLowerCase());
+        return WordUtils.capitalize(name().replaceAll("_", " ").toLowerCase());
     }
 
     public void play(Player player, float pitch) {

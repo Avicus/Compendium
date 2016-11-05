@@ -1,6 +1,6 @@
 package net.avicus.compendium.sound;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
 
 public enum SoundLocation {
     CREDIT_GAIN,
@@ -21,6 +21,6 @@ public enum SoundLocation {
     }
 
     public String prettyName() {
-        return StringUtils.capitalize(name().toLowerCase());
+        return WordUtils.capitalize(name().replaceAll("_", " ").toLowerCase());
     }
 }
