@@ -7,20 +7,52 @@ import org.bukkit.entity.Player;
 public enum SoundType {
 
     NONE(null),
+
+    // Generic
     DING(Sound.ARROW_HIT),
     LEVEL_UP(Sound.LEVEL_UP),
+    DRINK(Sound.DRINK),
+    EAT(Sound.EAT),
     BURP(Sound.BURP),
-    BARK(Sound.WOLF_BARK),
-    LAUNCH(Sound.FIREWORK_LAUNCH),
+    CLICK(Sound.CLICK),
+    HIT(Sound.SUCCESSFUL_HIT),
+
+    // Notes
     SNARE(Sound.NOTE_SNARE_DRUM),
-    ANVIL(Sound.ANVIL_LAND),
-    FIREWORK(Sound.FIREWORK_BLAST),
     BASS(Sound.NOTE_BASS),
     PIANO(Sound.NOTE_PIANO),
     PLING(Sound.NOTE_PLING),
+
+    // Entities
+    FIREWORK(Sound.FIREWORK_BLAST),
+    LAUNCH(Sound.FIREWORK_LAUNCH),
     PLOP(Sound.ITEM_PICKUP),
+    EXPLOSION(Sound.EXPLODE),
+    POP(Sound.LAVA_POP),
+
+    // Blocks
+    ANVIL(Sound.ANVIL_LAND),
+    DOOR_HIT(Sound.ZOMBIE_WOOD),
+    DOOR_BREAK(Sound.ZOMBIE_WOODBREAK),
+
+    // Mobs
+    MEOW(Sound.CAT_MEOW),
     ENDERDRAGON(Sound.ENDERDRAGON_GROWL),
-    GOLEM_DEATH(Sound.IRONGOLEM_DEATH);
+    GOLEM_DEATH(Sound.IRONGOLEM_DEATH),
+    BARK(Sound.WOLF_BARK),
+    ZOMBIE_MOAN(Sound.ZOMBIE_IDLE),
+    BLAZE_BREATH(Sound.BLAZE_DEATH),
+    BLAZE_HIT(Sound.BLAZE_HIT),
+    BLAZE_DEATH(Sound.BLAZE_DEATH),
+    TELEPORT(Sound.ENDERMAN_TELEPORT),
+    GHAST_DEATH(Sound.GHAST_DEATH),
+    MOAN(Sound.GHAST_MOAN),
+    SPIDER(Sound.SPIDER_DEATH),
+    HMMM(Sound.VILLAGER_HAGGLE),
+    WITHER_SPAWN(Sound.WITHER_SPAWN),
+    WITHER_SHOOT(Sound.WITHER_SHOOT),
+    WITHER_DEATH(Sound.WITHER_DEATH),
+    REMEDY(Sound.ZOMBIE_REMEDY),;
 
     private final Sound sound;
 
