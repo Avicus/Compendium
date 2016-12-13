@@ -3,6 +3,7 @@ package net.avicus.compendium.locale;
 import com.google.common.base.Preconditions;
 import lombok.Getter;
 import lombok.ToString;
+import net.avicus.compendium.utils.Strings;
 import org.jdom2.Content;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -60,7 +61,7 @@ public class LocaleStrings {
                     continue;
 
                 String path = getPath(el, child);
-                strings.add(path, child.getTextTrim());
+                strings.add(path, Strings.addColors(child.getTextTrim()));
             }
         }
 
