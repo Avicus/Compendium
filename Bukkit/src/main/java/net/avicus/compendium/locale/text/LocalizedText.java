@@ -14,11 +14,11 @@ public class LocalizedText implements Localizable {
     private final TextStyle style;
 
     public LocalizedText(LocaleBundle bundle, String key, Localizable... arguments) {
-        this(bundle, key, TextStyle.create(), new ArrayList<>(Arrays.asList(arguments)));
+        this(bundle, key, TextStyle.create(), arguments.length == 0 ? Collections.emptyList() : Arrays.asList(arguments));
     }
 
     public LocalizedText(LocaleBundle bundle, String key, TextStyle style, Localizable... arguments) {
-        this(bundle, key, style, new ArrayList<>(Arrays.asList(arguments)));
+        this(bundle, key, style, arguments.length == 0 ? Collections.emptyList() : new ArrayList<>(Arrays.asList(arguments)));
     }
 
     public LocalizedText(LocaleBundle bundle, String key, List<Localizable> arguments) {

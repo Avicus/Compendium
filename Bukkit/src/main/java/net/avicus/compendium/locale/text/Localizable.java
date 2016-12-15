@@ -6,6 +6,9 @@ import net.md_5.bungee.api.chat.TextComponent;
 import java.util.Locale;
 
 public interface Localizable {
+
+    Localizable[] EMPTY = new Localizable[0];
+
     /**
      * Translates this to a language.
      * @param locale

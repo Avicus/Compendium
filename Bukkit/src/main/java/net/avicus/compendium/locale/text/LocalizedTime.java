@@ -3,7 +3,6 @@ package net.avicus.compendium.locale.text;
 import net.avicus.compendium.TextStyle;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.ocpsoft.prettytime.PrettyTime;
-import org.ocpsoft.prettytime.TimeUnit;
 import org.ocpsoft.prettytime.units.JustNow;
 
 import java.util.Date;

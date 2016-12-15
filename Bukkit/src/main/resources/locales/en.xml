@@ -10,15 +10,47 @@
         <toggle>Toggle</toggle>
         <setting-set>{0} has been set to {1}.</setting-set>
 
-        <restarting>Restarting the server in {0} second.</restarting>
-        <restarting-plural>Restarting the server in {0} seconds.</restarting-plural>
+        <countdown>
+            <command>
+                <header>Active Countdowns</header>
+                <cancel>
+                    <singular>{0} ({1}) countdown has been cancelled.</singular>
+                    <all-singular>1 active countdown has been cancelled.</all-singular>
+                    <all-plural>{0} active countdowns have been cancelled.</all-plural>
+                    <button>Click to cancel this countdown</button>
+                </cancel>
+            </command>
+            <type>
+                <restarting>
+                    <name>Server Restarting</name>
+                    <time-singular>Server restarting in {0} second.</time-singular>
+                    <time-plural>Server restarting in {0} seconds.</time-plural>
+                </restarting>
+            </type>
+        </countdown>
     </generic>
 
     <errors>
+        <command>
+            <number-expected>Number expected in place of {0}.</number-expected>
+            <no-permission>You don't have permission.</no-permission>
+            <internal-error>An internal error occurred while processing that command.</internal-error>
+            <invalid-usage>Usage: {0}</invalid-usage>
+        </command>
         <not-player>You must be a player to use this command.</not-player>
         <settings-help>Use "/settings" to show available settings.</settings-help>
         <not-toggle>That setting cannot be toggled.</not-toggle>
         <invalid-value>You have provided an invalid value.</invalid-value>
+        <invalid-page>Invalid page. Pages range from 1 through {0}.</invalid-page>
+
+        <countdown>
+            <command>
+                <cancel>
+                    <none-active>There are no active countdowns.</none-active>
+                    <no-such-id>No countdown found with id {0}.</no-such-id>
+                </cancel>
+            </command>
+        </countdown>
     </errors>
 
 </locale>

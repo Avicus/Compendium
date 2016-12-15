@@ -1,4 +1,4 @@
-package net.avicus.compendium.plugin.commands;
+package net.avicus.compendium.settings.command;
 
 import net.avicus.compendium.locale.Locales;
 import net.avicus.compendium.plugin.PlayerSettings;
