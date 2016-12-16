@@ -6,6 +6,7 @@ import org.bukkit.ChatColor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -20,7 +21,7 @@ public class UnlocalizedText implements Localizable {
     }
 
     public UnlocalizedText(String text, TextStyle style, Localizable... arguments) {
-        this(text, style, new ArrayList<>(Arrays.asList(arguments)));
+        this(text, style, arguments.length == 0 ? Collections.emptyList() : new ArrayList<>(Arrays.asList(arguments)));
     }
 
     public UnlocalizedText(String text, ChatColor color) {
