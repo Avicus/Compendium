@@ -3,15 +3,19 @@ package net.avicus.compendium.countdown;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import net.avicus.compendium.plugin.CompendiumPlugin;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import java.util.function.Predicate;
 
 import javax.annotation.Nullable;
 
-public class CountdownManager {
+public class CountdownManager implements Listener {
 
     private final Map<Countdown, CountdownTask> countdowns = Maps.newHashMap();
 
@@ -31,6 +35,14 @@ public class CountdownManager {
 
     void remove(Countdown countdown) {
         this.countdowns.remove(countdown);
+    }
+
+    @EventHandler
+    public void quit(final PlayerQuitEvent event) {
+        final UUID uniqueId = event.getPlayer().getUniqueId();
+        for (Countdown countdown : this.countdowns.keySet()) {
+            countdown.bars.remove(uniqueId);
+        }
     }
 
     public void start(Countdown countdown) {

@@ -18,7 +18,7 @@ public abstract class Countdown {
 
     @Getter(AccessLevel.PACKAGE)
     protected final Duration duration;
-    private final Map<UUID, BossBar> bars = Maps.newHashMap();
+    final Map<UUID, BossBar> bars = Maps.newHashMap();
     /** If the countdown has a pending reset. */
     private boolean resetPending;
 

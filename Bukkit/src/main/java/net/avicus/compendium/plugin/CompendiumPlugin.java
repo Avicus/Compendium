@@ -58,6 +58,7 @@ public class CompendiumPlugin extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(this.bossBarManager, this);
         this.getServer().getScheduler().runTaskTimer(this, this.bossBarManager, 0, 5);
         this.countdownManager = new CountdownManager();
+        this.getServer().getPluginManager().registerEvents(this.countdownManager, this);
     }
 
     private void registerCommands() {
