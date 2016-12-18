@@ -1,6 +1,6 @@
 package net.avicus.compendium.settings.command;
 
-import net.avicus.compendium.plugin.PlayerSettings;
+import net.avicus.compendium.settings.PlayerSettings;
 import net.avicus.compendium.settings.Setting;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SettingTabCompleter implements TabCompleter {
+
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String alias, String[] args) {
         List<String> list = new ArrayList<>();

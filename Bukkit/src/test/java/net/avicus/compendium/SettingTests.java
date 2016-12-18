@@ -3,9 +3,7 @@ package net.avicus.compendium;
 import net.avicus.compendium.locale.text.UnlocalizedText;
 import net.avicus.compendium.settings.Setting;
 import net.avicus.compendium.settings.SettingStore;
-import net.avicus.compendium.settings.types.BooleanSettingType;
-import net.avicus.compendium.settings.types.EnumSettingType;
-import net.avicus.compendium.settings.types.NumberSettingType;
+import net.avicus.compendium.settings.types.SettingTypes;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -15,7 +13,7 @@ import java.util.UUID;
 public class SettingTests {
     private static final Setting<Boolean> JOIN_MESSAGES = new Setting<>(
             "join-messages",
-            new BooleanSettingType(),
+            SettingTypes.BOOLEAN,
             true,
             new UnlocalizedText("Join Messages"),
             Collections.emptyList(),
@@ -23,7 +21,7 @@ public class SettingTests {
 
     private static final Setting<Often> SPAM = new Setting<>(
             "spam",
-            new EnumSettingType<>(Often.class),
+            SettingTypes.enumOf(Often.class),
             Often.NEVER,
             new UnlocalizedText("Spam Amount"),
             Collections.emptyList(),
@@ -31,7 +29,7 @@ public class SettingTests {
 
     private static final Setting<Integer> VIEW_DISTANCE = new Setting<>(
             "view-distance",
-            new NumberSettingType<>(Integer.class),
+            SettingTypes.INTEGER,
             5,
             new UnlocalizedText("View Distance"),
             Collections.emptyList(),
