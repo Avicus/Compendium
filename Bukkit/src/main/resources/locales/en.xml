@@ -36,8 +36,8 @@
             <no-permission>You don't have permission.</no-permission>
             <internal-error>An internal error occurred while processing that command.</internal-error>
             <invalid-usage>Usage: {0}</invalid-usage>
+            <must-be-player>You must be a player to use that command.</must-be-player>
         </command>
-        <not-player>You must be a player to use this command.</not-player>
         <settings-help>Use "/settings" to show available settings.</settings-help>
         <not-toggle>That setting cannot be toggled.</not-toggle>
         <invalid-value>You have provided an invalid value.</invalid-value>

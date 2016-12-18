@@ -5,6 +5,7 @@ import com.sk89q.minecraft.util.commands.CommandContext;
 import net.avicus.compendium.Paginator;
 import net.avicus.compendium.TextStyle;
 import net.avicus.compendium.commands.exception.InvalidPaginationPageException;
+import net.avicus.compendium.commands.exception.MustBePlayerCommandException;
 import net.avicus.compendium.commands.exception.TranslatableCommandErrorException;
 import net.avicus.compendium.locale.Locales;
 import net.avicus.compendium.locale.text.Localizable;
@@ -36,9 +37,7 @@ public class SettingCommands {
     public static void set(CommandContext args, CommandSender sender) throws TranslatableCommandErrorException {
         Locale locale = Locales.getLocale(sender);
 
-        if (!(sender instanceof Player)) {
-            throw new TranslatableCommandErrorException(Messages.ERRORS_NOT_PLAYER);
-        }
+        MustBePlayerCommandException.ensurePlayer(sender);
 
         Player player = (Player) sender;
 
@@ -68,9 +67,7 @@ public class SettingCommands {
 
     @Command(aliases = {"setting"}, desc = "See a setting's value and information.", min = 1, usage = "<name>")
     public static void setting(CommandContext args, CommandSender sender) throws TranslatableCommandErrorException {
-        if (!(sender instanceof Player)) {
-            throw new TranslatableCommandErrorException(Messages.ERRORS_NOT_PLAYER);
-        }
+        MustBePlayerCommandException.ensurePlayer(sender);
 
         Locale locale = Locales.getLocale(sender);
         String query = args.getString(0);
@@ -127,9 +124,7 @@ public class SettingCommands {
 
     @Command(aliases = {"settings"}, desc = "List available settings.", max = 0, usage = "[page/query]")
     public static void settings(CommandContext args, CommandSender sender) throws TranslatableCommandErrorException {
-        if (!(sender instanceof Player)) {
-            throw new TranslatableCommandErrorException(Messages.ERRORS_NOT_PLAYER);
-        }
+        MustBePlayerCommandException.ensurePlayer(sender);
 
         Locale locale = Locales.getLocale(sender);
 
@@ -206,9 +201,7 @@ public class SettingCommands {
 
     @Command(aliases = {"toggle"}, desc = "Toggle a setting between values.", max = 1)
     public static void toggle(CommandContext args, CommandSender sender) throws TranslatableCommandErrorException {
-        if (!(sender instanceof Player)) {
-            throw new TranslatableCommandErrorException(Messages.ERRORS_NOT_PLAYER);
-        }
+        MustBePlayerCommandException.ensurePlayer(sender);
 
         Locale locale = Locales.getLocale(sender);
         String query = args.getString(0);

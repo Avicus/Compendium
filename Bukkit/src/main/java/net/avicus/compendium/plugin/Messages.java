@@ -24,7 +24,7 @@ public class Messages {
     public static final LocalizedFormat ERRORS_COMMAND_NUMBER_EXPECTED = get("errors.command.number-expected");
     public static final LocalizedFormat ERRORS_COMMAND_NO_PERMISSION = get("errors.command.no-permission");
     public static final LocalizedFormat ERRORS_COMMAND_INVALID_USAGE = get("errors.command.invalid-usage");
-    public static LocalizedFormat ERRORS_NOT_PLAYER = get("errors.not-player");
+    public static final LocalizedFormat ERRORS_COMMAND_MUST_BE_PLAYER = get("errors.command.must-be-player");
     public static LocalizedFormat ERRORS_SETTINGS_HELP = get("errors.settings-help");
     public static LocalizedFormat ERRORS_NO_SETTING = get("errors.no-setting");
     public static LocalizedFormat ERRORS_NOT_TOGGLE = get("errors.not-toggle");
