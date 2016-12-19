@@ -1,20 +1,11 @@
 package net.avicus.compendium.locale.text;
 
 import net.avicus.compendium.TextStyle;
-import net.md_5.bungee.api.chat.TextComponent;
+import net.avicus.magnet.api.text.translation.TranslatableComponent;
 
-import java.util.Locale;
-
-public interface Localizable {
+public interface Localizable extends TranslatableComponent {
 
     Localizable[] EMPTY = new Localizable[0];
-
-    /**
-     * Translates this to a language.
-     * @param locale
-     * @return
-     */
-    TextComponent translate(Locale locale);
 
     /**
      * Get the style of this.

@@ -2,7 +2,7 @@ package net.avicus.compendium.locale.text;
 
 import net.avicus.compendium.TextStyle;
 import net.avicus.compendium.locale.LocaleBundle;
-import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.BaseComponent;
 
 import java.util.*;
 import java.util.List;
@@ -34,7 +34,7 @@ public class LocalizedTextFormat implements Localizable {
     }
 
     @Override
-    public TextComponent translate(Locale locale) {
+    public BaseComponent translate(Locale locale) {
         String text = this.format.translate(locale).toLegacyText();
         UnlocalizedText sneaky = new UnlocalizedText(text, this.style, this.arguments);
         sneaky.style().inherit(this.style);

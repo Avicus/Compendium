@@ -79,15 +79,15 @@ public class CompendiumPlugin extends JavaPlugin {
         try {
             this.commandManager.execute(command.getName(), args, sender, sender);
         } catch (AbstractTranslatableCommandException e) {
-            PlayersBase.message(sender, AbstractTranslatableCommandException.format(e));
+            sender.sendMessage(AbstractTranslatableCommandException.format(e));
         } catch (CommandNumberFormatException e) {
-            PlayersBase.message(sender, AbstractTranslatableCommandException.error(Messages.ERRORS_COMMAND_NUMBER_EXPECTED, new UnlocalizedText(e.getActualText())));
+            sender.sendMessage(AbstractTranslatableCommandException.error(Messages.ERRORS_COMMAND_NUMBER_EXPECTED, new UnlocalizedText(e.getActualText())));
         } catch (CommandPermissionsException e) {
-            PlayersBase.message(sender, AbstractTranslatableCommandException.error(Messages.ERRORS_COMMAND_NO_PERMISSION));
+            sender.sendMessage(AbstractTranslatableCommandException.error(Messages.ERRORS_COMMAND_NO_PERMISSION));
         } catch (CommandUsageException e) {
-            PlayersBase.message(sender, AbstractTranslatableCommandException.error(Messages.ERRORS_COMMAND_INVALID_USAGE, new UnlocalizedText(e.getUsage())));
+            sender.sendMessage(AbstractTranslatableCommandException.error(Messages.ERRORS_COMMAND_INVALID_USAGE, new UnlocalizedText(e.getUsage())));
         } catch (CommandException e) {
-            PlayersBase.message(sender, AbstractTranslatableCommandException.error(Messages.ERRORS_COMMAND_INTERNAL_ERROR));
+            sender.sendMessage(AbstractTranslatableCommandException.error(Messages.ERRORS_COMMAND_INTERNAL_ERROR));
             e.printStackTrace();
         }
 

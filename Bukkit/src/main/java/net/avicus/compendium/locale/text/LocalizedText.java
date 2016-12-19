@@ -2,6 +2,7 @@ package net.avicus.compendium.locale.text;
 
 import net.avicus.compendium.TextStyle;
 import net.avicus.compendium.locale.LocaleBundle;
+import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 
 import java.util.*;
@@ -33,7 +34,7 @@ public class LocalizedText implements Localizable {
     }
 
     @Override
-    public TextComponent translate(Locale locale) {
+    public BaseComponent translate(Locale locale) {
         Optional<String> text = this.bundle.get(locale, this.key);
         if (!text.isPresent())
             return new TextComponent("translation: '" + this.key + "'");

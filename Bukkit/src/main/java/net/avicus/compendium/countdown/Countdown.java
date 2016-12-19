@@ -6,7 +6,6 @@ import lombok.Getter;
 import net.avicus.compendium.boss.BossBar;
 import net.avicus.compendium.locale.text.Localizable;
 import net.avicus.compendium.plugin.CompendiumPlugin;
-import net.avicus.compendium.plugin.PlayersBase;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.joda.time.Duration;
@@ -88,7 +87,7 @@ public abstract class Countdown {
     protected void updateBossBar(Localizable name, float percent) {
         for (Player player : Bukkit.getOnlinePlayers()) {
             this.getBossBar(player)
-                .setName(name.translate(PlayersBase.getLocale(player)))
+                .setName(name.translate(player.getLocale()))
                 .setPercent(percent);
         }
     }

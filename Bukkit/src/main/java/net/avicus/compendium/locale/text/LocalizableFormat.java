@@ -22,7 +22,7 @@ public interface LocalizableFormat<T extends Localizable> {
     }
 
     default T with(TextStyle style) {
-        return with(style, new Localizable[] {});
+        return with(style, Localizable.EMPTY);
     }
 
     default T with(TextStyle style, String... arguments) {

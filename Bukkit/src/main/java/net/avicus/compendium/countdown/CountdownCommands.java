@@ -16,7 +16,6 @@ import net.avicus.compendium.locale.text.UnlocalizedFormat;
 import net.avicus.compendium.locale.text.UnlocalizedText;
 import net.avicus.compendium.plugin.CompendiumPlugin;
 import net.avicus.compendium.plugin.Messages;
-import net.avicus.compendium.plugin.PlayersBase;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -52,15 +51,15 @@ public class CountdownCommands {
         LocalizedNumber pageNumber = new LocalizedNumber(page + 1);
         LocalizedNumber pagesNumber = new LocalizedNumber(paginator.getPageCount());
         Localizable title = Messages.GENERIC_COUNTDOWN_COMMAND_HEADER.with(ChatColor.YELLOW);
-        PlayersBase.message(source, header.with(line, title, pageNumber, pagesNumber, line));
+        source.sendMessage(header.with(line, title, pageNumber, pagesNumber, line));
 
         final UnlocalizedFormat format = new UnlocalizedFormat("{0}: {1}");
-        final HoverEvent hover = new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{Messages.GENERIC_COUNTDOWN_COMMAND_CANCEL_BUTTON.with().translate(PlayersBase.getLocale(source))});
+        final HoverEvent hover = new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{Messages.GENERIC_COUNTDOWN_COMMAND_CANCEL_BUTTON.with().translate(source.getLocale())});
         for (Map.Entry<Countdown, CountdownTask> countdown : paginator.getPage(page)) {
             LocalizedNumber number = new LocalizedNumber(countdown.getValue().getTaskId());
             number.style().color(ChatColor.YELLOW);
             number.style().click(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/countdown cancel " + countdown.getValue().getTaskId())).hover(hover);
-            PlayersBase.message(source, format.with(number, countdown.getKey().getName()));
+            source.sendMessage(format.with(number, countdown.getKey().getName()));
         }
     }
 
@@ -82,11 +81,11 @@ public class CountdownCommands {
                         throw new TranslatableCommandErrorException(Messages.ERRORS_COUNTDOWN_COMMAND_CANCEL_NONE_ACTIVE);
                     case 1:
                         manager.cancelAll();
-                        PlayersBase.message(source, Messages.GENERIC_COUNTDOWN_COMMAND_CANCEL_ALL_SINGULAR.with(ChatColor.GREEN));
+                        source.sendMessage(Messages.GENERIC_COUNTDOWN_COMMAND_CANCEL_ALL_SINGULAR.with(ChatColor.GREEN));
                         break;
                     default:
                         manager.cancelAll();
-                        PlayersBase.message(source, Messages.GENERIC_COUNTDOWN_COMMAND_CANCEL_ALL_PLURAL.with(ChatColor.GREEN, new LocalizedNumber(countdowns)));
+                        source.sendMessage(Messages.GENERIC_COUNTDOWN_COMMAND_CANCEL_ALL_PLURAL.with(ChatColor.GREEN, new LocalizedNumber(countdowns)));
                         break;
                 }
             }
@@ -96,7 +95,7 @@ public class CountdownCommands {
                     throw new TranslatableCommandErrorException(Messages.ERRORS_COUNTDOWN_COMMAND_CANCEL_NO_SUCH_ID, new UnlocalizedText(args.getString(0)));
 
                 manager.cancel(countdown.getCountdown());
-                PlayersBase.message(source, Messages.GENERIC_COUNTDOWN_COMMAND_CANCEL_SINGULAR.with(ChatColor.GREEN, countdown.getCountdown().getName(), new LocalizedNumber(countdown.getTaskId())));
+                source.sendMessage(Messages.GENERIC_COUNTDOWN_COMMAND_CANCEL_SINGULAR.with(ChatColor.GREEN, countdown.getCountdown().getName(), new LocalizedNumber(countdown.getTaskId())));
             }
         }
     }

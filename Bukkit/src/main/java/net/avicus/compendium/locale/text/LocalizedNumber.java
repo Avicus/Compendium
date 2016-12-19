@@ -1,7 +1,7 @@
 package net.avicus.compendium.locale.text;
 
 import net.avicus.compendium.TextStyle;
-import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.BaseComponent;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -33,7 +33,7 @@ public class LocalizedNumber implements Localizable {
 
 
     @Override
-    public TextComponent translate(Locale locale) {
+    public BaseComponent translate(Locale locale) {
         NumberFormat format = NumberFormat.getInstance(locale);
         format.setMinimumFractionDigits(this.minDecimals);
         format.setMaximumFractionDigits(this.maxDecimals);

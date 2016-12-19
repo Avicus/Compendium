@@ -5,7 +5,6 @@ import net.avicus.compendium.locale.text.LocalizedFormat;
 import net.avicus.compendium.locale.text.LocalizedText;
 import net.avicus.compendium.locale.text.UnlocalizedText;
 import net.avicus.compendium.plugin.Messages;
-import net.avicus.compendium.plugin.PlayersBase;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.joda.time.Duration;
@@ -37,7 +36,7 @@ public class RestartingCountdown extends Countdown {
                 formatter = Messages.GENERIC_COUNTDOWN_TYPE_RESTARTING_TIME_SINGULAR;
 
             LocalizedText message = formatter.with(ChatColor.GOLD, time);
-            PlayersBase.broadcast(message);
+            Bukkit.broadcast(message);
         }
     }
 

@@ -1,7 +1,7 @@
 package net.avicus.compendium.locale.text;
 
 import net.avicus.compendium.TextStyle;
-import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.BaseComponent;
 import org.ocpsoft.prettytime.PrettyTime;
 import org.ocpsoft.prettytime.units.JustNow;
 
@@ -28,7 +28,7 @@ public class LocalizedTime implements Localizable {
     }
 
     @Override
-    public TextComponent translate(Locale locale) {
+    public BaseComponent translate(Locale locale) {
         PrettyTime pretty = new PrettyTime(locale);
         // "moments ago" only shows when less than 5 seconds
         pretty.getUnits()
