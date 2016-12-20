@@ -1,12 +1,13 @@
 package net.avicus.compendium.inventory;
 
+import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.material.MaterialData;
 
 import java.util.List;
 
 public class MultiMaterialMatcher implements MaterialMatcher {
-    private final List<SingleMaterialMatcher> matchers;
+    @Getter private final List<SingleMaterialMatcher> matchers;
 
     public MultiMaterialMatcher(List<SingleMaterialMatcher> matchers) {
         this.matchers = matchers;
@@ -20,23 +21,13 @@ public class MultiMaterialMatcher implements MaterialMatcher {
         return false;
     }
 
-    public void replaceMaterial(Material material, Byte data) {
-        if (!this.matches(material, data))
-            return;
-
+    public void replaceMaterial(MultiMaterialMatcher find, SingleMaterialMatcher replace) {
         for (SingleMaterialMatcher matcher : this.matchers) {
-            if (matcher.matches(material, data)) {
-                this.matchers.remove(matcher);
-                this.matchers.add(new SingleMaterialMatcher(material, data));
-            }
-        }
-    }
-
-    public void replaceMaterial(MaterialData material) {
-        for (SingleMaterialMatcher matcher : this.matchers) {
-            if (matcher.matches(material)) {
-                this.matchers.remove(matcher);
-                this.matchers.add(new SingleMaterialMatcher(material.getItemType()));
+            for (SingleMaterialMatcher findMatcher : find.getMatchers()) {
+                if (findMatcher.matches(matcher.getMaterial(), matcher.getData().orElse((byte) 0))) {
+                    this.matchers.remove(matcher);
+                    this.matchers.add(new SingleMaterialMatcher(replace.getMaterial(), replace.getData()));
+                }
             }
         }
     }
