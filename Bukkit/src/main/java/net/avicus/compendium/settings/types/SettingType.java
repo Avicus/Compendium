@@ -1,4 +1,6 @@
-package net.avicus.compendium.settings;
+package net.avicus.compendium.settings.types;
+
+import net.avicus.compendium.settings.SettingValue;
 
 import java.util.Optional;
 

@@ -1,47 +1,58 @@
 package net.avicus.compendium.settings.types;
 
-import net.avicus.compendium.settings.SettingType;
+import com.google.common.collect.ImmutableMap;
 import net.avicus.compendium.settings.SettingValueToggleable;
 import net.avicus.compendium.settings.types.EnumSettingType.EnumSettingValue;
 
+import java.util.Map;
 import java.util.Optional;
+
+import javax.annotation.concurrent.Immutable;
 
 /**
  * Any type of enumerator setting.
  * @param <E>
  */
+@Immutable
 public class EnumSettingType<E extends Enum> implements SettingType<EnumSettingValue<E>, E> {
-    private final Class<E> type;
 
-    public EnumSettingType(Class<E> type) {
+    private final Class<E> type;
+    private final Map<String, E> constants;
+
+    protected EnumSettingType(Class<E> type) {
         this.type = type;
+
+        ImmutableMap.Builder<String, E> builder = ImmutableMap.builder();
+
+        E[] constants = this.type.getEnumConstants();
+        for (E constant : constants) {
+            builder.put(constant.name().toLowerCase(), constant);
+        }
+
+        this.constants = builder.build();
     }
 
     @Override
     public Optional<EnumSettingValue<E>> parse(String raw) {
         raw = raw.toLowerCase();
 
-        E[] options = this.type.getEnumConstants();
         E result = null;
         E close = null;
 
-        for (E option : options) {
-            if (option.name().equalsIgnoreCase(raw)) {
-                result = option;
+        for (Map.Entry<String, E> entry : this.constants.entrySet()) {
+            if (entry.getKey().equals(raw)) {
+                result = entry.getValue();
                 break;
             }
-            else if (option.name().toLowerCase().startsWith(raw)) {
-                close = option;
+            else if (entry.getKey().startsWith(raw)) {
+                close = entry.getValue();
             }
         }
 
         if (result == null)
             result = close;
 
-        if (result == null)
-            return Optional.empty();
-
-        return Optional.of(value(result));
+        return Optional.ofNullable(result).map(this::value);
     }
 
     @Override
@@ -49,6 +60,7 @@ public class EnumSettingType<E extends Enum> implements SettingType<EnumSettingV
         return new EnumSettingValue<>(this.type, raw);
     }
 
+    @Immutable
     public static class EnumSettingValue<E extends Enum> implements SettingValueToggleable<E> {
         private final Class<E> type;
         private final E raw;
@@ -70,13 +82,8 @@ public class EnumSettingType<E extends Enum> implements SettingType<EnumSettingV
 
         @Override
         public E next() {
-            E[] options = this.type.getEnumConstants();
-            int current = this.raw.ordinal();
-
-            if (current + 1 >= options.length)
-                return options[0];
-
-            return options[current + 1];
+            E[] constants = this.type.getEnumConstants();
+            return constants[(this.raw.ordinal() + 1) % constants.length];
         }
     }
 }

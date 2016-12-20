@@ -12,7 +12,7 @@ import net.avicus.compendium.locale.text.LocalizedNumber;
 import net.avicus.compendium.locale.text.UnlocalizedFormat;
 import net.avicus.compendium.locale.text.UnlocalizedText;
 import net.avicus.compendium.plugin.Messages;
-import net.avicus.compendium.plugin.PlayerSettings;
+import net.avicus.compendium.settings.PlayerSettings;
 import net.avicus.compendium.settings.Setting;
 import net.avicus.compendium.settings.SettingValue;
 import net.avicus.compendium.settings.SettingValueToggleable;
