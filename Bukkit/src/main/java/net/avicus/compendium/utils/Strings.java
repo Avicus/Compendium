@@ -14,6 +14,7 @@ import org.joda.time.format.PeriodFormatterBuilder;
 import java.util.Collection;
 import java.util.List;
 
+// TODO - move methods into StringUtil if they work with strings, or their own class - this one is a mess
 public class Strings {
     public static String addColors(String message) {
         if (message == null)
