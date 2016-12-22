@@ -1,9 +1,8 @@
 package net.avicus.compendium.locale.text;
 
 import net.avicus.compendium.TextStyle;
+import net.avicus.compendium.utils.Time;
 import net.md_5.bungee.api.chat.BaseComponent;
-import org.ocpsoft.prettytime.PrettyTime;
-import org.ocpsoft.prettytime.units.JustNow;
 
 import java.util.Date;
 import java.util.Locale;
@@ -29,13 +28,7 @@ public class LocalizedTime implements Localizable {
 
     @Override
     public BaseComponent translate(Locale locale) {
-        PrettyTime pretty = new PrettyTime(locale);
-        // "moments ago" only shows when less than 5 seconds
-        pretty.getUnits()
-              .stream()
-              .filter(unit -> unit instanceof JustNow)
-              .forEach(unit -> ((JustNow) unit).setMaxQuantity(10000L));
-        String time = pretty.format(this.date);
+        String time = Time.prettyTime(locale).format(this.date);
         return new UnlocalizedText(time, this.style).translate(locale);
     }
 
