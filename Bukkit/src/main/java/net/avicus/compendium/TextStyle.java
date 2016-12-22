@@ -1,5 +1,6 @@
 package net.avicus.compendium;
 
+import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -9,6 +10,8 @@ import java.util.Optional;
 
 @SuppressWarnings("unchecked")
 public class TextStyle {
+
+    private static final ChatColor[] COLORS = ChatColor.values();
     private Optional<ChatColor> color = Optional.empty();
     private Optional<Boolean> bold = Optional.empty();
     private Optional<Boolean> italic = Optional.empty();
@@ -30,6 +33,19 @@ public class TextStyle {
         return new TextStyle();
     }
 
+    public static TextStyle from(BaseComponent component) {
+        final TextStyle style = TextStyle.create();
+        style.color = Optional.ofNullable(component.getColorRaw() == null ? null : COLORS[component.getColorRaw().ordinal()]);
+        style.bold = Optional.ofNullable(component.isBoldRaw());
+        style.italic = Optional.ofNullable(component.isItalicRaw());
+        style.underlined = Optional.ofNullable(component.isUnderlinedRaw());
+        style.magic = Optional.ofNullable(component.isObfuscatedRaw());
+        style.strike = Optional.ofNullable(component.isStrikethroughRaw());
+        style.click(component.getClickEvent());
+        style.hover(component.getHoverEvent());
+        return style;
+    }
+
     private TextStyle() {
 
     }
@@ -38,8 +54,11 @@ public class TextStyle {
         return new TextStyle().inherit(this);
     }
 
-    public TextComponent apply(String text) {
-        TextComponent message = new TextComponent(text);
+    public BaseComponent apply(String text) {
+        return this.apply(new TextComponent(text));
+    }
+
+    public BaseComponent apply(BaseComponent message) {
         if (this.color.isPresent())
             message.setColor(net.md_5.bungee.api.ChatColor.valueOf(this.color.get().name()));
         if (this.bold.isPresent())

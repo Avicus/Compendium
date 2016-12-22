@@ -16,12 +16,12 @@ public class MultiPartLocalizable implements Localizable {
 
     @Override
     public TextStyle style() {
-        return null;
+        throw new UnsupportedOperationException("Multipart localizables do not have styling.");
     }
 
     @Override
     public Localizable duplicate() {
-        return null;
+        return new MultiPartLocalizable(this.args);
     }
 
     @Override
