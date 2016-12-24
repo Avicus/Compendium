@@ -1,7 +1,7 @@
 package net.avicus.compendium.locale.text;
 
 import net.avicus.compendium.TextStyle;
-import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.BaseComponent;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -21,7 +21,7 @@ public class LocalizedDate implements Localizable {
     }
 
     @Override
-    public TextComponent translate(Locale locale) {
+    public BaseComponent translate(Locale locale) {
         DateFormat format = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
         return new UnlocalizedText(format.format(this.date), this.style).translate(locale);
     }

@@ -3,8 +3,10 @@ package net.avicus.compendium.settings;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import net.avicus.compendium.locale.text.Localizable;
+import net.avicus.compendium.settings.types.SettingType;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -23,6 +25,14 @@ public class Setting<R> {
     @Getter private final List<Localizable> aliases;
     @Getter private final Localizable summary;
     @Getter private final Optional<Localizable> description;
+
+    public <V extends SettingValue<R>> Setting(String id,
+                                               SettingType<V, R> type,
+                                               R defaultValue,
+                                               Localizable name,
+                                               Localizable summary) {
+        this(id, type, defaultValue, name, Collections.emptyList(), summary, Optional.empty());
+    }
 
     public <V extends SettingValue<R>> Setting(String id,
                                                SettingType<V, R> type,

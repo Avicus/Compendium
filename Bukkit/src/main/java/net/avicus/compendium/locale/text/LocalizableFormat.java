@@ -4,12 +4,13 @@ import net.avicus.compendium.TextStyle;
 import org.bukkit.ChatColor;
 
 public interface LocalizableFormat<T extends Localizable> {
+
     T with(TextStyle style, Localizable... arguments);
 
     T with(Localizable... arguments);
 
     default T with() {
-        return with(new Localizable[] {});
+        return with(Localizable.EMPTY);
     }
 
     default T with(ChatColor color, Localizable... arguments) {
@@ -21,7 +22,7 @@ public interface LocalizableFormat<T extends Localizable> {
     }
 
     default T with(TextStyle style) {
-        return with(style, new Localizable[] {});
+        return with(style, Localizable.EMPTY);
     }
 
     default T with(TextStyle style, String... arguments) {

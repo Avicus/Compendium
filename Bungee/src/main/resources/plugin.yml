@@ -1,6 +1,6 @@
 name: Compendium
 main: net.avicus.compendium.CompendiumPlugin
 version: ${project.version}
+author: Avicus Network
 softdepend: []
 depends: []
-authors: [Avicus Network]

@@ -1,11 +1,13 @@
 package net.avicus.compendium.locale.text;
 
 import net.avicus.compendium.TextStyle;
+import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -20,7 +22,7 @@ public class UnlocalizedText implements Localizable {
     }
 
     public UnlocalizedText(String text, TextStyle style, Localizable... arguments) {
-        this(text, style, new ArrayList<>(Arrays.asList(arguments)));
+        this(text, style, arguments.length == 0 ? Collections.emptyList() : new ArrayList<>(Arrays.asList(arguments)));
     }
 
     public UnlocalizedText(String text, ChatColor color) {
@@ -37,7 +39,7 @@ public class UnlocalizedText implements Localizable {
     public TextComponent translate(Locale locale) {
         String format = this.text;
 
-        List<TextComponent> parts = new ArrayList<>();
+        List<BaseComponent> parts = new ArrayList<>();
 
         for (int i = 0; i < this.arguments.size(); i++) {
             Localizable curr = this.arguments.get(i);

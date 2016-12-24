@@ -1,31 +1,31 @@
 package net.avicus.compendium.settings.types;
 
-import net.avicus.compendium.settings.SettingType;
 import net.avicus.compendium.settings.SettingValue;
 import net.avicus.compendium.settings.types.NumberSettingType.NumberSettingValue;
 
-import java.lang.reflect.Method;
 import java.util.Optional;
+import java.util.function.Function;
+
+import javax.annotation.concurrent.Immutable;
 
 /**
  * Any type of number setting.
  * @param <N>
  */
-public class NumberSettingType<N extends Number> implements SettingType<NumberSettingValue<N>, N> {
-    private final Class<N> type;
+@Immutable
+public final class NumberSettingType<N extends Number> implements SettingType<NumberSettingValue<N>, N> {
 
-    public NumberSettingType(Class<N> type) {
-        this.type = type;
+    private final Function<String, N> function;
+
+    protected NumberSettingType(Function<String, N> function) {
+        this.function = function;
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public Optional<NumberSettingValue<N>> parse(String raw) {
         try {
-            Method valueOf = this.type.getDeclaredMethod("valueOf", String.class);
-            valueOf.setAccessible(true);
-
-            N number = (N) valueOf.invoke(null, raw);
+            N number = this.function.apply(raw);
             return Optional.of(value(number));
         } catch (Exception e) {
             return Optional.empty();
@@ -37,6 +37,7 @@ public class NumberSettingType<N extends Number> implements SettingType<NumberSe
         return new NumberSettingValue<>(raw);
     }
 
+    @Immutable
     public static class NumberSettingValue<N extends Number> implements SettingValue<N> {
         private final N raw;
 

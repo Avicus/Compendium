@@ -2,30 +2,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
-        <artifactId>compendium</artifactId>
         <groupId>net.avicus</groupId>
+        <artifactId>compendium</artifactId>
         <version>1.2-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
     <artifactId>compendium-core</artifactId>
 
-    <repositories>
-        <repository>
-            <id>avicus-repo</id>
-            <url>https://repo.avicus.net/content/groups/public</url>
-        </repository>
-    </repositories>
-
     <dependencies>
-        <!--  Snakeyaml  -->
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
             <version>1.17</version>
         </dependency>
-
         <dependency>
             <groupId>org.javalite</groupId>
             <artifactId>javalite-common</artifactId>

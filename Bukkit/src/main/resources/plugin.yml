@@ -1,18 +1,13 @@
-name: ${plugin.name}
-description: ${project.description}
-main: ${plugin.mainClass}
+name: Compendium
+main: net.avicus.compendium.plugin.CompendiumPlugin
 version: ${project.version}-${git.commit.id.abbrev}
-authors: [The Avicus Network]
+authors:
+- Avicus Network
+depend:
+- ProtocolLib
+- ViaVersion
 commands:
   set:
-    usage: /set <name> <value>
-    description: Set a setting to a specific value.
   setting:
-    usage: /setting <name>
-    description: See a setting's value and information.
   settings:
-    usage: /settings (page/query)
-    description: List available settings.
   toggle:
-    usage: /toggle <name>
-    description: Toggle a setting between values.

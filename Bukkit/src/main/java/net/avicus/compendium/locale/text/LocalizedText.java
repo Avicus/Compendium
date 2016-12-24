@@ -2,6 +2,7 @@ package net.avicus.compendium.locale.text;
 
 import net.avicus.compendium.TextStyle;
 import net.avicus.compendium.locale.LocaleBundle;
+import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 
 import java.util.*;
@@ -14,11 +15,11 @@ public class LocalizedText implements Localizable {
     private final TextStyle style;
 
     public LocalizedText(LocaleBundle bundle, String key, Localizable... arguments) {
-        this(bundle, key, TextStyle.create(), new ArrayList<>(Arrays.asList(arguments)));
+        this(bundle, key, TextStyle.create(), arguments.length == 0 ? Collections.emptyList() : Arrays.asList(arguments));
     }
 
     public LocalizedText(LocaleBundle bundle, String key, TextStyle style, Localizable... arguments) {
-        this(bundle, key, style, new ArrayList<>(Arrays.asList(arguments)));
+        this(bundle, key, style, arguments.length == 0 ? Collections.emptyList() : new ArrayList<>(Arrays.asList(arguments)));
     }
 
     public LocalizedText(LocaleBundle bundle, String key, List<Localizable> arguments) {
@@ -33,7 +34,7 @@ public class LocalizedText implements Localizable {
     }
 
     @Override
-    public TextComponent translate(Locale locale) {
+    public BaseComponent translate(Locale locale) {
         Optional<String> text = this.bundle.get(locale, this.key);
         if (!text.isPresent())
             return new TextComponent("translation: '" + this.key + "'");
