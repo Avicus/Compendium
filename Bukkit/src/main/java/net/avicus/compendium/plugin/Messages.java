@@ -16,9 +16,9 @@ public class Messages {
     public static final LocalizedFormat GENERIC_COUNTDOWN_COMMAND_CANCEL_ALL_SINGULAR = get("generic.countdown.command.cancel.all-singular");
     public static final LocalizedFormat GENERIC_COUNTDOWN_COMMAND_CANCEL_ALL_PLURAL = get("generic.countdown.command.cancel.all-plural");
     public static final LocalizedFormat GENERIC_COUNTDOWN_COMMAND_CANCEL_BUTTON = get("generic.countdown.command.cancel.button");
-    public static final LocalizedFormat GENERIC_COUNTDOWN_TYPE_RESTARTING_NAME = get("generic.countdown.command.type.restarting.name");
-    public static final LocalizedFormat GENERIC_COUNTDOWN_TYPE_RESTARTING_TIME_SINGULAR = get("generic.countdown.command.type.restarting.time-singular");
-    public static final LocalizedFormat GENERIC_COUNTDOWN_TYPE_RESTARTING_TIME_PLURAL = get("generic.countdown.command.type.restarting.time-plural");
+    public static final LocalizedFormat GENERIC_COUNTDOWN_TYPE_RESTARTING_NAME = get("generic.countdown.type.restarting.name");
+    public static final LocalizedFormat GENERIC_COUNTDOWN_TYPE_RESTARTING_TIME_SINGULAR = get("generic.countdown.type.restarting.time-singular");
+    public static final LocalizedFormat GENERIC_COUNTDOWN_TYPE_RESTARTING_TIME_PLURAL = get("generic.countdown.type.restarting.time-plural");
 
     public static final LocalizedFormat ERRORS_COMMAND_INTERNAL_ERROR = get("errors.command.internal-error");
     public static final LocalizedFormat ERRORS_COMMAND_NUMBER_EXPECTED = get("errors.command.number-expected");
