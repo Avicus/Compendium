@@ -15,7 +15,8 @@ public enum SoundLocation {
     FRIEND_LEAVE,
     PRIVATE_MESSAGE,
     TIP_MESSAGE,
-    OBJECTIVE_TOUCH;
+    OBJECTIVE_TOUCH,
+    OBJECTIVE_COMPLETE;
 
     SoundLocation() {
     }
