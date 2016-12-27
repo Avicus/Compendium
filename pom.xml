@@ -30,6 +30,10 @@
             <id>avicus-public</id>
             <url>https://repo.avicus.net/content/groups/public</url>
         </repository>
+        <repository>
+            <id>avicus-private</id>
+            <url>https://repo.avicus.net/content/groups/private/</url>
+        </repository>
     </repositories>
 
     <distributionManagement>
