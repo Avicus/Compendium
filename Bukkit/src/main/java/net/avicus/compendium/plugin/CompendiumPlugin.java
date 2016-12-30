@@ -14,12 +14,15 @@ import net.avicus.compendium.locale.LocaleBundle;
 import net.avicus.compendium.locale.LocaleStrings;
 import net.avicus.compendium.locale.text.UnlocalizedText;
 import net.avicus.compendium.countdown.CountdownCommands;
+import net.avicus.compendium.menu.inventory.InventoryListener;
 import net.avicus.compendium.settings.command.SettingCommands;
 import net.avicus.compendium.settings.command.SettingTabCompleter;
 import net.avicus.compendium.countdown.CountdownManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitScheduler;
 import org.jdom2.JDOMException;
 
 import java.io.IOException;
@@ -52,13 +55,17 @@ public class CompendiumPlugin extends JavaPlugin {
 
         this.registerCommands();
 
+        final PluginManager pm = this.getServer().getPluginManager();
+        final BukkitScheduler scheduler = this.getServer().getScheduler();
+
         final LegacyBossBarContext legacyContext = new LegacyBossBarContext();
-        this.getServer().getScheduler().runTaskTimer(this, legacyContext, 0, 5 * 20);
+        scheduler.runTaskTimer(this, legacyContext, 0, 5 * 20);
         this.bossBarManager = new BossBarManager(legacyContext);
-        this.getServer().getPluginManager().registerEvents(this.bossBarManager, this);
-        this.getServer().getScheduler().runTaskTimer(this, this.bossBarManager, 0, 5);
+        pm.registerEvents(this.bossBarManager, this);
+        scheduler.runTaskTimer(this, this.bossBarManager, 0, 5);
         this.countdownManager = new CountdownManager();
-        this.getServer().getPluginManager().registerEvents(this.countdownManager, this);
+        pm.registerEvents(this.countdownManager, this);
+        pm.registerEvents(new InventoryListener(), this);
     }
 
     private void registerCommands() {
