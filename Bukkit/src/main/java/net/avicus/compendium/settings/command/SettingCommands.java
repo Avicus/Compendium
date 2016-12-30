@@ -116,7 +116,7 @@ public class SettingCommands {
         }
     }
 
-    @Command(aliases = {"settings"}, desc = "List available settings.", max = 0, usage = "[page/query]")
+    @Command(aliases = {"settings"}, desc = "List available settings.", usage = "[page/query]")
     public static void settings(CommandContext args, CommandSender sender) throws TranslatableCommandErrorException {
         MustBePlayerCommandException.ensurePlayer(sender);
 
