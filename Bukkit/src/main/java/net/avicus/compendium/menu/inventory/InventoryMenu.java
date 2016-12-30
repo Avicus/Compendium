@@ -1,91 +1,81 @@
 package net.avicus.compendium.menu.inventory;
 
+import lombok.AccessLevel;
+import lombok.Getter;
 import net.avicus.compendium.menu.Menu;
-import net.avicus.compendium.plugin.CompendiumTask;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * A type of menu that is a virtual chest inventory that stores items, associated
  * by an index.
  */
 public class InventoryMenu implements Menu<InventoryMenuItem> {
-    private final Plugin plugin;
+
     private final Player player;
     private final InventoryIndexer indexer;
+    @Getter(AccessLevel.PACKAGE)
     private final InventoryHandler handler;
+    private final InventoryMenuAdapter adapter;
+    @Getter(AccessLevel.PACKAGE)
     private final Inventory inventory;
     private final Map<Integer, InventoryMenuItem> items;
-    private final Listener listener;
 
-    public InventoryMenu(Plugin plugin,
-                         Player player,
+    public InventoryMenu(Player player,
                          String title,
                          int rows) {
-        this(plugin, player, title, rows, null, null);
+        this(player, title, rows, null, null);
     }
 
-    public InventoryMenu(Plugin plugin,
-                         Player player,
+    public InventoryMenu(Player player,
                          String title,
                          int rows,
                          Collection<InventoryMenuItem> items) {
-        this(plugin, player, title, rows, null, null, items);
+        this(player, title, rows, null, null, items);
     }
 
-    public InventoryMenu(Plugin plugin,
-                         Player player,
+    public InventoryMenu(Player player,
                          String title,
                          int rows,
                          @Nullable InventoryHandler handler) {
-        this(plugin, player, title, rows, null, handler);
+        this(player, title, rows, null, handler);
     }
 
-    public InventoryMenu(Plugin plugin,
-                         Player player,
+    public InventoryMenu(Player player,
                          String title,
                          int rows,
                          @Nullable InventoryIndexer indexer) {
-        this(plugin, player, title, rows, indexer, null);
+        this(player, title, rows, indexer, null);
     }
 
-    public InventoryMenu(Plugin plugin,
-                         Player player,
+    public InventoryMenu(Player player,
                          String title,
                          int rows,
                          @Nullable InventoryIndexer indexer,
                          @Nullable InventoryHandler handler) {
-        this(plugin, player, title, rows, indexer, handler, null);
+        this(player, title, rows, indexer, handler, null);
     }
 
-    public InventoryMenu(Plugin plugin,
-                  Player player,
+    public InventoryMenu(Player player,
                   String title,
                   int rows,
                   @Nullable InventoryIndexer indexer,
                   @Nullable InventoryHandler handler,
                   @Nullable Collection<InventoryMenuItem> items) {
-        this.plugin = plugin;
         this.player = player;
         this.indexer = indexer == null ? new IndexedInventoryIndexer() : indexer;
         this.handler = handler == null ? new ClickableInventoryHandler() : handler;
-        this.inventory = Bukkit.createInventory(this.player, rows * 9, title);
+        this.adapter = new InventoryMenuAdapter(this);
+        this.inventory = Bukkit.createInventory(this.adapter, rows * 9, title);
         this.items = this.indexer.getIndices(this, items == null ? new ArrayList<>() : items);
-        this.listener = new InventoryMenuListener();
     }
 
     public void update(boolean force) {
@@ -120,10 +110,6 @@ public class InventoryMenu implements Menu<InventoryMenuItem> {
         // Update items
         update(true);
 
-        // Register listener
-        HandlerList.unregisterAll(this.listener);
-        this.player.getServer().getPluginManager().registerEvents(this.listener, this.plugin);
-
         // Open inventory if not open
         if (!Objects.equals(this.player.getOpenInventory(), this.inventory))
             this.player.openInventory(this.inventory);
@@ -131,9 +117,6 @@ public class InventoryMenu implements Menu<InventoryMenuItem> {
 
     @Override
     public void close() {
-        // Unregister listener
-        HandlerList.unregisterAll(this.listener);
-
         // Close inventory if open
         if (Objects.equals(this.player.getOpenInventory(), this.inventory))
             this.player.closeInventory();
@@ -211,69 +194,7 @@ public class InventoryMenu implements Menu<InventoryMenuItem> {
         return this.items.values();
     }
 
-    /**
-     * Handles clicks and closing the inventory.
-     */
-    private class InventoryMenuListener implements Listener {
-        @EventHandler
-        public void onInventoryOpen(InventoryOpenEvent event) {
-            // Close menu if the inventory being opened is not this one
-            if (event.getPlayer().equals(player) && !event.getInventory().equals(inventory))
-                close();
-        }
-
-        @EventHandler
-        public void onInventoryClose(InventoryCloseEvent event) {
-            // Close the menu if the player closes this inventory
-            if (event.getPlayer().equals(player) && event.getInventory().equals(inventory)) {
-                close();
-                new CompendiumTask() {
-
-                    @Override
-                    public void run() throws Exception {
-                        onExit();
-                    }
-                }.now();
-            }
-        }
-
-        @EventHandler
-        public void onPlayerQuit(PlayerQuitEvent event) {
-            // Close menu if player quits and had inventory open
-            if (event.getPlayer().equals(player) && Objects.equals(event.getPlayer().getInventory(), inventory)) {
-                close();
-                onExit();
-            }
-        }
-
-        @EventHandler
-        public void onInventoryClick(InventoryClickEvent event) {
-            if (!event.getWhoClicked().equals(player))
-                return;
-
-            InventoryMenu menu = InventoryMenu.this;
-
-            int index = event.getSlot();
-            ItemStack clicked = event.getCurrentItem();
-
-            if (event.getClickedInventory() == player.getInventory())
-                return;
-
-            Optional<InventoryMenuItem> item = Optional.empty();
-
-            if (clicked != null && clicked.getType() != Material.AIR) {
-                item = Optional.ofNullable(menu.items.get(index));
-
-                if (!item.isPresent()) {
-                    System.err.println("Clicked an ItemStack that isn't an InventoryMenuItem.");
-                    return;
-                }
-            }
-
-            menu.handler.onClick(menu, index, item, event.getClick());
-            event.setCancelled(true);
-        }
+    Map<Integer, InventoryMenuItem> getItemMap() {
+        return this.items;
     }
-
-
 }
