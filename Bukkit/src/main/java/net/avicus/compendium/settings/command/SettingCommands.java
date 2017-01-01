@@ -191,7 +191,7 @@ public class SettingCommands {
         }
     }
 
-    @Command(aliases = {"toggle"}, desc = "Toggle a setting between values.", max = 1)
+    @Command(aliases = {"toggle"}, desc = "Toggle a setting between values.", min = 1, max = 1)
     public static void toggle(CommandContext args, CommandSender sender) throws TranslatableCommandErrorException {
         MustBePlayerCommandException.ensurePlayer(sender);
 
