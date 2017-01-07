@@ -50,12 +50,15 @@ public class CountdownManager implements Listener {
         this.countdowns.put(countdown, task);
         countdown.onStart();
         task.runTaskTimer(CompendiumPlugin.getInstance(), 0, 20);
+
+        CompendiumPlugin.getInstance().getServer().getPluginManager().callEvent(new CountdownStartEvent(countdown));
     }
 
     public void cancel(Countdown countdown) {
         @Nullable CountdownTask task = this.countdowns.remove(countdown);
         if (task != null) {
             task.cancel();
+            CompendiumPlugin.getInstance().getServer().getPluginManager().callEvent(new CountdownCancelEvent(countdown));
         }
     }
 
@@ -69,6 +72,7 @@ public class CountdownManager implements Listener {
         }
 
         this.countdowns.keySet().removeAll(cancelled);
+        cancelled.forEach((countdown -> CompendiumPlugin.getInstance().getServer().getPluginManager().callEvent(new CountdownCancelEvent(countdown))));
     }
 
     public void cancelAll() {
@@ -78,6 +82,7 @@ public class CountdownManager implements Listener {
             it.remove();
         }
 
+        this.countdowns.keySet().forEach((countdown -> CompendiumPlugin.getInstance().getServer().getPluginManager().callEvent(new CountdownCancelEvent(countdown))));
         this.countdowns.clear();
     }
 
