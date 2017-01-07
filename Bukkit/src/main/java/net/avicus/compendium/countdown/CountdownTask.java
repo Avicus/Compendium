@@ -12,6 +12,7 @@ public class CountdownTask extends BukkitRunnable {
 
     private final CountdownManager manager;
     @Getter private final Countdown countdown;
+    @Getter(AccessLevel.PACKAGE)
     private int elapsedSeconds;
 
     @Override

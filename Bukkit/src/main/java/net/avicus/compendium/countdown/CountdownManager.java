@@ -6,6 +6,7 @@ import net.avicus.compendium.plugin.CompendiumPlugin;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.joda.time.Duration;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -88,5 +89,15 @@ public class CountdownManager implements Listener {
 
     public boolean isRunning(Class<? extends Countdown> clazz) {
         return this.countdowns.values().stream().anyMatch(countdown -> clazz.isInstance(clazz));
+    }
+
+    @Nullable
+    public Duration getTimeRemaining(Countdown countdown) {
+        if (!this.countdowns.containsKey(countdown))
+            return null;
+
+        CountdownTask task = this.countdowns.get(countdown);
+
+        return Duration.standardSeconds(task.getCountdown().getDuration().toStandardSeconds().getSeconds() - task.getElapsedSeconds());
     }
 }
