@@ -16,7 +16,8 @@ public enum SoundLocation {
     PRIVATE_MESSAGE,
     TIP_MESSAGE,
     OBJECTIVE_TOUCH,
-    OBJECTIVE_COMPLETE;
+    OBJECTIVE_COMPLETE,
+    WALL_FALL;
 
     SoundLocation() {
     }
