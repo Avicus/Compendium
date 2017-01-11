@@ -124,11 +124,20 @@ public final class LegacyBossBarContext implements Runnable {
          */
         @Nullable
         private LegacyBossBar get() {
-            if (this.bars.isEmpty()) {
+            final int size = this.bars.size();
+            if (size == 0) {
                 return null;
             }
 
+            this.adjust(size);
+
             return this.bars.get(this.index);
+        }
+
+        private void adjust(final int size) {
+            if (this.index == 1 && size == 1) {
+                this.index = 0;
+            }
         }
     }
 }
