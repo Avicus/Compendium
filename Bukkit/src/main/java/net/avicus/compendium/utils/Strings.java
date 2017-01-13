@@ -47,7 +47,7 @@ public class Strings {
         for(Object str : list) {
             if(i != 0) {
                 if(i == list.size() - 1) {
-                    builder.append(" and ");
+                    builder.append(", and ");
                 } else {
                     builder.append(", ");
                 }
