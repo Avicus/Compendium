@@ -178,7 +178,7 @@ public class SettingCommands {
         // Click me!
         BaseComponent[] clickMe = new BaseComponent[] {Messages.GENERIC_CLICK_ME.with(ChatColor.WHITE).translate(sender.getLocale())};
 
-        for (Setting setting : paginator.getCollection()) {
+        for (Setting setting : paginator.getPage(page)) {
             Localizable name = setting.getName().duplicate();
             name.style().click(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/setting " + name.translate(sender.getLocale()).toPlainText()));
             name.style().hover(new HoverEvent(HoverEvent.Action.SHOW_TEXT, clickMe));
