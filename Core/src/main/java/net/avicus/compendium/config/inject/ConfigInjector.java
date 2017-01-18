@@ -36,8 +36,7 @@ public class ConfigInjector {
 
             if (required && !exists)
                 throw new ConfigInjectionException("Missing required key: '" + key + "'.");
-            else if (!exists)
-                continue;
+            
 
             Object value = nested.get().get(key);
 
