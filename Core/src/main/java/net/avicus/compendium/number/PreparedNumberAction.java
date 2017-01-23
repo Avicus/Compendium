@@ -17,6 +17,10 @@ public class PreparedNumberAction {
         return this.action.perform(this.value.floatValue(), current);
     }
 
+    public long perform(long current) {
+        return this.action.perform(this.value.longValue(), current);
+    }
+
     public int perform(int current) {
         return this.action.perform(this.value.intValue(), current);
     }

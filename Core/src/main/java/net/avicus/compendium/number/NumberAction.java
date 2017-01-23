@@ -37,6 +37,16 @@ public interface NumberAction {
     }
 
     /**
+     * Performs the action on a long value.
+     * @param original
+     * @param modify
+     * @return
+     */
+    default long perform(long original, long modify) {
+        return (long) perform(new Long(original).doubleValue(), new Long(modify).doubleValue());
+    }
+
+    /**
      * Performs the action on an integer value.
      * @param original
      * @param modify
