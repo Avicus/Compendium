@@ -10,18 +10,18 @@ public class PreparedNumberAction {
     }
 
     public double perform(double current) {
-        return this.action.perform(this.value.doubleValue(), current);
+        return this.action.perform(current, this.value.doubleValue());
     }
 
     public float perform(float current) {
-        return this.action.perform(this.value.floatValue(), current);
+        return this.action.perform(current, this.value.floatValue());
     }
 
     public long perform(long current) {
-        return this.action.perform(this.value.longValue(), current);
+        return this.action.perform(current, this.value.longValue());
     }
 
     public int perform(int current) {
-        return this.action.perform(this.value.intValue(), current);
+        return this.action.perform(current, this.value.intValue());
     }
 }
