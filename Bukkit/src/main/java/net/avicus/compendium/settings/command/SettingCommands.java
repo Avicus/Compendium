@@ -19,6 +19,7 @@ import net.avicus.compendium.settings.SettingValueToggleable;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -60,9 +61,11 @@ public class SettingCommands {
         sender.sendMessage(Messages.GENERIC_SETTING_SET.with(ChatColor.GOLD, name, set));
     }
 
-    @Command(aliases = {"setting"}, desc = "See a setting's value and information.", min = 1, usage = "<name>")
+    @Command(aliases = {"setting"}, desc = "See a setting's value and information.", min = 1, usage = "<name>", flags = "o:")
     public static void setting(CommandContext args, CommandSender sender) throws TranslatableCommandErrorException {
-        MustBePlayerCommandException.ensurePlayer(sender);
+        final Player target = args.hasFlag('o') && sender.hasPermission("settings.other.view")
+            ? Bukkit.getPlayer(args.getFlag('o'), sender)
+            : MustBePlayerCommandException.ensurePlayer(sender);
 
         String query = args.getString(0);
 
@@ -93,7 +96,7 @@ public class SettingCommands {
         }
 
         // Current value
-        Object currentRaw = PlayerSettings.store().get(((Player) sender).getUniqueId(), setting);
+        Object currentRaw = PlayerSettings.store().get(target.getUniqueId(), setting);
         String current = setting.getType().value(currentRaw).serialize();
         Localizable currentText = new UnlocalizedText(current, ChatColor.WHITE);
 
@@ -107,7 +110,7 @@ public class SettingCommands {
         sender.sendMessage(Messages.GENERIC_DEFAULT.with(ChatColor.YELLOW, defText));
 
 
-        if (setting.getType().value(setting.getDefaultValue()) instanceof SettingValueToggleable) {
+        if (setting.getType().value(setting.getDefaultValue()) instanceof SettingValueToggleable && target.getName().equals(sender.getName())) {
             Localizable toggle = Messages.GENERIC_TOGGLE.with(ChatColor.YELLOW);
             toggle.style().italic();
             toggle.style().click(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/toggle " + name.translate(sender.getLocale()).toPlainText()));

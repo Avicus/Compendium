@@ -15,10 +15,12 @@ public final class MustBePlayerCommandException extends TranslatableCommandError
      *
      * @param source the command source
      * @throws MustBePlayerCommandException if the command source is not a {@link Player}
+     * @return the player
      */
-    public static void ensurePlayer(CommandSender source) throws MustBePlayerCommandException {
+    public static Player ensurePlayer(CommandSender source) throws MustBePlayerCommandException {
         if (!(source instanceof Player)) {
             throw new MustBePlayerCommandException();
         }
+        return (Player) source;
     }
 }
