@@ -106,6 +106,10 @@ public class Strings {
     }
 
     public static BaseComponent padTextComponent(TextComponent message, String padChar, ChatColor padColor, ChatColor messageColor) {
+        return padTextComponent(message, padChar, padColor.toString(), messageColor);
+    }
+
+    public static BaseComponent padTextComponent(TextComponent message, String padChar, String padColor, ChatColor messageColor) {
         final String pad = paddingFor(message.toPlainText(), padChar);
         final TextComponent component = new TextComponent(padColor + pad + ChatColor.RESET);
         BaseComponent copy = Components.copyStyle(message, new TextComponent(' ' + message.toPlainText() + ' '));
@@ -123,6 +127,13 @@ public class Strings {
 
     private static String paddingFor(String text, String padChar) {
         return com.google.common.base.Strings.repeat(padChar, (ChatPaginator.GUARANTEED_NO_WRAP_CHAT_PAGE_WIDTH - ChatColor.stripColor(text).length() - 2) / (padChar.length() * 2));
+    }
+
+    public static BaseComponent blankLine(ChatColor color) {
+        TextComponent line = new TextComponent(com.google.common.base.Strings.repeat(" ", (ChatPaginator.GUARANTEED_NO_WRAP_CHAT_PAGE_WIDTH) + 4));
+        line.setStrikethrough(true);
+        line.setColor(color.asBungee());
+        return line;
     }
 
     /**
