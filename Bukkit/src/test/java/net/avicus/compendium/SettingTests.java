@@ -37,7 +37,7 @@ public class SettingTests {
 
     @Test
     public void settings() {
-        SettingStore<UUID> store = new SettingStore<>();
+        SettingStore store = new SettingStore();
 
         UUID jimmy = UUID.randomUUID();
 
@@ -67,7 +67,7 @@ public class SettingTests {
         System.out.println("=== Output ===");
         System.out.println(store);
 
-        SettingStore<UUID> clone = new SettingStore<>();
+        SettingStore clone = new SettingStore();
         clone.set(store.get(), Arrays.asList(JOIN_MESSAGES, SPAM, VIEW_DISTANCE));
         System.out.println("=== Clone ===");
         System.out.println(clone);

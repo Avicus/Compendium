@@ -12,7 +12,7 @@ import java.util.UUID;
 public class PlayerSettings {
 
     /** The global setting store. */
-    private static final SettingStore<UUID> STORE = new SettingStore<>();
+    private static final SettingStore STORE = new SettingStore();
     /** The global setting list. */
     private static final List<Setting> SETTINGS = new ArrayList<>();
 
@@ -21,7 +21,7 @@ public class PlayerSettings {
      *
      * @return the global setting store
      */
-    public static SettingStore<UUID> store() {
+    public static SettingStore store() {
         return STORE;
     }
 
@@ -36,6 +36,7 @@ public class PlayerSettings {
 
     /**
      * Register a setting to the global setting list.
+     *
      *
      * @param setting the setting
      * @param <R> the value type

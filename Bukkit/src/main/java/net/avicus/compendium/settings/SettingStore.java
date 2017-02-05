@@ -1,16 +1,18 @@
 package net.avicus.compendium.settings;
 
 import com.google.common.collect.ArrayListMultimap;
+import net.avicus.compendium.plugin.CompendiumPlugin;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import java.util.*;
 import java.util.Map.Entry;
 
 /**
- * Stores any number of settings for any number of keys (such as users).
- * @param <K>
+ * Stores any number of settings for UUIDs.
  */
-public class SettingStore<K> {
-    private final ArrayListMultimap<K, SettingContext> settings;
+public class SettingStore {
+    private final ArrayListMultimap<UUID, SettingContext> settings;
 
     public SettingStore() {
         this.settings = ArrayListMultimap.create();
@@ -24,7 +26,11 @@ public class SettingStore<K> {
      * @param <R>
      * @return The new value.
      */
-    public <R> R set(K key, Setting<R> setting, R value) {
+    public <R> R set(UUID key, Setting<R> setting, R value) {
+        return set(key, setting, value, true);
+    }
+
+    public <R> R set(UUID key, Setting<R> setting, R value, boolean callEvent) {
         List<SettingContext> list = new ArrayList<>(this.settings.values());
         for (SettingContext context : list) {
             if (context.getSetting().equals(setting)) {
@@ -33,8 +39,16 @@ public class SettingStore<K> {
             }
         }
 
-        this.settings.put(key, new SettingContext<>(setting, setting.getType().value(value)));
+        SettingContext context = new SettingContext<>(setting, setting.getType().value(value));
+        this.settings.put(key, context);
+        Player player = Bukkit.getPlayer(key);
+        if (player != null && callEvent)
+            Bukkit.getPluginManager().callEvent(new SettingModifyEvent(CompendiumPlugin.getInstance(), context, player));
         return value;
+    }
+
+    public void set(UUID key, Map<String, String> parse, Collection<Setting> settings) {
+        set(key, parse, settings, false);
     }
 
     /**
@@ -44,7 +58,7 @@ public class SettingStore<K> {
      * @param settings
      */
     @SuppressWarnings("unchecked")
-    public void set(K key, Map<String, String> parse, Collection<Setting> settings) {
+    public void set(UUID key, Map<String, String> parse, Collection<Setting> settings, boolean callEvent) {
         for (Entry<String, String> entry : parse.entrySet()) {
             String id = entry.getKey();
             String value = entry.getValue();
@@ -58,7 +72,7 @@ public class SettingStore<K> {
                         Object raw = parsed.isPresent() ? parsed.get()
                                                                 .raw() : setting.getDefaultValue();
 
-                        this.set(key, setting, raw);
+                        this.set(key, setting, raw, callEvent);
                     });
         }
     }
@@ -68,8 +82,8 @@ public class SettingStore<K> {
      * @param parse
      * @param settings
      */
-    public void set(Map<K, Map<String, String>> parse, Collection<Setting> settings) {
-        for (Entry<K, Map<String, String>> entry : parse.entrySet())
+    public void set(Map<UUID, Map<String, String>> parse, Collection<Setting> settings) {
+        for (Entry<UUID, Map<String, String>> entry : parse.entrySet())
             set(entry.getKey(), entry.getValue(), settings);
     }
 
@@ -81,7 +95,7 @@ public class SettingStore<K> {
      * @return
      */
     @SuppressWarnings("unchecked")
-    public <R> R get(K key, Setting<R> setting) {
+    public <R> R get(UUID key, Setting<R> setting) {
         List<SettingContext> set = this.settings.get(key);
         for (SettingContext context : set) {
             if (context.getSetting().equals(setting))
@@ -95,7 +109,7 @@ public class SettingStore<K> {
      * @param key
      * @return
      */
-    public Map<String, String> get(K key) {
+    public Map<String, String> get(UUID key) {
         Map<String, String> values = new LinkedHashMap<>();
         for (SettingContext context : this.settings.get(key)) {
             String id = context.getSetting().getId();
@@ -109,9 +123,9 @@ public class SettingStore<K> {
      * Retrieve all settings.
      * @return
      */
-    public Map<K, Map<String, String>> get() {
-        Map<K, Map<String, String>> values = new LinkedHashMap<>();
-        for (K key : this.settings.keySet())
+    public Map<UUID, Map<String, String>> get() {
+        Map<UUID, Map<String, String>> values = new LinkedHashMap<>();
+        for (UUID key : this.settings.keySet())
             values.put(key, get(key));
         return values;
     }
@@ -124,7 +138,7 @@ public class SettingStore<K> {
      * @return The new value if changed, otherwise empty (indicating the setting isn't toggleable).
      */
     @SuppressWarnings("unchecked")
-    public <R> Optional<R> toggle(K key, Setting<R> setting) {
+    public <R> Optional<R> toggle(UUID key, Setting<R> setting) {
         R current = get(key, setting);
 
         SettingValue<R> value = setting.getType().value(current);
