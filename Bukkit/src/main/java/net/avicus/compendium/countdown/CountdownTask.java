@@ -3,6 +3,7 @@ package net.avicus.compendium.countdown;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.joda.time.Duration;
 import org.joda.time.Seconds;
@@ -13,6 +14,7 @@ public class CountdownTask extends BukkitRunnable {
     private final CountdownManager manager;
     @Getter private final Countdown countdown;
     @Getter(AccessLevel.PACKAGE)
+    @Setter(AccessLevel.PACKAGE)
     private int elapsedSeconds;
 
     @Override

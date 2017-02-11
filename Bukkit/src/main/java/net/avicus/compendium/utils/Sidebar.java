@@ -77,7 +77,8 @@ public class Sidebar {
      * @param text
      */
     public void setTitle(String text) {
-        this.objective.setDisplayName(text);
+        if (!this.objective.getDisplayName().equals(text))
+            this.objective.setDisplayName(text);
     }
 
     /**

@@ -4,6 +4,7 @@ import com.sk89q.minecraft.util.commands.CommandException;
 import com.sk89q.minecraft.util.commands.CommandNumberFormatException;
 import com.sk89q.minecraft.util.commands.CommandPermissionsException;
 import com.sk89q.minecraft.util.commands.CommandUsageException;
+import com.sk89q.minecraft.util.commands.WrappedCommandException;
 import lombok.Getter;
 import net.avicus.compendium.boss.BossBarManager;
 import net.avicus.compendium.boss.LegacyBossBarContext;
@@ -93,6 +94,8 @@ public class CompendiumPlugin extends JavaPlugin {
             sender.sendMessage(AbstractTranslatableCommandException.error(Messages.ERRORS_COMMAND_NO_PERMISSION));
         } catch (CommandUsageException e) {
             sender.sendMessage(AbstractTranslatableCommandException.error(Messages.ERRORS_COMMAND_INVALID_USAGE, new UnlocalizedText(e.getUsage())));
+        } catch (WrappedCommandException e) {
+            sender.sendMessage(e.getMessage());
         } catch (CommandException e) {
             sender.sendMessage(AbstractTranslatableCommandException.error(Messages.ERRORS_COMMAND_INTERNAL_ERROR));
             e.printStackTrace();

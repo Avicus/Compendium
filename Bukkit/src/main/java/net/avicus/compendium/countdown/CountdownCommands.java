@@ -104,7 +104,7 @@ public class CountdownCommands {
 
         @Command(aliases = {"modtime", "mt"}, desc = "Modify the time remaining of a countdown.", max = 2, flags = "a")
         @CommandPermissions("compendium.countdown.cancel")
-        public static void modtimr(CommandContext args, CommandSender source) throws CommandException {
+        public static void modtime(CommandContext args, CommandSender source) throws CommandException {
             final CountdownManager manager = CompendiumPlugin.getInstance().getCountdownManager();
 
             if (args.hasFlag('a')) {
@@ -120,11 +120,17 @@ public class CountdownCommands {
                     case 0:
                         throw new TranslatableCommandErrorException(Messages.ERRORS_COUNTDOWN_COMMAND_NONE_ACTIVE);
                     case 1:
-                        manager.getCountdowns().keySet().forEach(countdown -> countdown.setDuration(duration));
+                        manager.getCountdowns().forEach((countdown, task) -> {
+                            task.setElapsedSeconds(0);
+                            countdown.setDuration(duration);
+                        });
                         source.sendMessage(Messages.GENERIC_COUNTDOWN_COMMAND_MODTIME_ALL_SINGULAR.with(ChatColor.GREEN));
                         break;
                     default:
-                        manager.getCountdowns().keySet().forEach(countdown -> countdown.setDuration(duration));
+                        manager.getCountdowns().forEach((countdown, task) -> {
+                            task.setElapsedSeconds(0);
+                            countdown.setDuration(duration);
+                        });
                         source.sendMessage(Messages.GENERIC_COUNTDOWN_COMMAND_MODTIME_ALL_PLURAL.with(ChatColor.GREEN, new LocalizedNumber(countdowns)));
                         break;
                 }
@@ -140,6 +146,7 @@ public class CountdownCommands {
                 if (countdown == null)
                     throw new TranslatableCommandErrorException(Messages.ERRORS_COUNTDOWN_COMMAND_NO_SUCH_ID, new UnlocalizedText(args.getString(0)));
 
+                countdown.setElapsedSeconds(0);
                 countdown.getCountdown().setDuration(duration);
                 source.sendMessage(Messages.GENERIC_COUNTDOWN_COMMAND_MODTIME_SINGULAR.with(ChatColor.GREEN, countdown.getCountdown().getName(), new LocalizedNumber(countdown.getTaskId())));
             }
