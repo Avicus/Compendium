@@ -16,6 +16,9 @@ public class Messages {
     public static final LocalizedFormat GENERIC_COUNTDOWN_COMMAND_CANCEL_ALL_SINGULAR = get("generic.countdown.command.cancel.all-singular");
     public static final LocalizedFormat GENERIC_COUNTDOWN_COMMAND_CANCEL_ALL_PLURAL = get("generic.countdown.command.cancel.all-plural");
     public static final LocalizedFormat GENERIC_COUNTDOWN_COMMAND_CANCEL_BUTTON = get("generic.countdown.command.cancel.button");
+    public static final LocalizedFormat GENERIC_COUNTDOWN_COMMAND_MODTIME_SINGULAR = get("generic.countdown.command.modtime.singular");
+    public static final LocalizedFormat GENERIC_COUNTDOWN_COMMAND_MODTIME_ALL_SINGULAR = get("generic.countdown.command.modtime.all-singular");
+    public static final LocalizedFormat GENERIC_COUNTDOWN_COMMAND_MODTIME_ALL_PLURAL = get("generic.countdown.command.modtime.all-plural");
     public static final LocalizedFormat GENERIC_COUNTDOWN_TYPE_RESTARTING_NAME = get("generic.countdown.type.restarting.name");
     public static final LocalizedFormat GENERIC_COUNTDOWN_TYPE_RESTARTING_TIME_SINGULAR = get("generic.countdown.type.restarting.time-singular");
     public static final LocalizedFormat GENERIC_COUNTDOWN_TYPE_RESTARTING_TIME_PLURAL = get("generic.countdown.type.restarting.time-plural");
@@ -30,8 +33,8 @@ public class Messages {
     public static LocalizedFormat ERRORS_NOT_TOGGLE = get("errors.not-toggle");
     public static LocalizedFormat ERRORS_INVALID_VALUE = get("errors.invalid-value");
     public static final LocalizedFormat ERRORS_INVALID_PAGE = get("errors.invalid-page");
-    public static final LocalizedFormat ERRORS_COUNTDOWN_COMMAND_CANCEL_NONE_ACTIVE = get("errors.countdown.command.cancel.none-active");
-    public static final LocalizedFormat ERRORS_COUNTDOWN_COMMAND_CANCEL_NO_SUCH_ID = get("errors.countdown.command.cancel.no-such-id");
+    public static final LocalizedFormat ERRORS_COUNTDOWN_COMMAND_NONE_ACTIVE = get("errors.countdown.command.none-active");
+    public static final LocalizedFormat ERRORS_COUNTDOWN_COMMAND_NO_SUCH_ID = get("errors.countdown.command.no-such-id");
 
     public static LocalizedFormat get(String path) {
         return CompendiumPlugin.getLocaleBundle().getFormat(path);

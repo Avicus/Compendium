@@ -19,6 +19,11 @@
                     <all-plural>{0} active countdowns have been cancelled.</all-plural>
                     <button>Click to cancel this countdown</button>
                 </cancel>
+                <modtime>
+                    <singular>{0} ({1}) countdown has been modified.</singular>
+                    <all-singular>1 active countdown has been modified.</all-singular>
+                    <all-plural>{0} active countdowns were modified.</all-plural>
+                </modtime>
             </command>
             <type>
                 <restarting>
@@ -45,10 +50,8 @@
 
         <countdown>
             <command>
-                <cancel>
-                    <none-active>There are no active countdowns.</none-active>
-                    <no-such-id>No countdown found with id {0}.</no-such-id>
-                </cancel>
+                <none-active>There are no active countdowns.</none-active>
+                <no-such-id>No countdown found with id {0}.</no-such-id>
             </command>
         </countdown>
     </errors>

@@ -3,6 +3,7 @@ package net.avicus.compendium.countdown;
 import com.google.common.collect.Maps;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import net.avicus.compendium.boss.BossBar;
 import net.avicus.compendium.locale.text.Localizable;
 import net.avicus.compendium.plugin.CompendiumPlugin;
@@ -16,7 +17,8 @@ import java.util.UUID;
 public abstract class Countdown {
 
     @Getter(AccessLevel.PACKAGE)
-    protected final Duration duration;
+    @Setter(AccessLevel.PACKAGE)
+    protected Duration duration;
     final Map<UUID, BossBar> bars = Maps.newHashMap();
     /** If the countdown has a pending reset. */
     private boolean resetPending;

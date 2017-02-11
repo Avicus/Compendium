@@ -5,6 +5,7 @@ import com.sk89q.minecraft.util.commands.CommandContext;
 import com.sk89q.minecraft.util.commands.CommandException;
 import com.sk89q.minecraft.util.commands.CommandPermissions;
 import com.sk89q.minecraft.util.commands.NestedCommand;
+import com.sk89q.minecraft.util.commands.WrappedCommandException;
 import net.avicus.compendium.Paginator;
 import net.avicus.compendium.TextStyle;
 import net.avicus.compendium.commands.exception.InvalidPaginationPageException;
@@ -16,11 +17,13 @@ import net.avicus.compendium.locale.text.UnlocalizedFormat;
 import net.avicus.compendium.locale.text.UnlocalizedText;
 import net.avicus.compendium.plugin.CompendiumPlugin;
 import net.avicus.compendium.plugin.Messages;
+import net.avicus.compendium.utils.Strings;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.joda.time.Duration;
 
 import java.util.Map;
 
@@ -38,7 +41,7 @@ public class CountdownCommands {
         Paginator<Map.Entry<Countdown, CountdownTask>> paginator = new Paginator<>(CompendiumPlugin.getInstance().getCountdownManager().getCountdowns().entrySet(), 7);
 
         if (paginator.getPageCount() == 0) {
-            throw new TranslatableCommandWarningException(Messages.ERRORS_COUNTDOWN_COMMAND_CANCEL_NONE_ACTIVE);
+            throw new TranslatableCommandWarningException(Messages.ERRORS_COUNTDOWN_COMMAND_NONE_ACTIVE);
         }
 
         if (!paginator.hasPage(page)) {
@@ -78,7 +81,7 @@ public class CountdownCommands {
                 final int countdowns = manager.getCountdowns().size();
                 switch (countdowns) {
                     case 0:
-                        throw new TranslatableCommandErrorException(Messages.ERRORS_COUNTDOWN_COMMAND_CANCEL_NONE_ACTIVE);
+                        throw new TranslatableCommandErrorException(Messages.ERRORS_COUNTDOWN_COMMAND_NONE_ACTIVE);
                     case 1:
                         manager.cancelAll();
                         source.sendMessage(Messages.GENERIC_COUNTDOWN_COMMAND_CANCEL_ALL_SINGULAR.with(ChatColor.GREEN));
@@ -92,10 +95,53 @@ public class CountdownCommands {
             else {
                 @Nullable final CountdownTask countdown = manager.findByTaskId(args.getInteger(0));
                 if (countdown == null)
-                    throw new TranslatableCommandErrorException(Messages.ERRORS_COUNTDOWN_COMMAND_CANCEL_NO_SUCH_ID, new UnlocalizedText(args.getString(0)));
+                    throw new TranslatableCommandErrorException(Messages.ERRORS_COUNTDOWN_COMMAND_NO_SUCH_ID, new UnlocalizedText(args.getString(0)));
 
                 manager.cancel(countdown.getCountdown());
                 source.sendMessage(Messages.GENERIC_COUNTDOWN_COMMAND_CANCEL_SINGULAR.with(ChatColor.GREEN, countdown.getCountdown().getName(), new LocalizedNumber(countdown.getTaskId())));
+            }
+        }
+
+        @Command(aliases = {"modtime", "mt"}, desc = "Modify the time remaining of a countdown.", max = 2, flags = "a")
+        @CommandPermissions("compendium.countdown.cancel")
+        public static void modtimr(CommandContext args, CommandSender source) throws CommandException {
+            final CountdownManager manager = CompendiumPlugin.getInstance().getCountdownManager();
+
+            if (args.hasFlag('a')) {
+                Duration durationMaybe;
+                try {
+                    durationMaybe = Strings.toDuration(args.getString(0));
+                } catch (Exception e) {
+                    throw new WrappedCommandException(e);
+                }
+                final Duration duration = durationMaybe;
+                final int countdowns = manager.getCountdowns().size();
+                switch (countdowns) {
+                    case 0:
+                        throw new TranslatableCommandErrorException(Messages.ERRORS_COUNTDOWN_COMMAND_NONE_ACTIVE);
+                    case 1:
+                        manager.getCountdowns().keySet().forEach(countdown -> countdown.setDuration(duration));
+                        source.sendMessage(Messages.GENERIC_COUNTDOWN_COMMAND_MODTIME_ALL_SINGULAR.with(ChatColor.GREEN));
+                        break;
+                    default:
+                        manager.getCountdowns().keySet().forEach(countdown -> countdown.setDuration(duration));
+                        source.sendMessage(Messages.GENERIC_COUNTDOWN_COMMAND_MODTIME_ALL_PLURAL.with(ChatColor.GREEN, new LocalizedNumber(countdowns)));
+                        break;
+                }
+            }
+            else {
+                Duration duration;
+                try {
+                    duration = Strings.toDuration(args.getString(1));
+                } catch (Exception e) {
+                    throw new WrappedCommandException(e);
+                }
+                @Nullable final CountdownTask countdown = manager.findByTaskId(args.getInteger(0));
+                if (countdown == null)
+                    throw new TranslatableCommandErrorException(Messages.ERRORS_COUNTDOWN_COMMAND_NO_SUCH_ID, new UnlocalizedText(args.getString(0)));
+
+                countdown.getCountdown().setDuration(duration);
+                source.sendMessage(Messages.GENERIC_COUNTDOWN_COMMAND_MODTIME_SINGULAR.with(ChatColor.GREEN, countdown.getCountdown().getName(), new LocalizedNumber(countdown.getTaskId())));
             }
         }
     }
