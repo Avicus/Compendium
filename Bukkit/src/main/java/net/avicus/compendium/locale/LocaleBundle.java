@@ -44,8 +44,10 @@ public class LocaleBundle {
         for (LocaleStrings test : this.locales) {
             if (test.getLocale().equals(locale))
                 return Optional.of(test);
-            else if (test.getLocale().getLanguage().equals(locale.getLanguage()))
+            else if (test.getLocale().getLanguage().equals(locale.getLanguage())) {
                 match = test;
+                break; // have a kitkat!
+            }
         }
 
         if (match != null)
