@@ -105,11 +105,11 @@ public class Strings {
         return new TextComponent(padChatMessage(message.toPlainText(), padChar, padColor, messageColor));
     }
 
-    public static BaseComponent padTextComponent(TextComponent message, String padChar, ChatColor padColor, ChatColor messageColor) {
+    public static BaseComponent padTextComponent(BaseComponent message, String padChar, ChatColor padColor, ChatColor messageColor) {
         return padTextComponent(message, padChar, padColor.toString(), messageColor);
     }
 
-    public static BaseComponent padTextComponent(TextComponent message, String padChar, String padColor, ChatColor messageColor) {
+    public static BaseComponent padTextComponent(BaseComponent message, String padChar, String padColor, ChatColor messageColor) {
         final String pad = paddingFor(message.toPlainText(), padChar);
         final TextComponent component = new TextComponent(padColor + pad + ChatColor.RESET);
         BaseComponent copy = Components.copyStyle(message, new TextComponent(' ' + message.toPlainText() + ' '));
