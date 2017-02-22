@@ -3,9 +3,8 @@ package net.avicus.compendium.settings.types;
 import net.avicus.compendium.settings.SettingValueToggleable;
 import net.avicus.compendium.settings.types.BooleanSettingType.BooleanSettingValue;
 
-import java.util.Optional;
-
 import javax.annotation.concurrent.Immutable;
+import java.util.Optional;
 
 /**
  * True or false setting.

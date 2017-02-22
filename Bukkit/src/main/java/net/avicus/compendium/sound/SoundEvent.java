@@ -7,17 +7,16 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 public class SoundEvent extends Event {
+    private static final HandlerList handlers = new HandlerList();
     @Getter final Player player;
-    @Getter @Setter private SoundType sound;
     @Getter private final SoundLocation location;
+    @Getter @Setter private SoundType sound;
 
     public SoundEvent(Player player, SoundType sound, SoundLocation location) {
         this.player = player;
         this.sound = sound;
         this.location = location;
     }
-
-    private static final HandlerList handlers = new HandlerList();
 
     public static HandlerList getHandlerList() {
         return handlers;

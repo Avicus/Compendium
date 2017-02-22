@@ -3,9 +3,8 @@ package net.avicus.compendium.locale.text;
 import net.avicus.compendium.TextStyle;
 import net.md_5.bungee.api.chat.BaseComponent;
 
-import java.util.Locale;
-
 import javax.annotation.Nullable;
+import java.util.Locale;
 
 public class UnlocalizedComponent implements Localizable {
 

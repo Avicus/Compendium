@@ -9,23 +9,41 @@ import java.util.UUID;
  */
 public abstract class BossBar {
 
-    /** The unique id of the boss bar. */
+    /**
+     * The unique id of the boss bar.
+     */
     private final UUID uniqueId;
-    /** The boss bar name. */
+    /**
+     * The boss bar name.
+     */
     BaseComponent[] name;
-    /** The percentage of the boss bar that is filled with color. */
+    /**
+     * The percentage of the boss bar that is filled with color.
+     */
     float percent;
-    /** The color of the boss bar. */
+    /**
+     * The color of the boss bar.
+     */
     BossBarColor color;
-    /** The overlay of the boss bar. */
+    /**
+     * The overlay of the boss bar.
+     */
     BossBarOverlay overlay;
-    /** If the sky should darken. */
+    /**
+     * If the sky should darken.
+     */
     boolean darkenSky;
-    /** If the end boss music should be played. */
+    /**
+     * If the end boss music should be played.
+     */
     boolean playEndBossMusic;
-    /** If fog should be created. */
+    /**
+     * If fog should be created.
+     */
     boolean createFog;
-    /** If the boss bar is visible. */
+    /**
+     * If the boss bar is visible.
+     */
     boolean visible;
 
     /**
@@ -46,7 +64,7 @@ public abstract class BossBar {
 
     /**
      * Destroys this boss bar.
-     *
+     * <p>
      * <p>When called, any resources used by this boss bar are cleaned up and released.</p>
      */
     public abstract void destroy();
@@ -74,10 +92,10 @@ public abstract class BossBar {
      *
      * @param name the name
      * @return this boss bar
+     * @see #setName(BaseComponent[])
      */
-    public BossBar setName(BaseComponent[] name) {
-        this.name = name;
-        return this;
+    public BossBar setName(BaseComponent name) {
+        return this.setName(new BaseComponent[]{name});
     }
 
     /**
@@ -85,10 +103,10 @@ public abstract class BossBar {
      *
      * @param name the name
      * @return this boss bar
-     * @see #setName(BaseComponent[])
      */
-    public BossBar setName(BaseComponent name) {
-        return this.setName(new BaseComponent[] {name});
+    public BossBar setName(BaseComponent[] name) {
+        this.name = name;
+        return this;
     }
 
     /**
@@ -102,7 +120,7 @@ public abstract class BossBar {
 
     /**
      * Sets the percentage of this boss bar that is filled with color.
-     *
+     * <p>
      * <p>The percentage must be between {@code 0.0} and {@code 1.0}, inclusive.</p>
      *
      * @param percent the percent

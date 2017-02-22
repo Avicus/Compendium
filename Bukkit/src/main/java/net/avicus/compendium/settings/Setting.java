@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 
 /**
  * Represents a configurable option, a setting silly!
+ *
  * @param <R>
  */
 @EqualsAndHashCode
@@ -59,16 +60,6 @@ public class Setting<R> {
         this.description = description;
     }
 
-    public List<String> getAllAliases(Locale locale) {
-        List<String> result = new ArrayList<>();
-        result.add(this.name.translate(locale).toPlainText());
-        result.addAll(this.aliases.stream()
-                                  .map(alias -> alias.translate(locale)
-                                                     .toPlainText())
-                                  .collect(Collectors.toList()));
-        return result;
-    }
-
     public static Optional<Setting> search(Locale locale, String query, List<Setting> settings) {
         for (Setting<?> setting : settings) {
             List<String> names = setting.getAllAliases(locale);
@@ -79,5 +70,15 @@ public class Setting<R> {
             }
         }
         return Optional.empty();
+    }
+
+    public List<String> getAllAliases(Locale locale) {
+        List<String> result = new ArrayList<>();
+        result.add(this.name.translate(locale).toPlainText());
+        result.addAll(this.aliases.stream()
+                .map(alias -> alias.translate(locale)
+                        .toPlainText())
+                .collect(Collectors.toList()));
+        return result;
     }
 }

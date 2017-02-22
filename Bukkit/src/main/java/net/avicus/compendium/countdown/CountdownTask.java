@@ -32,8 +32,7 @@ public class CountdownTask extends BukkitRunnable {
         this.countdown.onTick(elapsed, remaining);
         if (this.countdown.resetPending()) {
             this.elapsedSeconds = 0;
-        }
-        else {
+        } else {
             this.elapsedSeconds++;
         }
     }

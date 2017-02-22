@@ -9,7 +9,8 @@ import java.util.Map;
 public interface InventoryIndexer {
     /**
      * Assign a collection of menu items to slots.
-     * @param menu The menu.
+     *
+     * @param menu  The menu.
      * @param items The items.
      * @return The map of index to inventory menu item.
      */

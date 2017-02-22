@@ -10,6 +10,7 @@ import org.bukkit.event.HandlerList;
  * Called when a setting if modified by a player.
  */
 public class SettingModifyEvent extends Event {
+    private static final HandlerList handlers = new HandlerList();
     @Getter private final CompendiumPlugin plugin;
     @Getter private final SettingContext setting;
     @Getter private final Player player;
@@ -19,8 +20,6 @@ public class SettingModifyEvent extends Event {
         this.setting = setting;
         this.player = player;
     }
-
-    private static final HandlerList handlers = new HandlerList();
 
     public static HandlerList getHandlerList() {
         return handlers;

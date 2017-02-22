@@ -2,7 +2,6 @@ package net.avicus.compendium.inventory;
 
 import lombok.Getter;
 import org.bukkit.Material;
-import org.bukkit.material.MaterialData;
 
 import java.util.List;
 

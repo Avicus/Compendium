@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @ToString
 public class Sidebar {
     @Getter private final Scoreboard scoreboard;
-    @Getter private final Multimap<Integer,SidebarTeam> teams;
+    @Getter private final Multimap<Integer, SidebarTeam> teams;
     @Getter private final Objective objective;
 
     /**
@@ -35,6 +35,7 @@ public class Sidebar {
 
     /**
      * Creates a new titled sidebar with a new scoreboard attachment.
+     *
      * @param title
      */
     public Sidebar(String title) {
@@ -50,6 +51,7 @@ public class Sidebar {
 
     /**
      * Creates a new titles sidebar with the given scoreboard.
+     *
      * @param title
      */
     public Sidebar(Scoreboard scoreboard, String title) {
@@ -66,6 +68,7 @@ public class Sidebar {
 
     /**
      * Retrieve the title of the sidebar.
+     *
      * @return
      */
     public String getTitle() {
@@ -74,6 +77,7 @@ public class Sidebar {
 
     /**
      * Changes the title of the sidebar.
+     *
      * @param text
      */
     public void setTitle(String text) {
@@ -84,6 +88,7 @@ public class Sidebar {
     /**
      * Adds a line to the sidebar at the given line (score) number.
      * Appends spaces to the text to ensure it will be seen on the board.
+     *
      * @param line
      * @param text
      */
@@ -93,6 +98,7 @@ public class Sidebar {
 
     /**
      * Adds a line to the sidebar at the given line (score) number.
+     *
      * @param line
      * @param text
      */
@@ -110,6 +116,7 @@ public class Sidebar {
 
     /**
      * Get all text at the given line (score) number.
+     *
      * @param line
      * @return
      */
@@ -123,9 +130,10 @@ public class Sidebar {
 
     /**
      * Get the line (score) number of the given text.
+     *
      * @param text
-     * @throws IllegalArgumentException If the text cannot be found in the sidebar.
      * @return
+     * @throws IllegalArgumentException If the text cannot be found in the sidebar.
      */
     public int getLine(String text) throws IllegalArgumentException {
         for (Entry<Integer, SidebarTeam> entry : this.teams.entries())
@@ -136,6 +144,7 @@ public class Sidebar {
 
     /**
      * Removes all entries with the given line (score) number and sets new text.
+     *
      * @param line
      * @param text
      */
@@ -146,8 +155,7 @@ public class Sidebar {
         // If there isn't a single line there, it's needed
         if (get(line).size() != 1) {
             doReplace = true;
-        }
-        else {
+        } else {
             // Otherwise, we replace only if the text does not match what is there currently.
             String current = get(line).get(0);
             if (!current.equals(text)) {
@@ -164,6 +172,7 @@ public class Sidebar {
 
     /**
      * Removes all entries with the given text.
+     *
      * @param text
      */
     public void clear(String text) {
@@ -172,6 +181,7 @@ public class Sidebar {
 
     /**
      * Removes all entries with the given line (score) number.
+     *
      * @param line
      */
     public void clear(int line) {
@@ -187,6 +197,7 @@ public class Sidebar {
 
     /**
      * Removes all entries with the given text and line (score) number.
+     *
      * @param text
      */
     public void remove(String text, Integer line) {
@@ -263,7 +274,7 @@ public class Sidebar {
         if (split.size() > 2)
             suffix = split.get(2);
 
-        return new String[] {prefix, line, suffix};
+        return new String[]{prefix, line, suffix};
     }
 
     @ToString

@@ -16,9 +16,9 @@ public final class Time {
         final PrettyTime pretty = new PrettyTime(locale);
         // "moments ago" only shows when less than 5 seconds
         pretty.getUnits()
-            .stream()
-            .filter(unit -> unit instanceof JustNow)
-            .forEach(unit -> ((JustNow) unit).setMaxQuantity(10000L));
+                .stream()
+                .filter(unit -> unit instanceof JustNow)
+                .forEach(unit -> ((JustNow) unit).setMaxQuantity(10000L));
         return pretty;
     }
 

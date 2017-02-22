@@ -11,9 +11,13 @@ import java.util.UUID;
  */
 public class PlayerSettings {
 
-    /** The global setting store. */
+    /**
+     * The global setting store.
+     */
     private static final SettingStore STORE = new SettingStore();
-    /** The global setting list. */
+    /**
+     * The global setting list.
+     */
     private static final List<Setting> SETTINGS = new ArrayList<>();
 
     /**
@@ -37,9 +41,8 @@ public class PlayerSettings {
     /**
      * Register a setting to the global setting list.
      *
-     *
      * @param setting the setting
-     * @param <R> the value type
+     * @param <R>     the value type
      */
     public static <R> void register(Setting<R> setting) {
         SETTINGS.add(setting);
@@ -49,7 +52,7 @@ public class PlayerSettings {
      * Unregister a setting from the global setting list.
      *
      * @param setting the setting
-     * @param <R> the value type
+     * @param <R>     the value type
      */
     public static <R> void unregister(Setting<R> setting) {
         SETTINGS.remove(setting);
@@ -58,9 +61,9 @@ public class PlayerSettings {
     /**
      * Gets the value of the specified setting for the player, or the setting's default value.
      *
-     * @param player the player
+     * @param player  the player
      * @param setting the setting
-     * @param <R> the value type
+     * @param <R>     the value type
      * @return the value
      * @see #get(UUID, Setting)
      */
@@ -72,8 +75,8 @@ public class PlayerSettings {
      * Gets the value of the specified setting for the player id, or the setting's default value.
      *
      * @param playerId the player id
-     * @param setting the setting
-     * @param <R> the value type
+     * @param setting  the setting
+     * @param <R>      the value type
      * @return the value
      */
     public static <R> R get(UUID playerId, Setting<R> setting) {

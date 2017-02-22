@@ -65,11 +65,11 @@ public class InventoryMenu implements Menu<InventoryMenuItem> {
     }
 
     public InventoryMenu(Player player,
-                  String title,
-                  int rows,
-                  @Nullable InventoryIndexer indexer,
-                  @Nullable InventoryHandler handler,
-                  @Nullable Collection<InventoryMenuItem> items) {
+                         String title,
+                         int rows,
+                         @Nullable InventoryIndexer indexer,
+                         @Nullable InventoryHandler handler,
+                         @Nullable Collection<InventoryMenuItem> items) {
         this.player = player;
         this.indexer = indexer == null ? new IndexedInventoryIndexer() : indexer;
         this.handler = handler == null ? new ClickableInventoryHandler() : handler;
@@ -131,6 +131,7 @@ public class InventoryMenu implements Menu<InventoryMenuItem> {
 
     /**
      * Add a new item to this menu.
+     *
      * @param item
      */
     public void add(InventoryMenuItem item) {
@@ -144,6 +145,7 @@ public class InventoryMenu implements Menu<InventoryMenuItem> {
 
     /**
      * Add multiple items to this menu.
+     *
      * @param items
      */
     public void add(Collection<InventoryMenuItem> items) {
@@ -152,6 +154,7 @@ public class InventoryMenu implements Menu<InventoryMenuItem> {
 
     /**
      * Remove an existing item from this menu.
+     *
      * @param item
      */
     public void remove(InventoryMenuItem item) {
@@ -161,6 +164,7 @@ public class InventoryMenu implements Menu<InventoryMenuItem> {
 
     /**
      * Removes multiple items from this menu.
+     *
      * @param items
      */
     public void removeAll(Collection<InventoryMenuItem> items) {
@@ -178,6 +182,7 @@ public class InventoryMenu implements Menu<InventoryMenuItem> {
 
     /**
      * Get the current index of a specific menu item.
+     *
      * @param item The item.
      * @return The index.
      * @throws IllegalArgumentException If this menu does not contain the item.

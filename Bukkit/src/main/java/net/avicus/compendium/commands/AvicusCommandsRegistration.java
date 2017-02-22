@@ -14,7 +14,12 @@ import sun.reflect.annotation.AnnotationParser;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class AvicusCommandsRegistration extends CommandsManagerRegistration {
 
@@ -24,6 +29,24 @@ public class AvicusCommandsRegistration extends CommandsManagerRegistration {
 
     public AvicusCommandsRegistration(Plugin plugin, CommandExecutor executor, CommandsManager commands) {
         super(plugin, executor, commands);
+    }
+
+    // https://gist.github.com/thomasdarimont/7f0a31fcc0a65befef1f
+    private static <A extends Annotation> A createAnnotationInstance(Map<String, Object> customValues, Class<A> annotationType) {
+        Map<String, Object> values = new HashMap<>();
+
+        //Extract default values from annotation
+        for (Method method : annotationType.getDeclaredMethods()) {
+            if (values.containsKey(method.getName()))
+                continue;
+
+            values.put(method.getName(), method.getDefaultValue());
+        }
+
+        //Populate required values
+        values.putAll(customValues);
+
+        return (A) AnnotationParser.annotationForMap(annotationType, values);
     }
 
     /**
@@ -55,7 +78,7 @@ public class AvicusCommandsRegistration extends CommandsManagerRegistration {
             }
         }
 
-        for (Iterator<Command> i = knownCommands.values().iterator(); i.hasNext();) {
+        for (Iterator<Command> i = knownCommands.values().iterator(); i.hasNext(); ) {
             org.bukkit.command.Command cmd = i.next();
             if (cmd instanceof DynamicPluginCommand && ((DynamicPluginCommand) cmd).getPlugin().equals(plugin) && ((DynamicPluginCommand) cmd).getOwner().equals(executor)) {
                 boolean remove = false;
@@ -100,7 +123,7 @@ public class AvicusCommandsRegistration extends CommandsManagerRegistration {
             aliasesToRemove.add(command.aliases()[i]);
         }
 
-        for (Iterator<Command> i = knownCommands.values().iterator(); i.hasNext();) {
+        for (Iterator<Command> i = knownCommands.values().iterator(); i.hasNext(); ) {
             org.bukkit.command.Command cmd = i.next();
             if (cmd instanceof DynamicPluginCommand && ((DynamicPluginCommand) cmd).getPlugin().equals(plugin) && ((DynamicPluginCommand) cmd).getOwner().equals(executor)) {
                 boolean remove = false;
@@ -129,7 +152,7 @@ public class AvicusCommandsRegistration extends CommandsManagerRegistration {
                 continue;
             }
 
-            if(!(Void.TYPE.equals(method.getReturnType()) ||
+            if (!(Void.TYPE.equals(method.getReturnType()) ||
                     List.class.isAssignableFrom(method.getReturnType()))) {
                 throw new RuntimeException("Command method " + method.getDeclaringClass().getName() + "#" + method.getName() +
                         " must return either void or List<String>");
@@ -164,7 +187,7 @@ public class AvicusCommandsRegistration extends CommandsManagerRegistration {
      * Register a new command with the framework based on a method and a supplied command annotation.
      * This will add the command to the framework internal cache and also add it to the {@link CommandMap}.
      *
-     * @param method Method to be executed on command.
+     * @param method     Method to be executed on command.
      * @param definition Command definition,
      * @return If the command registered successfully.
      * @throws Exception
@@ -176,23 +199,5 @@ public class AvicusCommandsRegistration extends CommandsManagerRegistration {
 
     public com.sk89q.minecraft.util.commands.Command newCommand(Map<String, Object> params) {
         return createAnnotationInstance(params, com.sk89q.minecraft.util.commands.Command.class);
-    }
-
-    // https://gist.github.com/thomasdarimont/7f0a31fcc0a65befef1f
-    private static <A extends Annotation> A createAnnotationInstance(Map<String, Object> customValues, Class<A> annotationType) {
-        Map<String, Object> values = new HashMap<>();
-
-        //Extract default values from annotation
-        for (Method method : annotationType.getDeclaredMethods()) {
-            if (values.containsKey(method.getName()))
-                continue;
-
-            values.put(method.getName(), method.getDefaultValue());
-        }
-
-        //Populate required values
-        values.putAll(customValues);
-
-        return (A) AnnotationParser.annotationForMap(annotationType, values);
     }
 }

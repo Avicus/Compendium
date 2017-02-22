@@ -21,6 +21,10 @@ public class TextStyle {
     private Optional<ClickEvent> click = Optional.empty();
     private Optional<HoverEvent> hover = Optional.empty();
 
+    private TextStyle() {
+
+    }
+
     public static TextStyle ofBold() {
         return new TextStyle().bold();
     }
@@ -44,10 +48,6 @@ public class TextStyle {
         style.click(component.getClickEvent());
         style.hover(component.getHoverEvent());
         return style;
-    }
-
-    private TextStyle() {
-
     }
 
     public TextStyle duplicate() {

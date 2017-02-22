@@ -2,11 +2,17 @@ package net.avicus.compendium;
 
 import lombok.ToString;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
  * A handy utility for selecting weighted objects randomly.
+ *
  * @param <T>
  */
 public class WeightedRandomizer<T> {
@@ -17,8 +23,9 @@ public class WeightedRandomizer<T> {
 
     /**
      * Constructor. Uses provided random.
+     *
      * @param random The random generator.
-     * @param items The items to weight association.
+     * @param items  The items to weight association.
      */
     public WeightedRandomizer(Random random, Map<T, Double> items) {
         this.random = random;
@@ -27,6 +34,7 @@ public class WeightedRandomizer<T> {
 
     /**
      * Constructor. Uses provided random.
+     *
      * @param random The random generator.
      */
     public WeightedRandomizer(Random random) {
@@ -35,6 +43,7 @@ public class WeightedRandomizer<T> {
 
     /**
      * Constructor. Uses standard random.
+     *
      * @param items The items to weight association.
      */
     public WeightedRandomizer(Map<T, Double> items) {
@@ -48,8 +57,13 @@ public class WeightedRandomizer<T> {
         this(RANDOM);
     }
 
+    public static <T> Builder<T> builder() {
+        return new Builder<>();
+    }
+
     /**
      * Get the likelihood of picking a specific item.
+     *
      * @param item The item.
      * @return The probability in [0, 1].
      * @throws NoSuchElementException
@@ -64,6 +78,7 @@ public class WeightedRandomizer<T> {
 
     /**
      * Generate the total weight.
+     *
      * @return
      */
     private double totalWeight() {
@@ -75,6 +90,7 @@ public class WeightedRandomizer<T> {
 
     /**
      * Select a number of next items randomly.
+     *
      * @return The next items.
      * @throws NoSuchElementException
      */
@@ -108,10 +124,10 @@ public class WeightedRandomizer<T> {
             double random = this.random.nextDouble();
 
             items.addAll(ranges.keySet()
-                               .stream()
-                               .filter(range -> range.contains(random))
-                               .map(ranges::get)
-                               .collect(Collectors.toList()));
+                    .stream()
+                    .filter(range -> range.contains(random))
+                    .map(ranges::get)
+                    .collect(Collectors.toList()));
         }
 
         return items;
@@ -119,6 +135,7 @@ public class WeightedRandomizer<T> {
 
     /**
      * Select the single next random item.
+     *
      * @return The next item.
      * @throws NoSuchElementException
      */
@@ -128,6 +145,7 @@ public class WeightedRandomizer<T> {
 
     /**
      * Set the weight of an item.
+     *
      * @param item
      * @param weight Any value - it is only relative to all the other items you set.
      */
@@ -137,6 +155,7 @@ public class WeightedRandomizer<T> {
 
     /**
      * Remove an existing item from the randomizer.
+     *
      * @param item
      */
     public void remove(T item) {
@@ -165,16 +184,13 @@ public class WeightedRandomizer<T> {
 
         /**
          * Check if this range contains a value.
+         *
          * @param value
          * @return
          */
         public boolean contains(double value) {
             return value >= this.min && value < this.max;
         }
-    }
-
-    public static <T> Builder<T> builder() {
-        return new Builder<>();
     }
 
     public static class Builder<T> {

@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 /**
  * Something that alternates between different objects. An infinite iterator.
+ *
  * @param <T>
  */
 public interface Alternator<T> extends Iterator<T> {

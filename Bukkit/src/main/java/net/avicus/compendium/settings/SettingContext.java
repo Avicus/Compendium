@@ -4,6 +4,7 @@ import lombok.Getter;
 
 /**
  * Setting -> Value
+ *
  * @param <S>
  * @param <R>
  */

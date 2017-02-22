@@ -4,11 +4,10 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.bukkit.entity.Player;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
-import javax.annotation.Nullable;
 
 /**
  * This class allows legacy clients to have more than one active {@link BossBar} by rotating between
@@ -16,14 +15,16 @@ import javax.annotation.Nullable;
  */
 public final class LegacyBossBarContext implements Runnable {
 
-    /** The state map. */
+    /**
+     * The state map.
+     */
     private final Map<UUID, State> states = Maps.newHashMap();
 
     /**
      * Add a boss bar to the player's state.
      *
      * @param player the player
-     * @param bar the boss bar
+     * @param bar    the boss bar
      */
     void add(Player player, LegacyBossBar bar) {
         this.states.computeIfAbsent(player.getUniqueId(), id -> new State()).bars.add(bar);
@@ -33,7 +34,7 @@ public final class LegacyBossBarContext implements Runnable {
      * Remove a boss bar from the player's state.
      *
      * @param player the player
-     * @param bar the boss bar
+     * @param bar    the boss bar
      */
     void remove(Player player, LegacyBossBar bar) {
         this.states.computeIfAbsent(player.getUniqueId(), id -> new State()).bars.remove(bar);
@@ -51,7 +52,7 @@ public final class LegacyBossBarContext implements Runnable {
     /**
      * Refresh an active boss bar if the state matches.
      *
-     * @param player the player
+     * @param player  the player
      * @param current the active boss bar
      */
     void refresh(Player player, LegacyBossBar current) {
@@ -70,9 +71,13 @@ public final class LegacyBossBarContext implements Runnable {
      */
     private static class State {
 
-        /** A list of all boss bars that the player can view. */
+        /**
+         * A list of all boss bars that the player can view.
+         */
         private final List<LegacyBossBar> bars = Lists.newCopyOnWriteArrayList();
-        /** The current boss bar index. */
+        /**
+         * The current boss bar index.
+         */
         private int index = 0;
 
         /**

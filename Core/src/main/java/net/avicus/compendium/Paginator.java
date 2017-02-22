@@ -1,9 +1,14 @@
 package net.avicus.compendium;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Pagintes a collection of items.
+ *
  * @param <T>
  */
 public class Paginator<T> {
@@ -12,7 +17,7 @@ public class Paginator<T> {
 
     /**
      * @param collection The full collection of items.
-     * @param perPage The number of items per page.
+     * @param perPage    The number of items per page.
      */
     public Paginator(Collection<T> collection, int perPage) {
         this.collection = new ArrayList<>(collection);
@@ -20,15 +25,8 @@ public class Paginator<T> {
     }
 
     /**
-     * Set the full collection of items.
-     * @param list The full collection of items.
-     */
-    public void setCollection(Collection<T> list) {
-        this.collection = new ArrayList<>(list);
-    }
-
-    /**
      * Get the full collection of items.
+     *
      * @return The full collection of items.
      */
     public Collection<T> getCollection() {
@@ -36,15 +34,17 @@ public class Paginator<T> {
     }
 
     /**
-     * Set the number of items per page.
-     * @param perPage The number of items per page.
+     * Set the full collection of items.
+     *
+     * @param list The full collection of items.
      */
-    public void setPerPage(int perPage) {
-        this.perPage = perPage;
+    public void setCollection(Collection<T> list) {
+        this.collection = new ArrayList<>(list);
     }
 
     /**
      * Get the number of items per page.
+     *
      * @return The number of items per page.
      */
     public int getPerPage() {
@@ -52,7 +52,17 @@ public class Paginator<T> {
     }
 
     /**
+     * Set the number of items per page.
+     *
+     * @param perPage The number of items per page.
+     */
+    public void setPerPage(int perPage) {
+        this.perPage = perPage;
+    }
+
+    /**
      * Get the number of pages.
+     *
      * @return The number of pages.
      */
     public int getPageCount() {
@@ -63,6 +73,7 @@ public class Paginator<T> {
 
     /**
      * Get the index of an item.
+     *
      * @param item The item.
      * @return The index of the item.
      * @throws IllegalArgumentException If the item is not in the collection.
@@ -83,6 +94,7 @@ public class Paginator<T> {
 
     /**
      * Get the index of an item.
+     *
      * @param item The item.
      * @return The page index of the item.
      * @throws IllegalArgumentException If the item is not in the collection.
@@ -94,6 +106,7 @@ public class Paginator<T> {
 
     /**
      * Get the page of items that contains the given item.
+     *
      * @param item The item.
      * @return The collection of items.
      * @throws IllegalArgumentException If the item is not in the collection.
@@ -105,6 +118,7 @@ public class Paginator<T> {
 
     /**
      * Check if a page exists.
+     *
      * @param pageIndex
      * @return
      */
@@ -114,6 +128,7 @@ public class Paginator<T> {
 
     /**
      * Get the page at the page index.
+     *
      * @param pageIndex The index of the page (0 = first)
      * @return The collection of items.
      * @throws IllegalArgumentException If the page is invalid.

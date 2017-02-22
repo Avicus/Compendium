@@ -18,7 +18,7 @@ public interface LocalizableFormat<T extends Localizable> {
     }
 
     default T with(ChatColor color) {
-        return with(color, new String[] {});
+        return with(color, new String[]{});
     }
 
     default T with(TextStyle style) {

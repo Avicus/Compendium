@@ -21,16 +21,16 @@ public class SnapField implements Annotationable {
         set(Optional.of(instance), value);
     }
 
-    public void setStatic(Object value) throws SnapException {
-        set(Optional.empty(), value);
-    }
-
     public Object get(Object instance) throws SnapException {
         return get(Optional.of(instance));
     }
 
     public Object getStatic() throws SnapException {
         return get(Optional.empty());
+    }
+
+    public void setStatic(Object value) throws SnapException {
+        set(Optional.empty(), value);
     }
 
     @SuppressWarnings("unchecked")

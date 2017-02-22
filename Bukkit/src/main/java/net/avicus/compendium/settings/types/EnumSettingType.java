@@ -4,13 +4,13 @@ import com.google.common.collect.ImmutableMap;
 import net.avicus.compendium.settings.SettingValueToggleable;
 import net.avicus.compendium.settings.types.EnumSettingType.EnumSettingValue;
 
+import javax.annotation.concurrent.Immutable;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.annotation.concurrent.Immutable;
-
 /**
  * Any type of enumerator setting.
+ *
  * @param <E>
  */
 @Immutable
@@ -43,8 +43,7 @@ public class EnumSettingType<E extends Enum> implements SettingType<EnumSettingV
             if (entry.getKey().equals(raw)) {
                 result = entry.getValue();
                 break;
-            }
-            else if (entry.getKey().startsWith(raw)) {
+            } else if (entry.getKey().startsWith(raw)) {
                 close = entry.getValue();
             }
         }

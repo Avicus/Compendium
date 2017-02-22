@@ -11,16 +11,22 @@ import java.util.UUID;
 
 /**
  * A modern boss bar.
- *
+ * <p>
  * <p>A modern boss bar is used for 1.9, 1.10, and 1.11 clients.</p>
  */
 public class ModernBossBar extends BossBar {
 
-    /** An array of colors that a modern boss bar supports. */
+    /**
+     * An array of colors that a modern boss bar supports.
+     */
     private static final BossColor[] COLORS = BossColor.values();
-    /** An array of overlays that a modern boss bar supports. */
+    /**
+     * An array of overlays that a modern boss bar supports.
+     */
     private static final BossStyle[] OVERLAYS = BossStyle.values();
-    /** The boss bar container. */
+    /**
+     * The boss bar container.
+     */
     private us.myles.ViaVersion.api.boss.BossBar<Player> bar;
 
     /**
@@ -88,8 +94,7 @@ public class ModernBossBar extends BossBar {
 
             if (darkenSky) {
                 this.bar.addFlag(BossFlag.DARKEN_SKY);
-            }
-            else {
+            } else {
                 this.bar.removeFlag(BossFlag.DARKEN_SKY);
             }
         }
@@ -104,8 +109,7 @@ public class ModernBossBar extends BossBar {
 
             if (playEndBossMusic) {
                 this.bar.addFlag(BossFlag.PLAY_BOSS_MUSIC);
-            }
-            else {
+            } else {
                 this.bar.removeFlag(BossFlag.PLAY_BOSS_MUSIC);
             }
         }
@@ -125,8 +129,7 @@ public class ModernBossBar extends BossBar {
 
             if (createFog) {
                 this.bar.addFlag(BossFlag.PLAY_BOSS_MUSIC);
-            }
-            else {
+            } else {
                 this.bar.removeFlag(BossFlag.PLAY_BOSS_MUSIC);
             }
         }
@@ -139,8 +142,7 @@ public class ModernBossBar extends BossBar {
         if (visible != this.visible) {
             if (visible) {
                 this.bar.show();
-            }
-            else {
+            } else {
                 this.bar.hide();
             }
         }

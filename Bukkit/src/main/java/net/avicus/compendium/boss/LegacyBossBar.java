@@ -11,28 +11,21 @@ import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
-import javax.annotation.Nullable;
-
 /**
  * A legacy boss bar.
- *
+ * <p>
  * <p>A legacy boss bar is used for 1.8 clients.</p>
  */
 public class LegacyBossBar extends BossBar {
 
-    /** A fake id for sending a {@link EntityType#WITHER} to a client. */
+    /**
+     * A fake id for sending a {@link EntityType#WITHER} to a client.
+     */
     private static final int FAKE_ENTITY_ID;
-    /** The boss bar manager. */
-    private BossBarManager manager;
-    /** The player who is viewing this boss bar. */
-    private Player player;
-    /** If this boss bar has been sent to the client. */
-    private boolean sentToClient;
-    /** A cached version of {@link #name} in legacy text format. */
-    @Nullable private String cachedLegacyText;
 
     static {
         try {
@@ -47,10 +40,27 @@ public class LegacyBossBar extends BossBar {
     }
 
     /**
+     * The boss bar manager.
+     */
+    private BossBarManager manager;
+    /**
+     * The player who is viewing this boss bar.
+     */
+    private Player player;
+    /**
+     * If this boss bar has been sent to the client.
+     */
+    private boolean sentToClient;
+    /**
+     * A cached version of {@link #name} in legacy text format.
+     */
+    @Nullable private String cachedLegacyText;
+
+    /**
      * Constructs a new legacy boss bar.
      *
      * @param manager the boss bar manager
-     * @param player the player who is viewing this boss bar
+     * @param player  the player who is viewing this boss bar
      */
     LegacyBossBar(BossBarManager manager, Player player) {
         this.manager = manager;
@@ -130,8 +140,7 @@ public class LegacyBossBar extends BossBar {
 
             if (visible) {
                 this.spawn();
-            }
-            else {
+            } else {
                 this.despawn();
             }
         }
@@ -201,7 +210,7 @@ public class LegacyBossBar extends BossBar {
         }
 
         final PacketContainer packet = new PacketContainer(PacketType.Play.Server.ENTITY_DESTROY);
-        packet.getIntegerArrays().write(0, new int[] {FAKE_ENTITY_ID});
+        packet.getIntegerArrays().write(0, new int[]{FAKE_ENTITY_ID});
 
         try {
             ProtocolLibrary.getProtocolManager().sendServerPacket(this.player, packet, false);

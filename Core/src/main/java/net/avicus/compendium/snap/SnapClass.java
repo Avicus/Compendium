@@ -24,7 +24,7 @@ public class SnapClass implements Annotationable {
         }
     }
 
-    public SnapConstructor getConstructor(Class<?>... argumentTypes)  {
+    public SnapConstructor getConstructor(Class<?>... argumentTypes) {
         return new SnapConstructor(this, argumentTypes);
     }
 

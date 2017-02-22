@@ -20,14 +20,16 @@ public interface NumberAction {
 
     /**
      * Performs the action on a value.
+     *
      * @param original The original value.
-     * @param modify The value that modifies the original value.
+     * @param modify   The value that modifies the original value.
      * @return The resultant double.
      */
     double perform(double original, double modify);
 
     /**
      * Performs the action on a float value.
+     *
      * @param original
      * @param modify
      * @return
@@ -38,6 +40,7 @@ public interface NumberAction {
 
     /**
      * Performs the action on a long value.
+     *
      * @param original
      * @param modify
      * @return
@@ -48,6 +51,7 @@ public interface NumberAction {
 
     /**
      * Performs the action on an integer value.
+     *
      * @param original
      * @param modify
      * @return

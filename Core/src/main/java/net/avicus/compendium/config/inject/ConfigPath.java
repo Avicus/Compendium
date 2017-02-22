@@ -7,6 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 public @interface ConfigPath {
     /**
      * The path to the config section.
+     *
      * @return The path, separated by periods.
      */
     String value();

@@ -25,9 +25,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.joda.time.Duration;
 
-import java.util.Map;
-
 import javax.annotation.Nullable;
+import java.util.Map;
 
 public class CountdownCommands {
 
@@ -91,8 +90,7 @@ public class CountdownCommands {
                         source.sendMessage(Messages.GENERIC_COUNTDOWN_COMMAND_CANCEL_ALL_PLURAL.with(ChatColor.GREEN, new LocalizedNumber(countdowns)));
                         break;
                 }
-            }
-            else {
+            } else {
                 @Nullable final CountdownTask countdown = manager.findByTaskId(args.getInteger(0));
                 if (countdown == null)
                     throw new TranslatableCommandErrorException(Messages.ERRORS_COUNTDOWN_COMMAND_NO_SUCH_ID, new UnlocalizedText(args.getString(0)));
@@ -134,8 +132,7 @@ public class CountdownCommands {
                         source.sendMessage(Messages.GENERIC_COUNTDOWN_COMMAND_MODTIME_ALL_PLURAL.with(ChatColor.GREEN, new LocalizedNumber(countdowns)));
                         break;
                 }
-            }
-            else {
+            } else {
                 Duration duration;
                 try {
                     duration = Strings.toDuration(args.getString(1));

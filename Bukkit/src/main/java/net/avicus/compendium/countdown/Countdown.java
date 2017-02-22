@@ -16,11 +16,13 @@ import java.util.UUID;
 
 public abstract class Countdown {
 
+    final Map<UUID, BossBar> bars = Maps.newHashMap();
     @Getter(AccessLevel.PACKAGE)
     @Setter(AccessLevel.PACKAGE)
     protected Duration duration;
-    final Map<UUID, BossBar> bars = Maps.newHashMap();
-    /** If the countdown has a pending reset. */
+    /**
+     * If the countdown has a pending reset.
+     */
     private boolean resetPending;
 
     protected Countdown(Duration duration) {
@@ -43,7 +45,7 @@ public abstract class Countdown {
     /**
      * Called in one second intervals.
      *
-     * @param elapsedTime The amount of time elapsed.
+     * @param elapsedTime   The amount of time elapsed.
      * @param remainingTime The amount of time remaining in the countdown.
      */
     protected abstract void onTick(Duration elapsedTime, Duration remainingTime);
@@ -72,7 +74,7 @@ public abstract class Countdown {
     /**
      * Update all boss bars in this countdown with a new name, and percent calculated from the elapsed time.
      *
-     * @param name the name for the boss bar
+     * @param name    the name for the boss bar
      * @param elapsed the elapsed time
      */
     protected void updateBossBar(Localizable name, Duration elapsed) {
@@ -83,14 +85,14 @@ public abstract class Countdown {
     /**
      * Update all boss bars in this countdown with a new name and percent.
      *
-     * @param name the name for the boss bar
+     * @param name    the name for the boss bar
      * @param percent the percentage
      */
     protected void updateBossBar(Localizable name, float percent) {
         for (Player player : Bukkit.getOnlinePlayers()) {
             this.getBossBar(player)
-                .setName(name.translate(player.getLocale()))
-                .setPercent(percent);
+                    .setName(name.translate(player.getLocale()))
+                    .setPercent(percent);
         }
     }
 
@@ -107,7 +109,7 @@ public abstract class Countdown {
 
     /**
      * Resets the countdown.
-     *
+     * <p>
      * <p>Resetting the countdown will cause it to start counting down from the beginning.</p>
      */
     protected final void resetElapsedTime() {

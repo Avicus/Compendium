@@ -8,13 +8,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.joda.time.Duration;
 
+import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.function.Predicate;
-
-import javax.annotation.Nullable;
 
 public class CountdownManager implements Listener {
 

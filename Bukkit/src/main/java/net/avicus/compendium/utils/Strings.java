@@ -19,6 +19,14 @@ import java.util.List;
 
 // TODO - move methods into StringUtil if they work with strings, or their own class - this one is a mess
 public class Strings {
+    private static PeriodFormatter periodFormatter = new PeriodFormatterBuilder()
+            .appendDays().appendSuffix("d")
+            .appendHours().appendSuffix("h")
+            .appendMinutes().appendSuffix("m")
+            .appendSeconds().appendSuffix("s")
+            .appendSeconds()
+            .toFormatter();
+
     public static String addColors(String message) {
         if (message == null)
             return null;
@@ -78,14 +86,6 @@ public class Strings {
             return ChatColor.GREEN;
     }
 
-    private static PeriodFormatter periodFormatter = new PeriodFormatterBuilder()
-            .appendDays().appendSuffix("d")
-            .appendHours().appendSuffix("h")
-            .appendMinutes().appendSuffix("m")
-            .appendSeconds().appendSuffix("s")
-            .appendSeconds()
-            .toFormatter();
-
     public static Duration toDuration(String format) {
         String text = format.toLowerCase().replace(" ", "");
 
@@ -140,7 +140,7 @@ public class Strings {
      * Wrap a long {@link ItemMeta} lore line and append it to a list of lore with
      * last colors copied over.
      *
-     * @param lore the result list
+     * @param lore   the result list
      * @param length the length to wrap on
      * @param string the string to wrap
      */

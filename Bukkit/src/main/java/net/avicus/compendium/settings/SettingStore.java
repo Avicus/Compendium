@@ -5,8 +5,14 @@ import net.avicus.compendium.plugin.CompendiumPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Stores any number of settings for UUIDs.
@@ -20,6 +26,7 @@ public class SettingStore {
 
     /**
      * Store a value for a key and setting.
+     *
      * @param key
      * @param setting
      * @param value
@@ -53,6 +60,7 @@ public class SettingStore {
 
     /**
      * Parse and store a set of values based on a collection of available settings.
+     *
      * @param key
      * @param parse
      * @param settings
@@ -65,12 +73,12 @@ public class SettingStore {
 
             settings.stream()
                     .filter(setting -> setting.getId()
-                                              .equals(id))
+                            .equals(id))
                     .forEach(setting -> {
                         Optional<SettingValue> parsed = setting.getType()
-                                                               .parse(value);
+                                .parse(value);
                         Object raw = parsed.isPresent() ? parsed.get()
-                                                                .raw() : setting.getDefaultValue();
+                                .raw() : setting.getDefaultValue();
 
                         this.set(key, setting, raw, callEvent);
                     });
@@ -79,6 +87,7 @@ public class SettingStore {
 
     /**
      * Parse and store a set of keys with values based on a collection of available settings.
+     *
      * @param parse
      * @param settings
      */
@@ -89,6 +98,7 @@ public class SettingStore {
 
     /**
      * Retrieve a stored value for a key and setting, or the setting's default.
+     *
      * @param key
      * @param setting
      * @param <R>
@@ -106,6 +116,7 @@ public class SettingStore {
 
     /**
      * Retrieve all settings for a key.
+     *
      * @param key
      * @return
      */
@@ -121,6 +132,7 @@ public class SettingStore {
 
     /**
      * Retrieve all settings.
+     *
      * @return
      */
     public Map<UUID, Map<String, String>> get() {
@@ -132,6 +144,7 @@ public class SettingStore {
 
     /**
      * Toggle a toggleable setting between options.
+     *
      * @param key
      * @param setting
      * @param <R>
@@ -155,6 +168,7 @@ public class SettingStore {
 
     /**
      * Checks if the underlying data stored is equal.
+     *
      * @param object
      * @return
      */
@@ -169,6 +183,7 @@ public class SettingStore {
 
     /**
      * An expensive hashCode() implementation.
+     *
      * @return
      */
     @Override
@@ -178,6 +193,7 @@ public class SettingStore {
 
     /**
      * A pretty Map string.
+     *
      * @return
      */
     @Override

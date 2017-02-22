@@ -9,11 +9,17 @@ import java.util.regex.Pattern;
 
 public final class StringUtil {
 
-    /** A pattern for non-latin characters. */
+    /**
+     * A pattern for non-latin characters.
+     */
     private static final Pattern NON_LATIN = Pattern.compile("[^\\w-]");
-    /** A pattern for whitespace characters. */
+    /**
+     * A pattern for whitespace characters.
+     */
     private static final Pattern WHITESPACE = Pattern.compile("[\\s]");
-    /** The string non-latin characters are replaced with. */
+    /**
+     * The string non-latin characters are replaced with.
+     */
     private static final String REPLACEMENT = ""; // Empty space!
 
     private StringUtil() {
@@ -27,14 +33,14 @@ public final class StringUtil {
      */
     public static String slugify(String string) {
         return NON_LATIN.matcher(Normalizer.normalize(WHITESPACE.matcher(string).replaceAll("-"), Normalizer.Form.NFD))
-            .replaceAll(REPLACEMENT)
-            .toLowerCase(Locale.ENGLISH);
+                .replaceAll(REPLACEMENT)
+                .toLowerCase(Locale.ENGLISH);
     }
 
     /**
      * Converts a list of strings to make a nice English list as a string.
      *
-     * @param list List of strings to compound.
+     * @param list   List of strings to compound.
      * @param prefix Prefix to add before each element in the resulting string.
      * @param suffix Suffix to add after each element in the resulting string.
      * @return String version of the list of strings.
@@ -42,9 +48,9 @@ public final class StringUtil {
     public static String listToEnglishCompound(Collection<?> list, String prefix, String suffix) {
         StringBuilder builder = new StringBuilder();
         int i = 0;
-        for(Object str : list) {
-            if(i != 0) {
-                if(i == list.size() - 1) {
+        for (Object str : list) {
+            if (i != 0) {
+                if (i == list.size() - 1) {
                     if (list.size() > 2)
                         builder.append(", and ");
                     else

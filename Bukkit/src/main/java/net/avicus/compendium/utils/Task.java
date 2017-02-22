@@ -87,8 +87,7 @@ public abstract class Task {
                 running = true;
                 try {
                     Task.this.run();
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 running = false;

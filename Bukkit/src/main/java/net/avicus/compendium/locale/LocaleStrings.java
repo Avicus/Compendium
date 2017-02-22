@@ -22,8 +22,18 @@ public class LocaleStrings {
     @Getter private final Locale locale;
     private final Map<String, String> strings;
 
+    public LocaleStrings(Locale locale) {
+        this(locale, new HashMap<>());
+    }
+
+    public LocaleStrings(Locale locale, Map<String, String> strings) {
+        this.locale = locale;
+        this.strings = strings;
+    }
+
     /**
      * Create from an XML document.
+     *
      * @param stream
      * @return
      * @throws JDOMException
@@ -37,6 +47,7 @@ public class LocaleStrings {
 
     /**
      * Create from an XML element.
+     *
      * @param el The &lt;locale lang="en" country="us"/&gt;
      * @return
      */
@@ -76,15 +87,6 @@ public class LocaleStrings {
             curr = curr.getParentElement();
         }
         return result;
-    }
-
-    public LocaleStrings(Locale locale) {
-        this(locale, new HashMap<>());
-    }
-
-    public LocaleStrings(Locale locale, Map<String, String> strings) {
-        this.locale = locale;
-        this.strings = strings;
     }
 
     public void add(String key, String value) {

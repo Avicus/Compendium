@@ -2,7 +2,11 @@ package net.avicus.compendium.menu.inventory;
 
 import net.avicus.compendium.menu.IndexedMenuItem;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A standard inventory indexer that resolves indexes by IndexedMenuItem's getIndex() method, or
@@ -19,8 +23,7 @@ public class IndexedInventoryIndexer implements InventoryIndexer {
 
             if (item instanceof IndexedMenuItem) {
                 index = ((IndexedMenuItem) item).getIndex();
-            }
-            else {
+            } else {
                 while (indicesTaken.contains(lastIndex))
                     lastIndex++;
                 index = lastIndex;

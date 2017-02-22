@@ -3,13 +3,13 @@ package net.avicus.compendium.settings.types;
 import net.avicus.compendium.settings.SettingValue;
 import net.avicus.compendium.settings.types.NumberSettingType.NumberSettingValue;
 
+import javax.annotation.concurrent.Immutable;
 import java.util.Optional;
 import java.util.function.Function;
 
-import javax.annotation.concurrent.Immutable;
-
 /**
  * Any type of number setting.
+ *
  * @param <N>
  */
 @Immutable

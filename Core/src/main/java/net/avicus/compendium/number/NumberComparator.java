@@ -17,6 +17,7 @@ public interface NumberComparator {
 
     /**
      * Perform the comparator on two values
+     *
      * @param a
      * @param b
      * @return True if the comparator passes.

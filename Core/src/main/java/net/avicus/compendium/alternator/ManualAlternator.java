@@ -1,6 +1,10 @@
 package net.avicus.compendium.alternator;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Alternates between a set of objects by calling {@link #next()}.

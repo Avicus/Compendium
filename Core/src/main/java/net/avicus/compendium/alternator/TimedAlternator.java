@@ -4,6 +4,7 @@ import java.util.Collection;
 
 /**
  * An alternator that switches to the next item after a period of time.
+ *
  * @param <T>
  */
 public class TimedAlternator<T> extends ManualAlternator<T> {

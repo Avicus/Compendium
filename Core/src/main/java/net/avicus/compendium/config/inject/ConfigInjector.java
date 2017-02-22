@@ -36,7 +36,7 @@ public class ConfigInjector {
 
             if (required && !exists)
                 throw new ConfigInjectionException("Missing required key: '" + key + "'.");
-            
+
 
             Object value = nested.get().get(key);
 
@@ -73,8 +73,7 @@ public class ConfigInjector {
                 } catch (ClassCastException e) {
                     throw new ConfigInjectionException("Invalid type for configuration path: '" + rawPath + "'.", e);
                 }
-            }
-            else
+            } else
                 return Optional.empty();
         }
 

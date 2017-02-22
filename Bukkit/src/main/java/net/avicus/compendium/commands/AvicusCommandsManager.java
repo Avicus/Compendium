@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class AvicusCommandsManager extends CommandsManager<CommandSender>
-{
+public class AvicusCommandsManager extends CommandsManager<CommandSender> {
     @Override
     public boolean hasPermission(CommandSender sender, String perm) {
         return sender instanceof ConsoleCommandSender || sender.hasPermission(perm);
@@ -22,10 +21,10 @@ public class AvicusCommandsManager extends CommandsManager<CommandSender>
      * This will cache the definition and method for use to provide {@link com.sk89q.minecraft.util.commands.SuggestionContext}'s and such by the framework.
      * This runs the same code that would run by the internal framework if a class was supplied.
      * The framework will see all of the dynamically registered commands as root-level commands.
-     *
+     * <p>
      * NOTE: This does not support nesting.
      *
-     * @param method Method that the command will execute.
+     * @param method  Method that the command will execute.
      * @param command definiton of the command,
      * @return the input definition for use in other methods.
      * @throws IllegalAccessException
@@ -37,7 +36,7 @@ public class AvicusCommandsManager extends CommandsManager<CommandSender>
 
         map = commands.get(null);
 
-        if(!(Void.TYPE.equals(method.getReturnType()) ||
+        if (!(Void.TYPE.equals(method.getReturnType()) ||
                 List.class.isAssignableFrom(method.getReturnType()))) {
             throw new RuntimeException("Command method " + method.getDeclaringClass().getName() + "#" + method.getName() +
                     " must return either void or List<String>");

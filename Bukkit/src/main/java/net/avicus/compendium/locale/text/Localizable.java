@@ -9,12 +9,14 @@ public interface Localizable extends TranslatableComponent {
 
     /**
      * Get the style of this.
+     *
      * @return
      */
     TextStyle style();
 
     /**
      * Copy this and its styles.
+     *
      * @return
      */
     Localizable duplicate();

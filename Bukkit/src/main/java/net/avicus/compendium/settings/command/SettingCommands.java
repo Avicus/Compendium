@@ -64,8 +64,8 @@ public class SettingCommands {
     @Command(aliases = {"setting"}, desc = "See a setting's value and information.", min = 1, usage = "<name>", flags = "o:")
     public static void setting(CommandContext args, CommandSender sender) throws TranslatableCommandErrorException {
         final Player target = args.hasFlag('o') && sender.hasPermission("settings.other.view")
-            ? Bukkit.getPlayer(args.getFlag('o'), sender)
-            : MustBePlayerCommandException.ensurePlayer(sender);
+                ? Bukkit.getPlayer(args.getFlag('o'), sender)
+                : MustBePlayerCommandException.ensurePlayer(sender);
 
         String query = args.getString(0);
 
@@ -179,7 +179,7 @@ public class SettingCommands {
         UnlocalizedFormat format = new UnlocalizedFormat("{0}: {1}");
 
         // Click me!
-        BaseComponent[] clickMe = new BaseComponent[] {Messages.GENERIC_CLICK_ME.with(ChatColor.WHITE).translate(sender.getLocale())};
+        BaseComponent[] clickMe = new BaseComponent[]{Messages.GENERIC_CLICK_ME.with(ChatColor.WHITE).translate(sender.getLocale())};
 
         for (Setting setting : paginator.getPage(page)) {
             Localizable name = setting.getName().duplicate();
@@ -215,8 +215,7 @@ public class SettingCommands {
             Localizable value = new UnlocalizedText(setting.getType().value(result.get()).serialize());
 
             sender.sendMessage(Messages.GENERIC_SETTING_SET.with(ChatColor.GOLD, name, value));
-        }
-        else {
+        } else {
             sender.sendMessage(Messages.ERRORS_NOT_TOGGLE.with(ChatColor.RED));
         }
     }

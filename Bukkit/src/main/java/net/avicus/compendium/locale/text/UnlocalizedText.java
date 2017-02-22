@@ -50,7 +50,7 @@ public class UnlocalizedText implements Localizable {
 
                 if (split.length > 0)
                     parts.add(this.style.apply(split[0]));
-                
+
                 parts.add(curr.translate(locale));
 
                 if (split.length > 1)
@@ -69,8 +69,7 @@ public class UnlocalizedText implements Localizable {
             result = new TextComponent(parts.get(0));
             for (int i = 1; i < parts.size(); i++)
                 result.addExtra(parts.get(i));
-        }
-        else {
+        } else {
             result = new TextComponent("");
         }
 
@@ -85,8 +84,8 @@ public class UnlocalizedText implements Localizable {
     @Override
     public UnlocalizedText duplicate() {
         List<Localizable> arguments = this.arguments.stream()
-                                                    .map(Localizable::duplicate)
-                                                    .collect(Collectors.toList());
+                .map(Localizable::duplicate)
+                .collect(Collectors.toList());
 
         return new UnlocalizedText(this.text, this.style.duplicate(), arguments);
     }

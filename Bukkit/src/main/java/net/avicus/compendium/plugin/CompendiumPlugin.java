@@ -11,14 +11,14 @@ import net.avicus.compendium.boss.LegacyBossBarContext;
 import net.avicus.compendium.commands.AvicusCommandsManager;
 import net.avicus.compendium.commands.AvicusCommandsRegistration;
 import net.avicus.compendium.commands.exception.AbstractTranslatableCommandException;
+import net.avicus.compendium.countdown.CountdownCommands;
+import net.avicus.compendium.countdown.CountdownManager;
 import net.avicus.compendium.locale.LocaleBundle;
 import net.avicus.compendium.locale.LocaleStrings;
 import net.avicus.compendium.locale.text.UnlocalizedText;
-import net.avicus.compendium.countdown.CountdownCommands;
 import net.avicus.compendium.menu.inventory.InventoryListener;
 import net.avicus.compendium.settings.command.SettingCommands;
 import net.avicus.compendium.settings.command.SettingTabCompleter;
-import net.avicus.compendium.countdown.CountdownManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.PluginManager;
@@ -32,9 +32,8 @@ import java.util.List;
 
 public class CompendiumPlugin extends JavaPlugin {
     @Getter private static CompendiumPlugin instance;
-    private AvicusCommandsManager commandManager;
     private static LocaleBundle bundle;
-
+    private AvicusCommandsManager commandManager;
     @Getter private BossBarManager bossBarManager;
     @Getter private CountdownManager countdownManager;
 

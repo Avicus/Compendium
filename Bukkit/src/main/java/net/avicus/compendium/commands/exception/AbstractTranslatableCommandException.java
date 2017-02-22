@@ -21,15 +21,12 @@ public abstract class AbstractTranslatableCommandException extends CommandExcept
         this.args = args;
     }
 
-    public abstract ChatColor getColor();
-
     public static LocalizedText format(AbstractTranslatableCommandException exception) {
         final LocalizedText text;
 
-        if(exception.args.length == 0) {
+        if (exception.args.length == 0) {
             text = exception.format.with();
-        }
-        else {
+        } else {
             text = exception.format.with(exception.args);
         }
 
@@ -46,4 +43,6 @@ public abstract class AbstractTranslatableCommandException extends CommandExcept
         text.style().color(ChatColor.RED);
         return text;
     }
+
+    public abstract ChatColor getColor();
 }

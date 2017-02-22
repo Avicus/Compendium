@@ -7,8 +7,15 @@ import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.DumperOptions.FlowStyle;
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Config {
     protected static final Yaml yaml;
@@ -140,13 +147,13 @@ public class Config {
     }
 
     public <E extends Enum<E>> E getAsEnum(String key, Class<E> clazz, E def) {
-        return contains(key) ?  getAsEnum(key, clazz) : def;
+        return contains(key) ? getAsEnum(key, clazz) : def;
     }
 
     public <E extends Enum<E>> E getAsEnum(String key, Class<E> clazz) {
         if (!contains(key))
             return null;
-        
+
         try {
             String text = getAsString(key);
             text = text.toUpperCase().replace(" ", "_").replace("-", "_");

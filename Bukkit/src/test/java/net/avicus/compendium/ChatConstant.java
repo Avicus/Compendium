@@ -8,6 +8,8 @@ import java.util.Locale;
 
 public class ChatConstant {
     private static LocaleBundle bundle;
+    public static LocalizedFormat HELLO = new LocalizedFormat(bundle, "hello");
+    public static LocalizedFormat NAME = new LocalizedFormat(bundle, "name");
 
     static {
         bundle = new LocaleBundle();
@@ -23,7 +25,4 @@ public class ChatConstant {
         bundle.add(en);
         bundle.add(es);
     }
-
-    public static LocalizedFormat HELLO = new LocalizedFormat(bundle, "hello");
-    public static LocalizedFormat NAME = new LocalizedFormat(bundle, "name");
 }
