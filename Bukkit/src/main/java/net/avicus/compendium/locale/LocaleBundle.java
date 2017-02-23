@@ -69,7 +69,7 @@ public class LocaleBundle {
         Optional<String> result = strings.get().get(key);
 
         if (result.isPresent())
-            return Optional.of(result.get());
+            return Optional.of(result.get().replace("\n", ""));
 
         Optional<LocaleStrings> defStrings = getDefaultStrings();
 
