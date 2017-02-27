@@ -10,6 +10,7 @@ import net.avicus.compendium.boss.BossBarManager;
 import net.avicus.compendium.boss.LegacyBossBarContext;
 import net.avicus.compendium.commands.AvicusCommandsManager;
 import net.avicus.compendium.commands.AvicusCommandsRegistration;
+import net.avicus.compendium.commands.UtilityCommands;
 import net.avicus.compendium.commands.exception.AbstractTranslatableCommandException;
 import net.avicus.compendium.countdown.CountdownCommands;
 import net.avicus.compendium.countdown.CountdownManager;
@@ -73,6 +74,8 @@ public class CompendiumPlugin extends JavaPlugin {
         AvicusCommandsRegistration registry = new AvicusCommandsRegistration(this, this.commandManager);
         registry.register(SettingCommands.class);
         registry.register(CountdownCommands.class);
+
+        registry.register(UtilityCommands.class);
 
         final SettingTabCompleter completer = new SettingTabCompleter();
         this.getCommand("set").setTabCompleter(completer);
