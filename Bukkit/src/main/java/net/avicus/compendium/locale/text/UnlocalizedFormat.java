@@ -2,6 +2,9 @@ package net.avicus.compendium.locale.text;
 
 import net.avicus.compendium.TextStyle;
 
+/**
+ * Represents a format that takes arguments for localization with {@link UnlocalizedText}s.
+ */
 public class UnlocalizedFormat implements LocalizableFormat<UnlocalizedText> {
     private final String text;
 

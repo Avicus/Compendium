@@ -14,6 +14,9 @@ import org.joda.time.Duration;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * A generic timer class that ticks down from a specified duration to 0.
+ */
 public abstract class Countdown {
 
     final Map<UUID, BossBar> bars = Maps.newHashMap();

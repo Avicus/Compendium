@@ -3,6 +3,9 @@ package net.avicus.compendium.locale.text;
 import net.avicus.compendium.TextStyle;
 import org.bukkit.ChatColor;
 
+/**
+ * Represents a format that takes arguments for localization.
+ */
 public interface LocalizableFormat<T extends Localizable> {
 
     T with(TextStyle style, Localizable... arguments);

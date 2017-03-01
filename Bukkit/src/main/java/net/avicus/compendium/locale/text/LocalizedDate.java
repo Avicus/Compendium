@@ -7,6 +7,9 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * A date object that can be translated to any locale with a specific style.
+ */
 public class LocalizedDate implements Localizable {
     private final Date date;
     private final TextStyle style;

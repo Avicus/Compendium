@@ -17,6 +17,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * A key->value represtantation of strings for a specific {@link Locale} that can be retrieved for localization.
+ */
 @ToString
 public class LocaleStrings {
     @Getter private final Locale locale;

@@ -4,6 +4,9 @@ import net.avicus.compendium.plugin.Messages;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+/**
+ * An exception which is thrown when the console tries to execute a command that can only be ran by players.
+ */
 public final class MustBePlayerCommandException extends TranslatableCommandErrorException {
 
     private MustBePlayerCommandException() {

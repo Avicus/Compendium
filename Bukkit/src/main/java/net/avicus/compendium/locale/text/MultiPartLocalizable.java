@@ -6,6 +6,9 @@ import net.md_5.bungee.api.chat.TextComponent;
 
 import java.util.Locale;
 
+/**
+ * A {@link Localizable} that joins multiple {@link Localizable}s together.
+ */
 public class MultiPartLocalizable implements Localizable {
 
     private final Localizable[] args;

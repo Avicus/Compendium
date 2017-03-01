@@ -15,6 +15,9 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.function.Predicate;
 
+/**
+ * Container class that should be used for the creation and execution of {@link Countdown}s.
+ */
 public class CountdownManager implements Listener {
 
     private final Map<Countdown, CountdownTask> countdowns = Maps.newHashMap();
@@ -23,6 +26,12 @@ public class CountdownManager implements Listener {
         return this.countdowns;
     }
 
+    /**
+     * Find a countdown from a bukkit task ID.
+     *
+     * @param taskId to search for
+     * @return a countdown that has the ID
+     */
     @Nullable
     CountdownTask findByTaskId(int taskId) {
         for (CountdownTask task : this.countdowns.values()) {
@@ -33,10 +42,18 @@ public class CountdownManager implements Listener {
         return null;
     }
 
+    /**
+     * Remove a countdown from the manager.
+     *
+     * @param countdown to remove
+     */
     void remove(Countdown countdown) {
         this.countdowns.remove(countdown);
     }
 
+    /**
+     * Called when a player quits to remove all active bars tied to a player.
+     */
     @EventHandler
     public void quit(final PlayerQuitEvent event) {
         final UUID uniqueId = event.getPlayer().getUniqueId();
@@ -45,6 +62,11 @@ public class CountdownManager implements Listener {
         }
     }
 
+    /**
+     * Start a countdown and add it to the manager.
+     *
+     * @param countdown to start
+     */
     public void start(Countdown countdown) {
         CountdownTask task = new CountdownTask(this, countdown);
         this.countdowns.put(countdown, task);
@@ -54,6 +76,11 @@ public class CountdownManager implements Listener {
         CompendiumPlugin.getInstance().getServer().getPluginManager().callEvent(new CountdownStartEvent(countdown));
     }
 
+    /**
+     * Cancel a countdown.
+     *
+     * @param countdown to cancel
+     */
     public void cancel(Countdown countdown) {
         @Nullable CountdownTask task = this.countdowns.remove(countdown);
         if (task != null) {
@@ -62,6 +89,10 @@ public class CountdownManager implements Listener {
         }
     }
 
+    /**
+     * Cancel all countdowns that match the supplied {@link Predicate}.
+     * @param predicate to run all countdowns against
+     */
     public void cancelAll(Predicate<Countdown> predicate) {
         Set<Countdown> cancelled = Sets.newHashSet();
         for (Countdown countdown : this.countdowns.keySet()) {
@@ -75,6 +106,9 @@ public class CountdownManager implements Listener {
         cancelled.forEach((countdown -> CompendiumPlugin.getInstance().getServer().getPluginManager().callEvent(new CountdownCancelEvent(countdown))));
     }
 
+    /**
+     * Cancel all countdowns registered with the manager and clear the manager.
+     */
     public void cancelAll() {
         Iterator<CountdownTask> it = this.countdowns.values().iterator();
         while (it.hasNext()) {
@@ -86,10 +120,21 @@ public class CountdownManager implements Listener {
         this.countdowns.clear();
     }
 
+    /**
+     * Test if a countdown of the specified class is running.
+     *
+     * @param clazz to check against
+     * @return if a countdown of the specified class is running
+     */
     public boolean isRunning(Class<? extends Countdown> clazz) {
         return this.countdowns.values().stream().anyMatch(countdown -> clazz.isInstance(clazz));
     }
 
+    /**
+     * Get the time remaining of a countdown.
+     * @param countdown to get time remaining for
+     * @return the amount of time remaining
+     */
     @Nullable
     public Duration getTimeRemaining(Countdown countdown) {
         if (!this.countdowns.containsKey(countdown))

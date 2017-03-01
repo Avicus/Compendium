@@ -10,6 +10,9 @@ import org.bukkit.ChatColor;
 import org.joda.time.Duration;
 import org.joda.time.Seconds;
 
+/**
+ * Countdown which is used to restart a server.
+ */
 public class RestartingCountdown extends Countdown {
 
     public RestartingCountdown() {

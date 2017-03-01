@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A custom implementation of the {@link CommandsManager} which is used to register single methods as opposed to classes.
+ */
 public class AvicusCommandsManager extends CommandsManager<CommandSender> {
     @Override
     public boolean hasPermission(CommandSender sender, String perm) {

@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
+/**
+ * A collection of {@link LocaleStrings} and allows retrieval by language.
+ */
 public class LocaleBundle {
     private List<LocaleStrings> locales;
 

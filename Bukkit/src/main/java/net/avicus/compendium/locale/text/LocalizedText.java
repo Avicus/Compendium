@@ -13,6 +13,9 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a locatable text sting inside of a {@link LocaleBundle}.
+ */
 public class LocalizedText implements Localizable {
     private final LocaleBundle bundle;
     private final String key;

@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+/**
+ * A {@link LocalizedText} that can have a translation inside of it to allow for double translation.
+ */
 public class LocalizedTextFormat implements Localizable {
     private final LocaleBundle bundle;
     private final Localizable format;

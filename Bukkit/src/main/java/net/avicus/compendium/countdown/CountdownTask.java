@@ -8,6 +8,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.joda.time.Duration;
 import org.joda.time.Seconds;
 
+/**
+ * A task which is used to keep track of a single countdown and update it's duration.
+ */
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public class CountdownTask extends BukkitRunnable {
 

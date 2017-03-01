@@ -6,6 +6,9 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import javax.annotation.Nullable;
 import java.util.Locale;
 
+/**
+ * A {@link BaseComponent} that can be style like a {@link Localizable}.
+ */
 public class UnlocalizedComponent implements Localizable {
 
     private final BaseComponent component;

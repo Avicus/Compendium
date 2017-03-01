@@ -5,6 +5,9 @@ import org.bukkit.entity.Player;
 
 import java.util.Optional;
 
+/**
+ * Returns the same color regardless of the player supplied.
+ */
 public class StaticColorProvider implements ColorProvider {
     private final Color color;
 

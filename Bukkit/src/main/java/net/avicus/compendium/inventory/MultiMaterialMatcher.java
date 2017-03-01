@@ -5,6 +5,9 @@ import org.bukkit.Material;
 
 import java.util.List;
 
+/**
+ * A material matcher which will return true if the supplied material matches any of the matcher's {@link SingleMaterialMatcher}s.
+ */
 public class MultiMaterialMatcher implements MaterialMatcher {
     @Getter private final List<SingleMaterialMatcher> matchers;
 

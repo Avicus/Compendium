@@ -3,6 +3,9 @@ package net.avicus.compendium.locale.text;
 import net.avicus.compendium.TextStyle;
 import net.avicus.compendium.locale.LocaleBundle;
 
+/**
+ * Represents a format that takes arguments for localization with {@link LocalizedText}s.
+ */
 public class LocalizedFormat implements LocalizableFormat<LocalizedText> {
     private final LocaleBundle bundle;
     private final String key;

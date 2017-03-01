@@ -21,6 +21,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * A custom implementation of {@link CommandsManagerRegistration} which supports the un-registration of commands.
+ */
 public class AvicusCommandsRegistration extends CommandsManagerRegistration {
 
     public AvicusCommandsRegistration(Plugin plugin, CommandsManager commands) {
@@ -31,11 +34,20 @@ public class AvicusCommandsRegistration extends CommandsManagerRegistration {
         super(plugin, executor, commands);
     }
 
-    // https://gist.github.com/thomasdarimont/7f0a31fcc0a65befef1f
+    /**
+     * Create an instance of an annotation with the supplied arguments and type.
+     * <p>
+     * SOURCE: https://gist.github.com/thomasdarimont/7f0a31fcc0a65befef1f
+     *
+     * @param customValues   to be supplied to the annotation
+     * @param annotationType type of annotation
+     * @param <A>            type of annotation
+     * @return an instance of an annotation with the supplied arguments and type
+     */
     private static <A extends Annotation> A createAnnotationInstance(Map<String, Object> customValues, Class<A> annotationType) {
         Map<String, Object> values = new HashMap<>();
 
-        //Extract default values from annotation
+        // Extract default values from annotation
         for (Method method : annotationType.getDeclaredMethods()) {
             if (values.containsKey(method.getName()))
                 continue;
@@ -53,9 +65,9 @@ public class AvicusCommandsRegistration extends CommandsManagerRegistration {
      * Unregister commands based on provided class
      * This uses the same logic as the framework uses during registration, so nesting is supported.
      *
-     * @param clazz
-     * @return
-     * @throws Exception
+     * @param clazz that contains the command annotations
+     * @return if the commands were successfully unregistered
+     * @throws Exception if un-registration fails
      */
     public boolean unregisterCommands(Class clazz) throws Exception {
         CommandMap map = getCommandMap();
@@ -102,9 +114,9 @@ public class AvicusCommandsRegistration extends CommandsManagerRegistration {
     /**
      * Unregister a command
      *
-     * @param command
-     * @return
-     * @throws Exception
+     * @param command to unregister
+     * @return if the command were successfully unregistered
+     * @throws Exception if un-registration fails
      */
     public boolean unregisterCommand(com.sk89q.minecraft.util.commands.Command command) throws Exception {
         CommandMap map = getCommandMap();
@@ -144,6 +156,17 @@ public class AvicusCommandsRegistration extends CommandsManagerRegistration {
         return true;
     }
 
+    /**
+     * Get command methods from a class.
+     *
+     * @param cls    to gather methods from
+     * @param parent command method
+     * @param obj    instance of the class
+     * @return a list of commands from the class
+     * @throws IllegalAccessException    if a method cannot be accessed
+     * @throws InstantiationException    if the class cannot be instantiated
+     * @throws InvocationTargetException if invoking a method fails
+     */
     private List<com.sk89q.minecraft.util.commands.Command> getCommandMethods(Class<?> cls, Method parent, Object obj) throws IllegalAccessException, InstantiationException, InvocationTargetException {
         List<com.sk89q.minecraft.util.commands.Command> registered = new ArrayList<>();
 
@@ -190,13 +213,19 @@ public class AvicusCommandsRegistration extends CommandsManagerRegistration {
      * @param method     Method to be executed on command.
      * @param definition Command definition,
      * @return If the command registered successfully.
-     * @throws Exception
+     * @throws Exception if registration fails
      */
     public boolean reqisterCommand(Method method, com.sk89q.minecraft.util.commands.Command definition) throws Exception {
         AvicusCommandsManager commandsManager = (AvicusCommandsManager) commands;
         return registerAll(commandsManager.registerCommandAnnotation(method, definition));
     }
 
+    /**
+     * Helper method to create a new instance of the {@link com.sk89q.minecraft.util.commands.Command} annotation with the supplied arguments.
+     *
+     * @param params to supply to the annotation
+     * @return new instance of the annotation
+     */
     public com.sk89q.minecraft.util.commands.Command newCommand(Map<String, Object> params) {
         return createAnnotationInstance(params, com.sk89q.minecraft.util.commands.Command.class);
     }

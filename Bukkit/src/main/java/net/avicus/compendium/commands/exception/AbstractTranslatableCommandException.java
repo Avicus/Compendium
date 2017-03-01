@@ -7,20 +7,40 @@ import net.avicus.compendium.locale.text.LocalizedFormat;
 import net.avicus.compendium.locale.text.LocalizedText;
 import org.bukkit.ChatColor;
 
+/**
+ * A command exception that can be translated later on to be sent to players.
+ */
 public abstract class AbstractTranslatableCommandException extends CommandException {
 
     @Getter private final LocalizedFormat format;
     @Getter private final Localizable[] args;
 
+    /**
+     * Constructor
+     *
+     * @param format of the exception
+     */
     public AbstractTranslatableCommandException(LocalizedFormat format) {
         this(format, Localizable.EMPTY);
     }
 
+    /**
+     * Constructor
+     *
+     * @param format of the exception
+     * @param args   for the format
+     */
     public AbstractTranslatableCommandException(LocalizedFormat format, Localizable... args) {
         this.format = format;
         this.args = args;
     }
 
+    /**
+     * Format an exception with coloring and arguments to be sent to players.
+     *
+     * @param exception to format
+     * @return a formatted {@link LocalizedText} from the exception
+     */
     public static LocalizedText format(AbstractTranslatableCommandException exception) {
         final LocalizedText text;
 
@@ -34,15 +54,29 @@ public abstract class AbstractTranslatableCommandException extends CommandExcept
         return text;
     }
 
+    /**
+     * Format an error text from a format.
+     * @param format to create an error text for
+     * @return a formatted {@link LocalizedText} from the format
+     */
     public static LocalizedText error(LocalizedFormat format) {
         return error(format, Localizable.EMPTY);
     }
 
+    /**
+     * Format an error text from a format and arguments.
+     * @param format to create an error text for
+     * @param args  to supply to the format
+     * @return a formatted {@link LocalizedText} from the format
+     */
     public static LocalizedText error(LocalizedFormat format, Localizable... args) {
         LocalizedText text = format.with(args);
         text.style().color(ChatColor.RED);
         return text;
     }
 
+    /**
+     * @return the color of the exception
+     */
     public abstract ChatColor getColor();
 }

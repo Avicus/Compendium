@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+/**
+ * A simple non-translatable string that can still take arguments and styling.
+ */
 public class UnlocalizedText implements Localizable {
     private final String text;
     private final List<Localizable> arguments;

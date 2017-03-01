@@ -8,6 +8,9 @@ import org.bukkit.material.MaterialData;
 
 import java.util.Optional;
 
+/**
+ * A simple implementation of a {@link MaterialMatcher} which stores one material to match against.
+ */
 @ToString
 public class SingleMaterialMatcher implements MaterialMatcher {
     @Getter final Material material;

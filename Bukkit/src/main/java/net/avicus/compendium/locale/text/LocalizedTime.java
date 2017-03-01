@@ -8,6 +8,9 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
+ * A date object that can be translated to any locale with a specific style in the _ago format.
+ *
+ * EXAMPLES:
  * 5 seconds ago,
  * 1 day from now,
  * moments ago,
