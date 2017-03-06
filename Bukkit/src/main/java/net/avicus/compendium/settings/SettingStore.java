@@ -116,6 +116,7 @@ public class SettingStore {
                 return (R) context.getValue().raw();
         }
         Bukkit.getLogger().info(String.format("[Settings] Retrieving default value for '%s' (%s) for %s", setting.getId(), setting.getDefaultValue(), key));
+        set(key, setting, setting.getDefaultValue());
         return setting.getDefaultValue();
     }
 
