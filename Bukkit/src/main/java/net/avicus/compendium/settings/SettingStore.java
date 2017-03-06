@@ -41,6 +41,7 @@ public class SettingStore {
         List<SettingContext> list = new ArrayList<>(this.settings.values());
         for (SettingContext context : list) {
             if (context.getSetting().equals(setting)) {
+                Bukkit.getLogger().info(String.format("[Settings] Removing %s from the store for %s (WAS: %s)", setting.getId(), key, context.getValue().raw()));
                 this.settings.values().remove(context);
                 break;
             }
@@ -49,8 +50,11 @@ public class SettingStore {
         SettingContext context = new SettingContext<>(setting, setting.getType().value(value));
         this.settings.put(key, context);
         Player player = Bukkit.getPlayer(key);
-        if (player != null && callEvent)
+        if (player != null && callEvent) {
             Bukkit.getPluginManager().callEvent(new SettingModifyEvent(CompendiumPlugin.getInstance(), context, player));
+            Bukkit.getLogger().info(String.format("[Settings] Adding '%s' to the store for %s (IS: %s)", setting.getId(), player.getName(), value));
+        } else
+            Bukkit.getLogger().info(String.format("[Settings] Adding '%s' to the store for %s (IS: %s)", setting.getId(), key, value));
         return value;
     }
 
@@ -111,6 +115,7 @@ public class SettingStore {
             if (context.getSetting().equals(setting))
                 return (R) context.getValue().raw();
         }
+        Bukkit.getLogger().info(String.format("[Settings] Retrieving default value for '%s' (%s) for %s", setting.getId(), setting.getDefaultValue(), key));
         return setting.getDefaultValue();
     }
 
@@ -159,6 +164,7 @@ public class SettingStore {
         if (value instanceof SettingValueToggleable) {
             SettingValueToggleable toggle = (SettingValueToggleable) value;
             R next = (R) toggle.next();
+            Bukkit.getLogger().info(String.format("[Settings] Toggling '%s' from '%s' to '%s' for %s", setting.getId(), toggle.raw(), toggle.next(), key));
             set(key, setting, next);
             return Optional.of(next);
         }
