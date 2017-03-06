@@ -38,7 +38,7 @@ public class SettingStore {
     }
 
     public <R> R set(UUID key, Setting<R> setting, R value, boolean callEvent) {
-        List<SettingContext> list = new ArrayList<>(this.settings.values());
+        List<SettingContext> list = this.settings.get(key);
         for (SettingContext context : list) {
             if (context.getSetting().equals(setting)) {
                 Bukkit.getLogger().info(String.format("[Settings] Removing %s from the store for %s (WAS: %s)", setting.getId(), key, context.getValue().raw()));
@@ -112,7 +112,7 @@ public class SettingStore {
     public <R> R get(UUID key, Setting<R> setting) {
         List<SettingContext> set = this.settings.get(key);
         for (SettingContext context : set) {
-            if (context.getSetting().getId().equals(setting.getId()))
+            if (context.getSetting().equals(setting))
                 return (R) context.getValue().raw();
         }
         Bukkit.getLogger().info(String.format("[Settings] Retrieving default value for '%s' (%s) for %s", setting.getId(), setting.getDefaultValue(), key));
