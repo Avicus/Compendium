@@ -112,7 +112,7 @@ public class SettingStore {
     public <R> R get(UUID key, Setting<R> setting) {
         List<SettingContext> set = this.settings.get(key);
         for (SettingContext context : set) {
-            if (context.getSetting().equals(setting))
+            if (context.getSetting().getId().equals(setting.getId()))
                 return (R) context.getValue().raw();
         }
         Bukkit.getLogger().info(String.format("[Settings] Retrieving default value for '%s' (%s) for %s", setting.getId(), setting.getDefaultValue(), key));
