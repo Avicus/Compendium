@@ -14,6 +14,7 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
 public class Sidebar {
     @Getter private final Scoreboard scoreboard;
     @Getter private final Multimap<Integer, SidebarTeam> teams;
+    @Getter private final List<Team> teamLines;
     @Getter private final Objective objective;
 
     /**
@@ -64,6 +66,11 @@ public class Sidebar {
         this.objective = scoreboard.registerNewObjective(title, "dummy");
         this.objective.setDisplayName(title);
         this.objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+
+        this.teamLines = new ArrayList<>();
+        for (int i = 0; i < 16; i++) {
+            this.teamLines.add(this.scoreboard.registerNewTeam("sb -" + i));
+        }
     }
 
     /**
@@ -209,7 +216,6 @@ public class Sidebar {
             if (line != null && !entry.getKey().equals(line))
                 continue;
             this.scoreboard.resetScores(entry.getValue().getLineText());
-            entry.getValue().getTeam().unregister();
             iterator.remove();
         }
     }
@@ -238,13 +244,17 @@ public class Sidebar {
         String line = split[1];
         String suffix = split[2];
 
-        Team team = this.scoreboard.registerNewTeam("sb-" + lineNum + "-" + UUID.randomUUID().toString().substring(0, 6));
+        Team team = teamLines.get(lineNum);
 
         if (prefix != null)
             team.setPrefix(prefix);
+        else
+            team.setPrefix("");
 
         if (suffix != null)
             team.setSuffix(suffix);
+        else
+            team.setSuffix("");
 
         return new SidebarTeam(team, line, text);
     }
