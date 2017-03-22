@@ -1,7 +1,7 @@
 package net.avicus.compendium.locale.text;
 
 import net.avicus.compendium.TextStyle;
-import net.avicus.compendium.utils.Time;
+import net.avicus.compendium.Time;
 import net.md_5.bungee.api.chat.BaseComponent;
 
 import java.util.Date;

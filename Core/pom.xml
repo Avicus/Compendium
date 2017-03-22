@@ -10,6 +10,13 @@
         <version>1.2-SNAPSHOT</version>
     </parent>
 
+    <repositories>
+        <repository>
+            <id>dmulloy2-repo</id>
+            <url>http://repo.dmulloy2.net/content/groups/public/</url>
+        </repository>
+    </repositories>
+
     <artifactId>compendium-core</artifactId>
 
     <dependencies>
@@ -22,6 +29,11 @@
             <groupId>org.javalite</groupId>
             <artifactId>javalite-common</artifactId>
             <version>1.4.11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.ocpsoft.prettytime</groupId>
+            <artifactId>prettytime</artifactId>
+            <version>3.2.7.Final</version>
         </dependency>
     </dependencies>
 </project>

@@ -1,4 +1,4 @@
-package net.avicus.compendium.utils;
+package net.avicus.compendium;
 
 import org.ocpsoft.prettytime.PrettyTime;
 import org.ocpsoft.prettytime.TimeUnit;
