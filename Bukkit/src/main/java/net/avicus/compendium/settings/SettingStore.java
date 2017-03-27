@@ -52,9 +52,9 @@ public class SettingStore {
         Player player = Bukkit.getPlayer(key);
         if (player != null && callEvent) {
             Bukkit.getPluginManager().callEvent(new SettingModifyEvent(CompendiumPlugin.getInstance(), context, player));
-            Bukkit.getLogger().info(String.format("[Settings] Adding '%s' to the store for %s (IS: %s)", setting.getId(), player.getName(), value));
+            Bukkit.getLogger().fine(String.format("[Settings] Adding '%s' to the store for %s (IS: %s)", setting.getId(), player.getName(), value));
         } else
-            Bukkit.getLogger().info(String.format("[Settings] Adding '%s' to the store for %s (IS: %s)", setting.getId(), key, value));
+            Bukkit.getLogger().fine(String.format("[Settings] Adding '%s' to the store for %s (IS: %s)", setting.getId(), key, value));
         return value;
     }
 
