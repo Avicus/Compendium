@@ -18,6 +18,7 @@ import java.util.UUID;
  * Stores any number of settings for UUIDs.
  */
 public class SettingStore {
+    
     private final ArrayListMultimap<UUID, SettingContext> settings;
 
     public SettingStore() {
@@ -41,7 +42,7 @@ public class SettingStore {
         List<SettingContext> list = this.settings.get(key);
         for (SettingContext context : list) {
             if (context.getSetting().equals(setting)) {
-                Bukkit.getLogger().info(String.format("[Settings] Removing %s from the store for %s (WAS: %s)", setting.getId(), key, context.getValue().raw()));
+                Bukkit.getLogger().fine(String.format("[Settings] Removing %s from the store for %s (WAS: %s)", setting.getId(), key, context.getValue().raw()));
                 this.settings.values().remove(context);
                 break;
             }
@@ -115,7 +116,7 @@ public class SettingStore {
             if (context.getSetting().equals(setting))
                 return (R) context.getValue().raw();
         }
-        Bukkit.getLogger().info(String.format("[Settings] Retrieving default value for '%s' (%s) for %s", setting.getId(), setting.getDefaultValue(), key));
+        Bukkit.getLogger().fine(String.format("[Settings] Retrieving default value for '%s' (%s) for %s", setting.getId(), setting.getDefaultValue(), key));
         set(key, setting, setting.getDefaultValue());
         return setting.getDefaultValue();
     }
