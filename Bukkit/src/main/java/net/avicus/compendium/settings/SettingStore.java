@@ -18,7 +18,7 @@ import java.util.UUID;
  * Stores any number of settings for UUIDs.
  */
 public class SettingStore {
-    
+
     private final ArrayListMultimap<UUID, SettingContext> settings;
 
     public SettingStore() {
