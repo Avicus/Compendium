@@ -82,6 +82,12 @@
             <artifactId>ProtocolLib</artifactId>
             <version>4.1.0-SNAPSHOT</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.comphenix.executors</groupId>
+                    <artifactId>BukkitExecutors</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>us.myles</groupId>
