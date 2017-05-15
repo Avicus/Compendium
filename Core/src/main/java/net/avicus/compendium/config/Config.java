@@ -130,6 +130,14 @@ public class Config {
         return contains(key) ? getDouble(key) : def;
     }
 
+    public float getFloat(String key) {
+        return get(key, Number.class).floatValue();
+    }
+
+    public float getFloat(String key, float def) {
+        return contains(key) ? getFloat(key) : def;
+    }
+
     public String getString(String key) {
         return get(key, String.class);
     }
