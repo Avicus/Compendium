@@ -97,4 +97,14 @@ public class UtilityCommands {
             sender.sendMessage(ChatColor.RED + "Error in number syntax");
         }
     }
+
+    @Command(aliases = {"safe-stop", "sast"}, desc = "Stop a server only if it is empty.", max = 0)
+    @CommandPermissions("compendium.safestop")
+    public static void safeStop(CommandContext cmd, CommandSender sender) throws CommandException {
+        int offset = sender instanceof Player ? 1 : 0;
+        if (Bukkit.getOnlinePlayers().size() - offset == 0)
+            Bukkit.shutdown();
+        else
+            sender.sendMessage(ChatColor.RED + "The server cannot be stopped because there are players on it.");
+    }
 }
