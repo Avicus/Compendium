@@ -101,6 +101,7 @@ public class BossBarManager implements Listener, Runnable {
             case 210: // 1.10 - 1.10.2
             case 315: // 1.11
             case 316: // 1.11.1 - 1.11.12
+            case 335: // 1.12
                 return new ModernBossBar(player);
             default:
                 throw new RuntimeException("Could not resolve BossBar for protocol " + version + " for " + player.getUniqueId());
