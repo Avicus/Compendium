@@ -15,11 +15,17 @@ public class Paste {
     private final String title;
     private final String author;
     private final String text;
+    private final boolean raw;
 
     public Paste(String title, String author, String text) {
+        this(title, author, text, false);
+    }
+
+    public Paste(String title, String author, String text, boolean raw) {
         this.title = title;
         this.author = author;
         this.text = text;
+        this.raw = raw;
     }
 
     public String upload() {
@@ -47,7 +53,7 @@ public class Paste {
 
             //Get Response
             BufferedReader rd = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            return pasteURL + new JsonParser().parse(rd.readLine()).getAsJsonObject().get("key").getAsString();
+            return pasteURL + (this.raw? "raw/" : "") + new JsonParser().parse(rd.readLine()).getAsJsonObject().get("key").getAsString();
 
         } catch (IOException e) {
             return null;
