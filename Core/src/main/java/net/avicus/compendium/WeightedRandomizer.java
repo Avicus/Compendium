@@ -217,6 +217,11 @@ public class WeightedRandomizer<T> {
             return this;
         }
 
+        public WeightedRandomizer<?> apply(WeightedRandomizer<T> toApply) {
+            this.items.forEach(toApply::set);
+            return toApply;
+        }
+
         public WeightedRandomizer<T> build() {
             return new WeightedRandomizer<>(this.random, this.items);
         }
