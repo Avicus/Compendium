@@ -1,5 +1,6 @@
 package net.avicus.compendium.locale.text;
 
+import com.google.common.base.Preconditions;
 import net.avicus.compendium.TextStyle;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -33,6 +34,9 @@ public class UnlocalizedText implements Localizable {
     }
 
     public UnlocalizedText(String text, TextStyle style, List<Localizable> arguments) {
+        Preconditions.checkNotNull(text);
+        Preconditions.checkNotNull(arguments);
+        Preconditions.checkNotNull(style);
         this.text = text;
         this.arguments = arguments;
         this.style = style;

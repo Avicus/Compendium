@@ -1,5 +1,6 @@
 package net.avicus.compendium.locale.text;
 
+import com.google.common.base.Preconditions;
 import net.avicus.compendium.TextStyle;
 import net.md_5.bungee.api.chat.BaseComponent;
 
@@ -19,6 +20,7 @@ public class UnlocalizedComponent implements Localizable {
     }
 
     public UnlocalizedComponent(BaseComponent component, @Nullable TextStyle style) {
+        Preconditions.checkNotNull(component);
         this.component = component;
         this.style = style;
     }

@@ -1,5 +1,6 @@
 package net.avicus.compendium.locale.text;
 
+import com.google.common.base.Preconditions;
 import net.avicus.compendium.TextStyle;
 import net.md_5.bungee.api.chat.BaseComponent;
 
@@ -15,6 +16,7 @@ public class LocalizedDate implements Localizable {
     private final TextStyle style;
 
     public LocalizedDate(Date date, TextStyle style) {
+        Preconditions.checkNotNull(date);
         this.date = date;
         this.style = style;
     }
