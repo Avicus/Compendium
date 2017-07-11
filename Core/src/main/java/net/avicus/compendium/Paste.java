@@ -56,7 +56,8 @@ public class Paste {
             return pasteURL + (this.raw? "raw/" : "") + new JsonParser().parse(rd.readLine()).getAsJsonObject().get("key").getAsString();
 
         } catch (IOException e) {
-            return null;
+            e.printStackTrace();
+            return "Paste Failed";
         } finally {
             if (connection == null) return null;
             connection.disconnect();
