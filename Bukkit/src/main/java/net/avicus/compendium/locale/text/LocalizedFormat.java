@@ -1,6 +1,5 @@
 package net.avicus.compendium.locale.text;
 
-import com.google.common.base.Preconditions;
 import net.avicus.compendium.TextStyle;
 import net.avicus.compendium.locale.LocaleBundle;
 
@@ -12,8 +11,6 @@ public class LocalizedFormat implements LocalizableFormat<LocalizedText> {
     private final String key;
 
     public LocalizedFormat(LocaleBundle bundle, String key) {
-        Preconditions.checkNotNull(bundle);
-        Preconditions.checkNotNull(key);
         this.bundle = bundle;
         this.key = key;
     }

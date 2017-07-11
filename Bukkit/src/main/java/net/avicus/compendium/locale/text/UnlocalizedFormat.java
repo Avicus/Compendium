@@ -1,6 +1,5 @@
 package net.avicus.compendium.locale.text;
 
-import com.google.common.base.Preconditions;
 import net.avicus.compendium.TextStyle;
 
 /**
@@ -10,7 +9,6 @@ public class UnlocalizedFormat implements LocalizableFormat<UnlocalizedText> {
     private final String text;
 
     public UnlocalizedFormat(String text) {
-        Preconditions.checkNotNull(text);
         this.text = text;
     }
 

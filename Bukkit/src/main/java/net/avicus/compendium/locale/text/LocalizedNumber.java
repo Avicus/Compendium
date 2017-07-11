@@ -1,6 +1,5 @@
 package net.avicus.compendium.locale.text;
 
-import com.google.common.base.Preconditions;
 import net.avicus.compendium.TextStyle;
 import net.md_5.bungee.api.chat.BaseComponent;
 
@@ -25,9 +24,6 @@ public class LocalizedNumber implements Localizable {
      * @param style       of the number
      */
     public LocalizedNumber(Number number, int minDecimals, int maxDecimals, TextStyle style) {
-        Preconditions.checkNotNull(number);
-        Preconditions.checkNotNull(minDecimals);
-        Preconditions.checkNotNull(maxDecimals);
         this.number = number;
         this.minDecimals = minDecimals;
         this.maxDecimals = maxDecimals;
