@@ -28,4 +28,14 @@ public final class Time {
         }
         return pt;
     }
+
+    public static long[] secToMs(final double s1, final double s2, final double s3,
+                                 final double s4, final double s5, final double s6) {
+        return new long[] { (long) (s1 * 1000d), (long) (s2 * 1000d), (long) (s3 * 1000d), (long) (s4 * 1000d), (long) (s5 * 1000d), (long) (s6 * 1000d) };
+    }
+
+    public static long[] secToMs(final double s1) {
+        final long v = (long) (s1 * 1000d);
+        return new long[]{v, v, v, v, v, v};
+    }
 }
