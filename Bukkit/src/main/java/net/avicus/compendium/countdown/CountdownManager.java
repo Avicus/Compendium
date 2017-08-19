@@ -95,7 +95,7 @@ public class CountdownManager implements Listener {
      */
     public void cancelAll(Predicate<Countdown> predicate) {
         Set<Countdown> cancelled = Sets.newHashSet();
-        for (Countdown countdown : this.countdowns.keySet()) {
+        for (Countdown countdown : Sets.newHashSet(this.countdowns.keySet())) {
             if (predicate.test(countdown)) {
                 this.cancel(countdown);
                 cancelled.add(countdown);
