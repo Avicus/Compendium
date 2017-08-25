@@ -1,5 +1,8 @@
 package net.avicus.compendium;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Locale;
 import net.avicus.compendium.locale.LocaleBundle;
 import net.avicus.compendium.locale.LocaleStrings;
 import net.avicus.compendium.locale.text.LocalizedFormat;
@@ -9,47 +12,44 @@ import org.bukkit.ChatColor;
 import org.jdom2.JDOMException;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Locale;
-
 public class LocaleTests {
-    @Test
-    public void xml() throws JDOMException, IOException {
-        InputStream stream = this.getClass().getClassLoader().getResourceAsStream("./test.xml");
-        LocaleStrings strings = LocaleStrings.fromXml(stream);
-        System.out.println(strings);
-    }
 
-    @Test
-    public void bundles() {
-        System.out.println("=== BUNDLES ===");
-        LocaleStrings en = new LocaleStrings(new Locale("en"));
-        en.add("hello", "Hello {0}!");
+  @Test
+  public void xml() throws JDOMException, IOException {
+    InputStream stream = this.getClass().getClassLoader().getResourceAsStream("./test.xml");
+    LocaleStrings strings = LocaleStrings.fromXml(stream);
+    System.out.println(strings);
+  }
 
-        LocaleBundle bundle = new LocaleBundle();
-        bundle.add(en);
+  @Test
+  public void bundles() {
+    System.out.println("=== BUNDLES ===");
+    LocaleStrings en = new LocaleStrings(new Locale("en"));
+    en.add("hello", "Hello {0}!");
 
-        System.out.println(bundle.get(Locale.ENGLISH, "hello"));
+    LocaleBundle bundle = new LocaleBundle();
+    bundle.add(en);
 
-        UnlocalizedText keenan = new UnlocalizedText("Keenan");
-        keenan.style().color(ChatColor.RED);
+    System.out.println(bundle.get(Locale.ENGLISH, "hello"));
 
-        LocalizedText text = new LocalizedText(bundle, "hello", keenan, keenan);
-        text.style().color(ChatColor.DARK_RED).bold(true);
+    UnlocalizedText keenan = new UnlocalizedText("Keenan");
+    keenan.style().color(ChatColor.RED);
 
-        System.out.println(text.translate(Locale.TRADITIONAL_CHINESE).toLegacyText());
-    }
+    LocalizedText text = new LocalizedText(bundle, "hello", keenan, keenan);
+    text.style().color(ChatColor.DARK_RED).bold(true);
 
-    @Test
-    public void constants() {
-        System.out.println("=== CONSTANTS ===");
-        LocalizedFormat format = ChatConstant.HELLO;
+    System.out.println(text.translate(Locale.TRADITIONAL_CHINESE).toLegacyText());
+  }
 
-        LocalizedText name = ChatConstant.NAME.with(TextStyle.ofColor(ChatColor.RED).bold(false));
+  @Test
+  public void constants() {
+    System.out.println("=== CONSTANTS ===");
+    LocalizedFormat format = ChatConstant.HELLO;
 
-        LocalizedText hello = format.with(TextStyle.ofBold(), name);
+    LocalizedText name = ChatConstant.NAME.with(TextStyle.ofColor(ChatColor.RED).bold(false));
 
-        System.out.println(hello.translate(new Locale("es")).toLegacyText());
-    }
+    LocalizedText hello = format.with(TextStyle.ofBold(), name);
+
+    System.out.println(hello.translate(new Locale("es")).toLegacyText());
+  }
 }

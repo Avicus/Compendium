@@ -7,15 +7,15 @@ import org.bukkit.inventory.InventoryHolder;
 
 public final class InventoryMenuAdapter implements InventoryHolder {
 
-    @Getter(AccessLevel.PACKAGE)
-    private final InventoryMenu menu;
+  @Getter(AccessLevel.PACKAGE)
+  private final InventoryMenu menu;
 
-    InventoryMenuAdapter(InventoryMenu menu) {
-        this.menu = menu;
-    }
+  InventoryMenuAdapter(InventoryMenu menu) {
+    this.menu = menu;
+  }
 
-    @Override
-    public Inventory getInventory() {
-        return this.menu.getInventory();
-    }
+  @Override
+  public Inventory getInventory() {
+    return this.menu.getInventory();
+  }
 }

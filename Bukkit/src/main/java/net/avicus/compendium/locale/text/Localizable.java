@@ -8,19 +8,15 @@ import net.avicus.magnet.api.text.translation.TranslatableComponent;
  */
 public interface Localizable extends TranslatableComponent {
 
-    Localizable[] EMPTY = new Localizable[0];
+  Localizable[] EMPTY = new Localizable[0];
 
-    /**
-     * Get the style of this.
-     *
-     * @return
-     */
-    TextStyle style();
+  /**
+   * Get the style of this.
+   */
+  TextStyle style();
 
-    /**
-     * Copy this and its styles.
-     *
-     * @return
-     */
-    Localizable duplicate();
+  /**
+   * Copy this and its styles.
+   */
+  Localizable duplicate();
 }

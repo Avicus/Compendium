@@ -1,30 +1,30 @@
 package net.avicus.compendium;
 
-import org.junit.Test;
-
 import java.util.HashMap;
 import java.util.Map;
+import org.junit.Test;
 
 public class WeightedRandomizerTests {
-    private static final int TRIALS = 100000;
 
-    @Test
-    public void weighted() {
-        WeightedRandomizer<String> randomizer = new WeightedRandomizer<>();
-        randomizer.set("Adam", 0.5);
-        randomizer.set("Bill", 0.25);
-        randomizer.set("Charlie", 0.125);
-        randomizer.set("Frank", 0.0625);
-        randomizer.set("Dillon", 0.0625);
+  private static final int TRIALS = 100000;
 
-        Map<String, Double> weights = new HashMap<>();
+  @Test
+  public void weighted() {
+    WeightedRandomizer<String> randomizer = new WeightedRandomizer<>();
+    randomizer.set("Adam", 0.5);
+    randomizer.set("Bill", 0.25);
+    randomizer.set("Charlie", 0.125);
+    randomizer.set("Frank", 0.0625);
+    randomizer.set("Dillon", 0.0625);
 
-        for (int i = 0; i < TRIALS; i++) {
-            String next = randomizer.next();
-            double weight = weights.getOrDefault(next, 0.0) + (1.0 / (double) TRIALS);
-            weights.put(next, weight);
-        }
+    Map<String, Double> weights = new HashMap<>();
 
-        System.out.println(weights);
+    for (int i = 0; i < TRIALS; i++) {
+      String next = randomizer.next();
+      double weight = weights.getOrDefault(next, 0.0) + (1.0 / (double) TRIALS);
+      weights.put(next, weight);
     }
+
+    System.out.println(weights);
+  }
 }

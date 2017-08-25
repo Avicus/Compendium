@@ -9,7 +9,7 @@ import net.avicus.compendium.plugin.Messages;
  */
 public class InvalidPaginationPageException extends TranslatableCommandErrorException {
 
-    public InvalidPaginationPageException(Paginator<?> paginator) {
-        super(Messages.ERRORS_INVALID_PAGE, new LocalizedNumber(paginator.getPageCount()));
-    }
+  public InvalidPaginationPageException(Paginator<?> paginator) {
+    super(Messages.ERRORS_INVALID_PAGE, new LocalizedNumber(paginator.getPageCount()));
+  }
 }

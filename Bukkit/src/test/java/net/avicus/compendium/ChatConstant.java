@@ -1,28 +1,28 @@
 package net.avicus.compendium;
 
+import java.util.Locale;
 import net.avicus.compendium.locale.LocaleBundle;
 import net.avicus.compendium.locale.LocaleStrings;
 import net.avicus.compendium.locale.text.LocalizedFormat;
 
-import java.util.Locale;
-
 public class ChatConstant {
-    private static LocaleBundle bundle;
-    public static LocalizedFormat HELLO = new LocalizedFormat(bundle, "hello");
-    public static LocalizedFormat NAME = new LocalizedFormat(bundle, "name");
 
-    static {
-        bundle = new LocaleBundle();
+  private static LocaleBundle bundle;
+  public static LocalizedFormat HELLO = new LocalizedFormat(bundle, "hello");
+  public static LocalizedFormat NAME = new LocalizedFormat(bundle, "name");
 
-        LocaleStrings en = new LocaleStrings(new Locale("en"));
-        en.add("hello", "Hello, {0}.");
-        en.add("name", "Alexander");
+  static {
+    bundle = new LocaleBundle();
 
-        LocaleStrings es = new LocaleStrings(new Locale("es"));
-        es.add("hello", "Hola, {0}.");
-        es.add("name", "Alejandro");
+    LocaleStrings en = new LocaleStrings(new Locale("en"));
+    en.add("hello", "Hello, {0}.");
+    en.add("name", "Alexander");
 
-        bundle.add(en);
-        bundle.add(es);
-    }
+    LocaleStrings es = new LocaleStrings(new Locale("es"));
+    es.add("hello", "Hola, {0}.");
+    es.add("name", "Alejandro");
+
+    bundle.add(en);
+    bundle.add(es);
+  }
 }

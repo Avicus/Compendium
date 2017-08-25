@@ -1,73 +1,76 @@
 package net.avicus.compendium.snap;
 
-import lombok.Getter;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import lombok.Getter;
 
 public class SnapClass implements Annotationable {
-    @Getter private final Class<?> clazz;
 
-    public SnapClass(Class<?> clazz) {
-        this.clazz = clazz;
-    }
+  @Getter
+  private final Class<?> clazz;
 
-    @SuppressWarnings("unchecked")
-    public SnapClass(String forName) {
-        try {
-            this.clazz = Class.forName(forName);
-        } catch (ClassNotFoundException e) {
-            throw new SnapException("class not found", e);
-        }
-    }
+  public SnapClass(Class<?> clazz) {
+    this.clazz = clazz;
+  }
 
-    public SnapConstructor getConstructor(Class<?>... argumentTypes) {
-        return new SnapConstructor(this, argumentTypes);
+  @SuppressWarnings("unchecked")
+  public SnapClass(String forName) {
+    try {
+      this.clazz = Class.forName(forName);
+    } catch (ClassNotFoundException e) {
+      throw new SnapException("class not found", e);
     }
+  }
 
-    public SnapMethod getMethod(String name, Class<?>... argumentTypes) {
-        return new SnapMethod(this, name, argumentTypes);
-    }
+  public SnapConstructor getConstructor(Class<?>... argumentTypes) {
+    return new SnapConstructor(this, argumentTypes);
+  }
 
-    public SnapField getField(String name) {
-        return new SnapField(this, name);
-    }
+  public SnapMethod getMethod(String name, Class<?>... argumentTypes) {
+    return new SnapMethod(this, name, argumentTypes);
+  }
 
-    public List<SnapField> getFields() {
-        return getFields(this.clazz.getDeclaredFields());
-    }
+  public SnapField getField(String name) {
+    return new SnapField(this, name);
+  }
 
-    public List<SnapField> getPublicFields() {
-        return getFields(this.clazz.getFields());
-    }
+  public List<SnapField> getFields() {
+    return getFields(this.clazz.getDeclaredFields());
+  }
 
-    public List<SnapClass> getClasses() {
-        return getClasses(this.clazz.getDeclaredClasses());
-    }
+  public List<SnapField> getPublicFields() {
+    return getFields(this.clazz.getFields());
+  }
 
-    public List<SnapClass> getPublicClasses() {
-        return getClasses(this.clazz.getClasses());
-    }
+  public List<SnapClass> getClasses() {
+    return getClasses(this.clazz.getDeclaredClasses());
+  }
 
-    @Override
-    public List<Annotation> getAnnotations() {
-        return Arrays.asList(this.clazz.getDeclaredAnnotations());
-    }
+  public List<SnapClass> getPublicClasses() {
+    return getClasses(this.clazz.getClasses());
+  }
 
-    private List<SnapClass> getClasses(Class[] classesArray) {
-        List<SnapClass> classes = new ArrayList<>();
-        for (Class<?> clazz : classesArray)
-            classes.add(new SnapClass(clazz));
-        return classes;
-    }
+  @Override
+  public List<Annotation> getAnnotations() {
+    return Arrays.asList(this.clazz.getDeclaredAnnotations());
+  }
 
-    private List<SnapField> getFields(Field[] fieldsArray) {
-        List<SnapField> fields = new ArrayList<>();
-        for (Field field : fieldsArray)
-            fields.add(new SnapField(this, field.getName()));
-        return fields;
+  private List<SnapClass> getClasses(Class[] classesArray) {
+    List<SnapClass> classes = new ArrayList<>();
+    for (Class<?> clazz : classesArray) {
+      classes.add(new SnapClass(clazz));
     }
+    return classes;
+  }
+
+  private List<SnapField> getFields(Field[] fieldsArray) {
+    List<SnapField> fields = new ArrayList<>();
+    for (Field field : fieldsArray) {
+      fields.add(new SnapField(this, field.getName()));
+    }
+    return fields;
+  }
 }
