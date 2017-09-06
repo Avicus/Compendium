@@ -73,7 +73,7 @@ public class LocaleStrings {
         }
 
         String path = getPath(el, child);
-        strings.add(path, Strings.addColors(child.getTextTrim()));
+        strings.add(path, Strings.addColors(child.getTextTrim().replaceAll(" +", " ")));
       }
     }
 
