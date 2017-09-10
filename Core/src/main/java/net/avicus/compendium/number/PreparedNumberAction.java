@@ -1,5 +1,8 @@
 package net.avicus.compendium.number;
 
+import lombok.ToString;
+
+@ToString
 public class PreparedNumberAction {
 
   private final Number value;
