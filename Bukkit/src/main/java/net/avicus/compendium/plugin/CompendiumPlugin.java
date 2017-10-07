@@ -115,8 +115,8 @@ public class CompendiumPlugin extends JavaPlugin {
 
   private void locales() throws JDOMException, IOException {
     List<LocaleStrings> strings = new ArrayList<>();
-    strings.add(LocaleStrings.fromXml(getResource("locales/en.xml")));
-    // todo: more locales
+    strings.add(LocaleStrings.fromXml(getResource("locales/en_US.xml")));
+    strings.add(LocaleStrings.fromXml(getResource("locales/es_ES.xml")));
     bundle = new LocaleBundle(strings);
   }
 }
