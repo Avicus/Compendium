@@ -47,7 +47,6 @@ public class UnlocalizedText implements Localizable {
 
     for (int i = 0; i < this.arguments.size(); i++) {
       Localizable curr = this.arguments.get(i);
-      curr.style().inherit(this.style);
 
       if (format.contains("{" + i + "}")) {
         String[] split = format.split("\\{" + i + "\\}");
@@ -56,7 +55,11 @@ public class UnlocalizedText implements Localizable {
           parts.add(this.style.apply(split[0]));
         }
 
-        parts.add(curr.translate(locale));
+        // Allows null arguments to be converted to ""
+        if (curr != null) {
+          curr.style().inherit(this.style);
+          parts.add(curr.translate(locale));
+        }
 
         if (split.length > 1) {
           format = split[1];
