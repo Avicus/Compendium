@@ -49,11 +49,14 @@ public class BossBarManager implements Listener, Runnable {
     final int version = Via.getAPI().getPlayerVersion(player);
 
     if (version >= 4 && version <= 47) // 1.7-1.8.9
+    {
       return new LegacyBossBar(this, player);
-    else if (version > 47) // 1.9+
+    } else if (version > 47) // 1.9+
+    {
       return new ModernBossBar(player);
-    else
+    } else {
       throw new RuntimeException(
           "Could not resolve BossBar for protocol " + version + " for " + player.getUniqueId());
+    }
   }
 }

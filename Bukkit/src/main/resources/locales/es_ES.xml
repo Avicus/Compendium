@@ -9,7 +9,6 @@
     <current>Actualmente: {0}</current>
     <toggle>Togglear</toggle>
     <setting-set>{0} ha sido establecido a {1}.</setting-set>
-
     <countdown>
       <command>
         <header>Active Countdowns</header>
@@ -34,7 +33,6 @@
       </type>
     </countdown>
   </generic>
-
   <errors>
     <command>
       <number-expected>Number expected in place of {0}.</number-expected>
@@ -47,7 +45,6 @@
     <not-toggle>Esta opción no puede ser activada.</not-toggle>
     <invalid-value>Has proporcionado un valor no válido.</invalid-value>
     <invalid-page>Invalid page. Pages range from 1 through {0}.</invalid-page>
-
     <countdown>
       <command>
         <none-active>There are no active countdowns.</none-active>
@@ -55,5 +52,4 @@
       </command>
     </countdown>
   </errors>
-
 </locale>

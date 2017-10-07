@@ -91,10 +91,10 @@ public abstract class BossBar {
    *
    * @param name the name
    * @return this boss bar
+   * @see #setName(BaseComponent[])
    */
-  public BossBar setName(BaseComponent[] name) {
-    this.name = name;
-    return this;
+  public BossBar setName(BaseComponent name) {
+    return this.setName(new BaseComponent[]{name});
   }
 
   /**
@@ -102,10 +102,10 @@ public abstract class BossBar {
    *
    * @param name the name
    * @return this boss bar
-   * @see #setName(BaseComponent[])
    */
-  public BossBar setName(BaseComponent name) {
-    return this.setName(new BaseComponent[]{name});
+  public BossBar setName(BaseComponent[] name) {
+    this.name = name;
+    return this;
   }
 
   /**

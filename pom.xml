@@ -3,28 +3,23 @@
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
   <groupId>net.avicus</groupId>
   <artifactId>compendium</artifactId>
   <version>1.8-SNAPSHOT</version>
   <packaging>pom</packaging>
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-
   <modules>
     <module>Core</module>
     <module>Bukkit</module>
     <module>Bungee</module>
   </modules>
-
   <scm>
     <connection>scm:git://github.com/Avicus/Compendium.git</connection>
     <developerConnection>scm:git:ssh://github.com/Avicus/Compendium.git</developerConnection>
     <url>https://github.com/Avicus/Compendium</url>
   </scm>
-
   <repositories>
     <repository>
       <id>avicus-public</id>
@@ -35,7 +30,6 @@
       <url>https://repo.avicus.net/content/groups/private/</url>
     </repository>
   </repositories>
-
   <distributionManagement>
     <repository>
       <id>avicus-repo</id>
@@ -46,7 +40,6 @@
       <url>https://repo.avicus.net/content/repositories/snapshots/</url>
     </snapshotRepository>
   </distributionManagement>
-
   <dependencies>
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -61,7 +54,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
   <build>
     <resources>
       <resource>
