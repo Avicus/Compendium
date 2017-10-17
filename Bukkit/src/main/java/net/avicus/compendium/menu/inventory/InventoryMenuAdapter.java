@@ -2,6 +2,7 @@ package net.avicus.compendium.menu.inventory;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+import org.bukkit.World;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 
@@ -17,5 +18,10 @@ public final class InventoryMenuAdapter implements InventoryHolder {
   @Override
   public Inventory getInventory() {
     return this.menu.getInventory();
+  }
+
+  @Override
+  public World getWorld() {
+    return getInventory().getWorld();
   }
 }
