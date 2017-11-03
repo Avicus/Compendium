@@ -29,9 +29,9 @@ public class Config {
   }
 
   @Getter
-  private final Map<String, Object> data;
+  private final Map<Object, Object> data;
 
-  public Config(Map<String, Object> data) {
+  public Config(Map<Object, Object> data) {
     this.data = data;
   }
 
@@ -41,7 +41,7 @@ public class Config {
 
   @SuppressWarnings("unchecked")
   private Config(Object object) {
-    this((Map<String, Object>) object);
+    this((Map<Object, Object>) object);
   }
 
   public Config(String raw) {
