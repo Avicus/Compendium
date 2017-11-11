@@ -16,7 +16,7 @@ import org.joda.time.Seconds;
 public class RestartingCountdown extends Countdown {
 
   public RestartingCountdown() {
-    super(Seconds.seconds(15).toStandardDuration());
+    super(Seconds.seconds(30).toStandardDuration());
   }
 
   public RestartingCountdown(Duration duration) {
