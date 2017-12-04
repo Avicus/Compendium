@@ -2,7 +2,6 @@ package net.avicus.compendium.commands;
 
 import com.sk89q.bukkit.util.CommandsManagerRegistration;
 import com.sk89q.bukkit.util.DynamicPluginCommand;
-import com.sk89q.minecraft.util.commands.CommandsManager;
 import com.sk89q.minecraft.util.commands.NestedCommand;
 import com.sk89q.util.ReflectionUtil;
 import java.lang.annotation.Annotation;
@@ -14,6 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import net.avicus.compendium.AvicusCommandsManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandMap;
@@ -26,12 +26,12 @@ import sun.reflect.annotation.AnnotationParser;
  */
 public class AvicusCommandsRegistration extends CommandsManagerRegistration {
 
-  public AvicusCommandsRegistration(Plugin plugin, CommandsManager commands) {
+  public AvicusCommandsRegistration(Plugin plugin, AvicusCommandsManager commands) {
     super(plugin, commands);
   }
 
   public AvicusCommandsRegistration(Plugin plugin, CommandExecutor executor,
-      CommandsManager commands) {
+      AvicusCommandsManager commands) {
     super(plugin, executor, commands);
   }
 
@@ -97,7 +97,7 @@ public class AvicusCommandsRegistration extends CommandsManagerRegistration {
     for (Iterator<Command> i = knownCommands.values().iterator(); i.hasNext(); ) {
       org.bukkit.command.Command cmd = i.next();
       if (cmd instanceof DynamicPluginCommand && ((DynamicPluginCommand) cmd).getPlugin()
-          .equals(plugin) && ((DynamicPluginCommand) cmd).getOwner().equals(executor)) {
+          .equals(plugin) && ((DynamicPluginCommand) cmd).getExecutor().equals(executor)) {
         boolean remove = false;
         for (String alias : cmd.getAliases()) {
           org.bukkit.command.Command aliasCmd = knownCommands.get(alias);
@@ -145,7 +145,7 @@ public class AvicusCommandsRegistration extends CommandsManagerRegistration {
     for (Iterator<Command> i = knownCommands.values().iterator(); i.hasNext(); ) {
       org.bukkit.command.Command cmd = i.next();
       if (cmd instanceof DynamicPluginCommand && ((DynamicPluginCommand) cmd).getPlugin()
-          .equals(plugin) && ((DynamicPluginCommand) cmd).getOwner().equals(executor)) {
+          .equals(plugin) && ((DynamicPluginCommand) cmd).getExecutor().equals(executor)) {
         boolean remove = false;
         for (String alias : cmd.getAliases()) {
           org.bukkit.command.Command aliasCmd = knownCommands.get(alias);

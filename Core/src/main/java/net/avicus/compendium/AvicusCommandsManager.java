@@ -1,4 +1,4 @@
-package net.avicus.compendium.commands;
+package net.avicus.compendium;
 
 import com.sk89q.minecraft.util.commands.Command;
 import com.sk89q.minecraft.util.commands.CommandsManager;
@@ -6,17 +6,17 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
+import net.avicus.minecraft.api.command.CommandSender;
+import net.avicus.minecraft.api.command.ConsoleCommandSender;
 
 /**
  * A custom implementation of the {@link CommandsManager} which is used to register single methods
  * as opposed to classes.
  */
-public class AvicusCommandsManager extends CommandsManager<CommandSender> {
+public class AvicusCommandsManager <T extends CommandSender> extends CommandsManager<T> {
 
   @Override
-  public boolean hasPermission(CommandSender sender, String perm) {
+  public boolean hasPermission(T sender, String perm) {
     return sender instanceof ConsoleCommandSender || sender.hasPermission(perm);
   }
 

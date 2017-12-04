@@ -11,7 +11,7 @@ import java.util.List;
 import lombok.Getter;
 import net.avicus.compendium.boss.BossBarManager;
 import net.avicus.compendium.boss.LegacyBossBarContext;
-import net.avicus.compendium.commands.AvicusCommandsManager;
+import net.avicus.compendium.AvicusCommandsManager;
 import net.avicus.compendium.commands.AvicusCommandsRegistration;
 import net.avicus.compendium.commands.UtilityCommands;
 import net.avicus.compendium.commands.exception.AbstractTranslatableCommandException;
