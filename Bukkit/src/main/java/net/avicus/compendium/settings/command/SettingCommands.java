@@ -1,3 +1,4 @@
+
 package net.avicus.compendium.settings.command;
 
 import com.sk89q.minecraft.util.commands.Command;

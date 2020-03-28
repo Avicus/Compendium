@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
+import net.avicus.compendium.AvicusBukkitCommandManager;
 import net.avicus.compendium.boss.BossBarManager;
 import net.avicus.compendium.boss.LegacyBossBarContext;
 import net.avicus.compendium.AvicusCommandsManager;
@@ -73,7 +74,7 @@ public class CompendiumPlugin extends JavaPlugin {
   }
 
   private void registerCommands() {
-    this.commandManager = new AvicusCommandsManager();
+    this.commandManager = new AvicusBukkitCommandManager();
     AvicusCommandsRegistration registry = new AvicusCommandsRegistration(this, this.commandManager);
     registry.register(SettingCommands.class);
     registry.register(CountdownCommands.class);

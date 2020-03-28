@@ -6,19 +6,12 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import net.avicus.minecraft.api.command.CommandSender;
-import net.avicus.minecraft.api.command.ConsoleCommandSender;
 
 /**
  * A custom implementation of the {@link CommandsManager} which is used to register single methods
  * as opposed to classes.
  */
-public class AvicusCommandsManager <T extends CommandSender> extends CommandsManager<T> {
-
-  @Override
-  public boolean hasPermission(T sender, String perm) {
-    return sender instanceof ConsoleCommandSender || sender.hasPermission(perm);
-  }
+public abstract class AvicusCommandsManager<T> extends CommandsManager<T> {
 
   /**
    * Registers a {@link Command} annotation with a method. This will cache the definition and method

@@ -19,9 +19,4 @@ public final class InventoryMenuAdapter implements InventoryHolder {
   public Inventory getInventory() {
     return this.menu.getInventory();
   }
-
-  @Override
-  public World getWorld() {
-    return getInventory().getWorld();
-  }
 }
