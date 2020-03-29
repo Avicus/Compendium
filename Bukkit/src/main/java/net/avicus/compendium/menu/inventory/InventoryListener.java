@@ -79,7 +79,7 @@ public class InventoryListener implements Listener {
       }
     }
 
-    menu.getHandler().onClick(menu, index, item, event.getClick());
+    menu.getHandler().onClick(menu, index, item, event);
     event.setCancelled(true);
   }
 }
