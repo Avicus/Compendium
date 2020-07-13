@@ -22,24 +22,10 @@
   </scm>
   <repositories>
     <repository>
-      <id>avicus-public</id>
-      <url>https://repo.avicus.net/content/groups/public</url>
-    </repository>
-    <repository>
-      <id>avicus-private</id>
-      <url>https://repo.avicus.net/content/groups/private/</url>
+      <id>bungeecord-repo</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </repository>
   </repositories>
-  <distributionManagement>
-    <repository>
-      <id>avicus-repo</id>
-      <url>https://repo.avicus.net/content/repositories/releases/</url>
-    </repository>
-    <snapshotRepository>
-      <id>avicus-repo</id>
-      <url>https://repo.avicus.net/content/repositories/snapshots/</url>
-    </snapshotRepository>
-  </distributionManagement>
   <dependencies>
     <dependency>
       <groupId>org.projectlombok</groupId>

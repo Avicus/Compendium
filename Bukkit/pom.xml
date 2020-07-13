@@ -39,11 +39,6 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>net.avicus</groupId>
-      <artifactId>minecraft-api</artifactId>
-      <version>1.12-SNAPSHOT</version>
-    </dependency>
-    <dependency>
       <groupId>org.jdom</groupId>
       <artifactId>jdom2</artifactId>
       <version>2.0.6</version>

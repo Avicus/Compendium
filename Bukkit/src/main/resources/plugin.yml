@@ -2,10 +2,10 @@ name: Compendium
 main: net.avicus.compendium.plugin.CompendiumPlugin
 version: ${project.version}-${git.commit.id.abbrev}
 authors:
-- Avicus Network
+  - Avicus Network
 depend:
-- ProtocolLib
-- ViaVersion
+  - ProtocolLib
+  - ViaVersion
 commands:
   set:
   setting:
