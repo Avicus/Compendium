@@ -5,9 +5,11 @@ import com.sk89q.minecraft.util.commands.CommandNumberFormatException;
 import com.sk89q.minecraft.util.commands.CommandPermissionsException;
 import com.sk89q.minecraft.util.commands.CommandUsageException;
 import com.sk89q.minecraft.util.commands.WrappedCommandException;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import lombok.Getter;
 import net.avicus.compendium.AvicusBukkitCommandManager;
 import net.avicus.compendium.boss.BossBarManager;
@@ -20,6 +22,7 @@ import net.avicus.compendium.countdown.CountdownCommands;
 import net.avicus.compendium.countdown.CountdownManager;
 import net.avicus.compendium.locale.LocaleBundle;
 import net.avicus.compendium.locale.LocaleStrings;
+import net.avicus.compendium.locale.TranslationProvider;
 import net.avicus.compendium.locale.text.UnlocalizedText;
 import net.avicus.compendium.menu.inventory.InventoryListener;
 import net.avicus.compendium.settings.command.SettingCommands;
@@ -114,10 +117,7 @@ public class CompendiumPlugin extends JavaPlugin {
     return true;
   }
 
-  private void locales() throws JDOMException, IOException {
-    List<LocaleStrings> strings = new ArrayList<>();
-    strings.add(LocaleStrings.fromXml(getResource("locales/en_US.xml")));
-    strings.add(LocaleStrings.fromXml(getResource("locales/es_ES.xml")));
-    bundle = new LocaleBundle(strings);
+  private void locales() throws IllegalStateException {
+    bundle = TranslationProvider.loadBundle(getDataFolder().getAbsolutePath() + File.pathSeparator + "locales", "en_US", "en_ES");
   }
 }

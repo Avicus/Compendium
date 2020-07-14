@@ -14,21 +14,38 @@ import net.avicus.compendium.locale.text.LocalizedText;
 public class LocaleBundle {
 
   private List<LocaleStrings> locales;
+  private LocaleStrings defStrings = null;
 
+  /** Constructor. */
   public LocaleBundle() {
     this(new ArrayList<>());
   }
 
+  /**
+   * Constructor.
+   *
+   * @param locales which can be queried for each locale to get messages
+   */
   public LocaleBundle(List<LocaleStrings> locales) {
     this.locales = locales;
   }
 
+  /**
+   * Constructor.
+   *
+   * @param locales which can be queried for each locale to get messages
+   * @param defaultStrings to fall back on if
+   */
   public LocaleBundle(List<LocaleStrings> locales, LocaleStrings defaultStrings) {
     this.locales = locales;
     this.locales.remove(defaultStrings);
     this.locales.add(0, defaultStrings);
   }
 
+  /**
+   * @return the fallback locale that will be used if the requested one is not supported, or empty
+   *     if there is no fallback locale.
+   */
   public Optional<Locale> getDefaultLocale() {
     Optional<LocaleStrings> strings = getDefaultStrings();
     if (strings.isPresent()) {
@@ -37,13 +54,28 @@ public class LocaleBundle {
     return Optional.empty();
   }
 
+  /**
+   * @return the fallback string set that will be used if the requested one is not supported, or
+   *     empty if there is no fallback string set.
+   */
   public Optional<LocaleStrings> getDefaultStrings() {
+    if (this.defStrings != null) {
+      return Optional.of(this.defStrings);
+    }
+
     if (this.locales.size() > 0) {
       return Optional.of(this.locales.get(0));
     }
     return Optional.empty();
   }
 
+  /**
+   * Make an attempt to get a string collection for the requested locale. If a collection does not
+   * exist for the supplied locale, {@link ##getDefaultStrings} will be returned instead.
+   *
+   * @param locale to search for
+   * @return a string collection for the requested locale
+   */
   public Optional<LocaleStrings> getStringsRoughly(Locale locale) {
     LocaleStrings match = null;
     for (LocaleStrings test : this.locales) {
@@ -51,7 +83,7 @@ public class LocaleBundle {
         return Optional.of(test);
       } else if (test.getLocale().getLanguage().equals(locale.getLanguage())) {
         match = test;
-        break; // have a kitkat!
+        break;
       }
     }
 
@@ -62,10 +94,25 @@ public class LocaleBundle {
     return getDefaultStrings();
   }
 
+  /**
+   * Add a collection of strings to the available set of translations.
+   *
+   * @param strings to add
+   */
   public void add(LocaleStrings strings) {
     this.locales.add(strings);
   }
 
+  /**
+   * Get a string for a specified locale by its key. If the string does not exist for the specified
+   * locale, and the requested locale is not the default, an attempt will be made to fall back to
+   * the {@link #getDefaultStrings()}, if they are present. If all methods of retrieval yield no
+   * results, {@link Optional#empty()} will be returned.
+   *
+   * @param locale to search inside of
+   * @param key to search for
+   * @return a string for a specified locale by its key
+   */
   public Optional<String> get(Locale locale, String key) {
     Optional<LocaleStrings> strings = getStringsRoughly(locale);
 
@@ -76,7 +123,7 @@ public class LocaleBundle {
     Optional<String> result = strings.get().get(key);
 
     if (result.isPresent()) {
-      return Optional.of(result.get().replace("\n", ""));
+      return Optional.of(result.get());
     }
 
     Optional<LocaleStrings> defStrings = getDefaultStrings();
@@ -88,15 +135,40 @@ public class LocaleBundle {
     return get(getDefaultLocale().get(), key);
   }
 
+  /**
+   * Determine if the requested key is present for the supplied locale.
+   *
+   * @param locale to search inside of
+   * @param key to search for
+   * @return if the requested key is present for the supplied locale
+   */
   public boolean has(Locale locale, String key) {
-    return get(locale, key).isPresent();
+    Optional<String> found = get(locale, key);
+    return found.isPresent() && !found.get().isEmpty();
   }
 
+  /** @see LocalizedFormat#LocalizedFormat(LocaleBundle, String). */
   public LocalizedFormat getFormat(String key) {
     return new LocalizedFormat(this, key);
   }
 
+  /** @see LocalizedText#LocalizedText(LocaleBundle, String, Localizable...). */
   public LocalizedText getText(String key, Localizable... arguments) {
     return new LocalizedText(this, key, arguments);
+  }
+
+  /**
+   * Set a collection of strings as the ones that should be used in the case where a requested
+   * string set is not available.
+   *
+   * @param defStrings to set as default
+   */
+  public void setDefStrings(LocaleStrings defStrings) {
+    this.defStrings = defStrings;
+  }
+
+  /** @return all of the available string sets which can be used for translation */
+  public List<LocaleStrings> getLocales() {
+    return locales;
   }
 }

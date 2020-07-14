@@ -2,6 +2,9 @@ package net.avicus.compendium;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.util.Locale;
 import net.avicus.compendium.locale.LocaleBundle;
 import net.avicus.compendium.locale.LocaleStrings;
@@ -15,9 +18,10 @@ import org.junit.Test;
 public class LocaleTests {
 
   @Test
-  public void xml() throws JDOMException, IOException {
-    InputStream stream = this.getClass().getClassLoader().getResourceAsStream("./test.xml");
-    LocaleStrings strings = LocaleStrings.fromXml(stream);
+  public void load() throws JDOMException, IOException, URISyntaxException {
+    URL resource = this.getClass().getClassLoader().getResource("./");
+    LocaleStrings strings = new LocaleStrings(Locale.ENGLISH);
+    strings.load(Paths.get(resource.toURI()));
     System.out.println(strings);
   }
 
