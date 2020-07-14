@@ -6,22 +6,17 @@ import com.sk89q.minecraft.util.commands.CommandPermissionsException;
 import com.sk89q.minecraft.util.commands.CommandUsageException;
 import com.sk89q.minecraft.util.commands.WrappedCommandException;
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 import lombok.Getter;
 import net.avicus.compendium.AvicusBukkitCommandManager;
+import net.avicus.compendium.AvicusCommandsManager;
 import net.avicus.compendium.boss.BossBarManager;
 import net.avicus.compendium.boss.LegacyBossBarContext;
-import net.avicus.compendium.AvicusCommandsManager;
 import net.avicus.compendium.commands.AvicusCommandsRegistration;
 import net.avicus.compendium.commands.UtilityCommands;
 import net.avicus.compendium.commands.exception.AbstractTranslatableCommandException;
 import net.avicus.compendium.countdown.CountdownCommands;
 import net.avicus.compendium.countdown.CountdownManager;
 import net.avicus.compendium.locale.LocaleBundle;
-import net.avicus.compendium.locale.LocaleStrings;
 import net.avicus.compendium.locale.TranslationProvider;
 import net.avicus.compendium.locale.text.UnlocalizedText;
 import net.avicus.compendium.menu.inventory.InventoryListener;
@@ -32,7 +27,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
-import org.jdom2.JDOMException;
 
 public class CompendiumPlugin extends JavaPlugin {
 
@@ -118,6 +112,6 @@ public class CompendiumPlugin extends JavaPlugin {
   }
 
   private void locales() throws IllegalStateException {
-    bundle = TranslationProvider.loadBundle(getDataFolder().getAbsolutePath() + File.separator + "locales", "en_US", "en_ES");
+    bundle = TranslationProvider.loadBundle(getDataFolder().getAbsolutePath() + File.separator + "locales", "en_US", "es_ES");
   }
 }

@@ -2,7 +2,6 @@ package net.avicus.compendium.menu.inventory;
 
 import lombok.AccessLevel;
 import lombok.Getter;
-import org.bukkit.World;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 

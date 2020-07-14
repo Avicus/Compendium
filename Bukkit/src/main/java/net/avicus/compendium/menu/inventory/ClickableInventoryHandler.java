@@ -1,7 +1,6 @@
 package net.avicus.compendium.menu.inventory;
 
 import java.util.Optional;
-import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 /**

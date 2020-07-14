@@ -1,6 +1,5 @@
 package net.avicus.compendium;
 
-import net.avicus.compendium.commands.AvicusCommandsRegistration;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 

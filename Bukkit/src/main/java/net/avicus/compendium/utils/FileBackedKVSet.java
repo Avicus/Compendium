@@ -1,5 +1,6 @@
 package net.avicus.compendium.utils;
 
+import com.google.common.collect.Maps;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,6 +12,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Properties;
+import org.jdom2.Content;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.input.SAXBuilder;
 
 /**
  * A key->value representation of objects which can be parsed from .properties and .txt files.
@@ -50,13 +55,10 @@ public abstract class FileBackedKVSet<V> {
         .forEach(
             (f) -> {
               String file = f.toString();
-              if (file.endsWith(".properties") || file.endsWith(".xml")) {
+              if (file.endsWith(".properties")) {
                 try (InputStream stream = new FileInputStream(file)) {
                   Properties prop = new Properties();
-                  if (file.endsWith(".xml"))
-                    prop.loadFromXML(stream);
-                  else
-                    prop.load(stream);
+                  prop.load(stream);
                   for (Entry<Object, Object> entry : prop.entrySet()) {
                     Object k = entry.getKey();
                     Object v = entry.getValue();
@@ -76,8 +78,53 @@ public abstract class FileBackedKVSet<V> {
                 } catch (IOException e) {
                   e.printStackTrace();
                 }
+              } else if (file.endsWith(".xml")) {
+                SAXBuilder sax = new SAXBuilder();
+                try (InputStream stream = new FileInputStream(file)) {
+                  Document doc = sax.build(stream);
+                  addAll(fromXml(doc.getRootElement()));
+                } catch (Exception e) {
+                  e.printStackTrace();
+                }
               }
             });
+  }
+
+  /**
+   * Create from an XML element.
+   *
+   * @param el The &lt;locale lang="en" country="us"/&gt;
+   */
+  public Map<String, V> fromXml(Element el) {
+    Map<String, V> data = Maps.newHashMap();
+    for (Content content : el.getDescendants()) {
+      if (content instanceof Element) {
+        Element child = (Element) content;
+
+        if (child.getChildren().size() > 0) {
+          continue;
+        }
+
+        String path = getPath(el, child);
+        data.put(path, parse(child.getTextTrim().replaceAll(" +", " ")));
+      }
+    }
+
+    return data;
+  }
+
+  private static String getPath(Element exclude, Element nested) {
+    String result = nested.getName();
+    Element curr = nested.getParentElement();
+    while (!curr.equals(exclude)) {
+      result = curr.getName() + "." + result;
+      curr = curr.getParentElement();
+    }
+    return result;
+  }
+
+  public void addAll(Map<String, V> toAdd) {
+    data.putAll(toAdd);
   }
 
   /**

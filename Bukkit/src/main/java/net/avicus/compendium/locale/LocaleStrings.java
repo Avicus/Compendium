@@ -1,23 +1,14 @@
 package net.avicus.compendium.locale;
 
-import com.google.common.base.Preconditions;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Optional;
 import lombok.Getter;
 import lombok.ToString;
 import net.avicus.compendium.utils.FileBackedKVSet;
-import net.avicus.compendium.utils.Strings;
 import net.md_5.bungee.api.ChatColor;
-import org.jdom2.Content;
-import org.jdom2.Document;
-import org.jdom2.Element;
-import org.jdom2.JDOMException;
-import org.jdom2.input.SAXBuilder;
 
 /**
  * A key->value represtantation of strings for a specific {@link Locale} that can be retrieved for

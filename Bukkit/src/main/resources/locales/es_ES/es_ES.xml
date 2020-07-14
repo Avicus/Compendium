@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<locale country="us" lang="en">
+<!DOCTYPE locale>
+<locale country="es" lang="es">
   <generic>
-    <settings>Settings</settings>
-    <click-me>Click for more information.</click-me>
-    <summary>Summary: {0}</summary>
-    <description>Description: {0}</description>
-    <default>Default: {0}</default>
-    <current>Current: {0}</current>
-    <toggle>Toggle</toggle>
-    <setting-set>{0} has been set to {1}.</setting-set>
+    <settings>Opciones</settings>
+    <click-me>Haga clic aquí para más información.</click-me>
+    <summary>Resumen: {0}</summary>
+    <description>Descripción: {0}</description>
+    <default>Por defecto: {0}</default>
+    <current>Actualmente: {0}</current>
+    <toggle>Togglear</toggle>
+    <setting-set>{0} ha sido establecido a {1}.</setting-set>
     <countdown>
       <command>
         <header>Active Countdowns</header>
@@ -26,9 +27,9 @@
       </command>
       <type>
         <restarting>
-          <name>Server Restarting</name>
-          <time-singular>Server restarting in {0} second.</time-singular>
-          <time-plural>Server restarting in {0} seconds.</time-plural>
+          <name>Servidor reiniciando</name>
+          <time-singular>Server reiniciando en {0} segundo.</time-singular>
+          <time-plural>Server reiniciando en {0} segundo.</time-plural>
         </restarting>
       </type>
     </countdown>
@@ -41,9 +42,9 @@
       <invalid-usage>Usage: {0}</invalid-usage>
       <must-be-player>You must be a player to use that command.</must-be-player>
     </command>
-    <settings-help>Use "/settings" to show available settings.</settings-help>
-    <not-toggle>That setting cannot be toggled.</not-toggle>
-    <invalid-value>You have provided an invalid value.</invalid-value>
+    <settings-help>Usa "/settings" para mostrar las opciones disponibles.</settings-help>
+    <not-toggle>Esta opción no puede ser activada.</not-toggle>
+    <invalid-value>Has proporcionado un valor no válido.</invalid-value>
     <invalid-page>Invalid page. Pages range from 1 through {0}.</invalid-page>
     <countdown>
       <command>
