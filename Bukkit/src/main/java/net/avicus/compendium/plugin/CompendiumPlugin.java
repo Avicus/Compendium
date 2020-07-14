@@ -118,6 +118,6 @@ public class CompendiumPlugin extends JavaPlugin {
   }
 
   private void locales() throws IllegalStateException {
-    bundle = TranslationProvider.loadBundle(getDataFolder().getAbsolutePath() + File.pathSeparator + "locales", "en_US", "en_ES");
+    bundle = TranslationProvider.loadBundle(getDataFolder().getAbsolutePath() + File.separator + "locales", "en_US", "en_ES");
   }
 }
