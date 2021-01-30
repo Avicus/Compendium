@@ -71,16 +71,9 @@
       <version>1.9-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>com.comphenix.protocol</groupId>
-      <artifactId>ProtocolLib</artifactId>
-      <version>4.3.0</version>
-      <scope>provided</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>com.comphenix.executors</groupId>
-          <artifactId>BukkitExecutors</artifactId>
-        </exclusion>
-      </exclusions>
+      <groupId>com.keenant</groupId>
+      <artifactId>bossy</artifactId>
+      <version>1.0</version>
     </dependency>
     <dependency>
       <groupId>us.myles</groupId>

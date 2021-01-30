@@ -1,7 +1,6 @@
 package net.avicus.compendium.boss;
 
-import com.google.common.collect.Sets;
-import java.util.Set;
+import com.keenant.bossy.Bossy;
 import javax.annotation.Nonnull;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.entity.Player;
@@ -14,27 +13,13 @@ import us.myles.ViaVersion.api.Via;
  * A boss bar manager.
  */
 @RequiredArgsConstructor
-public class BossBarManager implements Listener, Runnable {
+public class BossBarManager implements Listener {
 
-  /**
-   * The boss bar context.
-   */
-  final LegacyBossBarContext context;
-  /**
-   * A set of legacy boss bars subscribed to being respawned.
-   */
-  final Set<LegacyBossBar> legacyUpdateSubscribers = Sets.newHashSet();
-
-  @Override
-  public void run() {
-    for (LegacyBossBar bar : this.legacyUpdateSubscribers) {
-      bar.respawn();
-    }
-  }
+  final Bossy bossy;
 
   @EventHandler
   public void quit(final PlayerQuitEvent event) {
-    this.context.remove(event.getPlayer());
+    this.bossy.hide(event.getPlayer());
   }
 
   /**
