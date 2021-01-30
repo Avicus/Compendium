@@ -1,7 +1,7 @@
 package net.avicus.compendium.commands.exception;
 
 import net.avicus.compendium.locale.text.Localizable;
-import net.avicus.compendium.locale.text.LocalizedFormat;
+import net.avicus.compendium.locale.text.LocalizableFormat;
 import org.bukkit.ChatColor;
 
 /**
@@ -10,11 +10,11 @@ import org.bukkit.ChatColor;
  */
 public class TranslatableCommandErrorException extends AbstractTranslatableCommandException {
 
-  public TranslatableCommandErrorException(LocalizedFormat format) {
+  public TranslatableCommandErrorException(LocalizableFormat format) {
     super(format);
   }
 
-  public TranslatableCommandErrorException(LocalizedFormat format, Localizable... args) {
+  public TranslatableCommandErrorException(LocalizableFormat format, Localizable... args) {
     super(format, args);
   }
 

@@ -3,6 +3,7 @@ package net.avicus.compendium.commands.exception;
 import com.sk89q.minecraft.util.commands.CommandException;
 import lombok.Getter;
 import net.avicus.compendium.locale.text.Localizable;
+import net.avicus.compendium.locale.text.LocalizableFormat;
 import net.avicus.compendium.locale.text.LocalizedFormat;
 import net.avicus.compendium.locale.text.LocalizedText;
 import org.bukkit.ChatColor;
@@ -13,7 +14,7 @@ import org.bukkit.ChatColor;
 public abstract class AbstractTranslatableCommandException extends CommandException {
 
   @Getter
-  private final LocalizedFormat format;
+  private final LocalizableFormat format;
   @Getter
   private final Localizable[] args;
 
@@ -22,7 +23,7 @@ public abstract class AbstractTranslatableCommandException extends CommandExcept
    *
    * @param format of the exception
    */
-  public AbstractTranslatableCommandException(LocalizedFormat format) {
+  public AbstractTranslatableCommandException(LocalizableFormat format) {
     this(format, Localizable.EMPTY);
   }
 
@@ -32,7 +33,7 @@ public abstract class AbstractTranslatableCommandException extends CommandExcept
    * @param format of the exception
    * @param args for the format
    */
-  public AbstractTranslatableCommandException(LocalizedFormat format, Localizable... args) {
+  public AbstractTranslatableCommandException(LocalizableFormat format, Localizable... args) {
     this.format = format;
     this.args = args;
   }
@@ -43,8 +44,8 @@ public abstract class AbstractTranslatableCommandException extends CommandExcept
    * @param exception to format
    * @return a formatted {@link LocalizedText} from the exception
    */
-  public static LocalizedText format(AbstractTranslatableCommandException exception) {
-    final LocalizedText text;
+  public static Localizable format(AbstractTranslatableCommandException exception) {
+    final Localizable text;
 
     if (exception.args.length == 0) {
       text = exception.format.with();
