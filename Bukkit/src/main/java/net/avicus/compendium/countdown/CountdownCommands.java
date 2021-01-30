@@ -138,9 +138,8 @@ public class CountdownCommands {
                 Messages.GENERIC_COUNTDOWN_COMMAND_MODTIME_ALL_SINGULAR.with(ChatColor.GREEN));
             break;
           default:
-            manager.getCountdowns().forEach((countdown, task) -> {
-              task.setElapsedSeconds(0);
-              countdown.setDuration(duration);
+            manager.getCountdowns().values().forEach((task) -> {
+              task.setNewDuration(duration);
             });
             source.sendMessage(Messages.GENERIC_COUNTDOWN_COMMAND_MODTIME_ALL_PLURAL
                 .with(ChatColor.GREEN, new LocalizedNumber(countdowns)));
@@ -159,8 +158,7 @@ public class CountdownCommands {
               new UnlocalizedText(args.getString(0)));
         }
 
-        countdown.setElapsedSeconds(0);
-        countdown.getCountdown().setDuration(duration);
+        countdown.setNewDuration(duration);
         source.sendMessage(Messages.GENERIC_COUNTDOWN_COMMAND_MODTIME_SINGULAR
             .with(ChatColor.GREEN, countdown.getCountdown().getName(),
                 new LocalizedNumber(countdown.getTaskId())));

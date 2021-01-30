@@ -46,4 +46,9 @@ public class CountdownTask extends BukkitRunnable {
     super.cancel();
     this.countdown.onCancel();
   }
+
+  public void setNewDuration(Duration duration) {
+    setElapsedSeconds(0);
+    getCountdown().setDuration(duration);
+  }
 }
