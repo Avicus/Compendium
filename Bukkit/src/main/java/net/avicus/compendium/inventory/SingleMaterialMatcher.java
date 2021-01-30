@@ -49,4 +49,8 @@ public class SingleMaterialMatcher implements MaterialMatcher {
   public boolean isDataRelevant() {
     return this.data.isPresent();
   }
+
+  public String describe() {
+    return material.name().toLowerCase().replace('_', ' ') + (isDataRelevant() ? data.get().toString() : "");
+  }
 }
