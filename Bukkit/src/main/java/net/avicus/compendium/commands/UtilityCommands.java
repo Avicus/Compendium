@@ -87,18 +87,19 @@ public class UtilityCommands {
   }
 
   @Command(aliases = {"vel",
-      "velocity"}, desc = "Apply velocity to yourself.", min = 3, max = 3, help = "x y z")
+      "velocity"}, desc = "Apply velocity to someone.", min = 3, max = 4, help = "x y z target")
   @CommandPermissions("compendium.vel")
   public static void velocity(CommandContext cmd, CommandSender sender) throws CommandException {
-    if (!(sender instanceof Player)) {
+    if (cmd.argsLength() != 4 && !(sender instanceof Player)) {
       throw new CommandException("You must be a player to use this command.");
     }
 
+    Player target = cmd.argsLength() == 4 ? Bukkit.getPlayer(cmd.getString(3)) : (Player) sender;
     String xString = cmd.getString(0);
     String yString = cmd.getString(1);
     String zString = cmd.getString(2);
     try {
-      ((Player) sender).setVelocity(new Vector(Float.parseFloat(xString), Float.parseFloat(yString),
+      target.setVelocity(new Vector(Float.parseFloat(xString), Float.parseFloat(yString),
           Float.parseFloat(zString)));
     } catch (Exception e) {
       sender.sendMessage(ChatColor.RED + "Error in number syntax");
