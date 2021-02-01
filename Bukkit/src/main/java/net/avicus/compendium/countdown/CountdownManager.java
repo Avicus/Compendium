@@ -132,7 +132,7 @@ public class CountdownManager implements Listener {
    * @return if a countdown of the specified class is running
    */
   public boolean isRunning(Class<? extends Countdown> clazz) {
-    return this.countdowns.values().stream().anyMatch(countdown -> clazz.isInstance(clazz));
+    return this.countdowns.keySet().stream().anyMatch(clazz::isInstance);
   }
 
   /**
