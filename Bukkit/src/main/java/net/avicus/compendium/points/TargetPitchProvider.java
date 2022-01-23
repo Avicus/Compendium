@@ -1,11 +1,13 @@
 package net.avicus.compendium.points;
 
+import lombok.Getter;
 import lombok.ToString;
 import org.bukkit.util.Vector;
 
 @ToString
 public class TargetPitchProvider implements AngleProvider {
 
+  @Getter
   private final Vector target;
 
   public TargetPitchProvider(Vector target) {
