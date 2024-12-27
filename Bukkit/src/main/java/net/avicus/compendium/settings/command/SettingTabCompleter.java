@@ -17,7 +17,7 @@ public class SettingTabCompleter implements TabCompleter {
 
     if (args.length <= 1) {
       for (Setting setting : PlayerSettings.settings()) {
-        String name = setting.getName().translate(sender.getLocale()).toPlainText();
+        String name = setting.getName().render(sender).toPlainText();
         boolean add = args.length == 0 || name.toLowerCase().startsWith(args[0].toLowerCase());
         if (add) {
           list.add(name);

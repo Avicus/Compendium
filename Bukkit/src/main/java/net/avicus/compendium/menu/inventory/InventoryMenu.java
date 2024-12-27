@@ -19,6 +19,7 @@ import org.bukkit.inventory.ItemStack;
  */
 public class InventoryMenu implements Menu<InventoryMenuItem> {
 
+  @Getter(AccessLevel.PACKAGE)
   private final Player player;
   private final InventoryIndexer indexer;
   @Getter(AccessLevel.PACKAGE)
@@ -73,6 +74,10 @@ public class InventoryMenu implements Menu<InventoryMenuItem> {
     this.indexer = indexer == null ? new IndexedInventoryIndexer() : indexer;
     this.handler = handler == null ? new ClickableInventoryHandler() : handler;
     this.adapter = new InventoryMenuAdapter(this);
+    if (title.length() > 32) {
+      Bukkit.getLogger().warning("InventoryMenu title is too long, truncating. (" + title + ")");
+      title = title.substring(0, 32);
+    }
     this.inventory = Bukkit.createInventory(this.adapter, rows * 9, title);
     this.items = this.indexer.getIndices(this, items == null ? new ArrayList<>() : items);
   }

@@ -11,6 +11,7 @@ import net.avicus.compendium.TextStyle;
 import net.avicus.compendium.locale.LocaleBundle;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.command.CommandSender;
 
 /**
  * Represents a locatable text sting inside of a {@link LocaleBundle}.
@@ -42,10 +43,15 @@ public class LocalizedText implements Localizable {
     this.key = key;
     this.style = style;
     this.arguments = arguments;
+    if (this.bundle == null) {
+      throw new IllegalArgumentException("bundle cannot be null");
+    }
   }
 
   @Override
-  public BaseComponent translate(Locale locale) {
+  public BaseComponent render(CommandSender commandSender) {
+    Locale locale = commandSender == null ? Locale.getDefault() : commandSender.getLocale();
+
     Optional<String> text = this.bundle.get(locale, this.key);
     if (!text.isPresent()) {
       return new TextComponent("translation: '" + this.key + "'");
@@ -55,7 +61,7 @@ public class LocalizedText implements Localizable {
     UnlocalizedText sneaky = new UnlocalizedText(text.get(), this.style, this.arguments);
     sneaky.style().inherit(this.style);
 
-    return sneaky.translate(locale);
+    return sneaky.render(commandSender);
   }
 
   @Override

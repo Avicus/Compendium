@@ -10,6 +10,7 @@ import net.avicus.compendium.TextStyle;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 
 /**
  * A simple non-translatable string that can still take arguments and styling.
@@ -40,7 +41,7 @@ public class UnlocalizedText implements Localizable {
   }
 
   @Override
-  public TextComponent translate(Locale locale) {
+  public BaseComponent render(CommandSender commandSender) {
     String format = this.text;
 
     List<BaseComponent> parts = new ArrayList<>();
@@ -58,7 +59,7 @@ public class UnlocalizedText implements Localizable {
         // Allows null arguments to be converted to ""
         if (curr != null) {
           curr.style().inherit(this.style);
-          parts.add(curr.translate(locale));
+          parts.add(curr.render(commandSender));
         }
 
         if (split.length > 1) {

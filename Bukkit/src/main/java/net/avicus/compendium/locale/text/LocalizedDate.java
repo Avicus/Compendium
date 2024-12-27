@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Locale;
 import net.avicus.compendium.TextStyle;
 import net.md_5.bungee.api.chat.BaseComponent;
+import org.bukkit.command.CommandSender;
 
 /**
  * A date object that can be translated to any locale with a specific style.
@@ -23,10 +24,12 @@ public class LocalizedDate implements Localizable {
     this(date, TextStyle.create());
   }
 
+
   @Override
-  public BaseComponent translate(Locale locale) {
+  public BaseComponent render(CommandSender commandSender) {
+    Locale locale = commandSender == null ? Locale.getDefault() : commandSender.getLocale();
     DateFormat format = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-    return new UnlocalizedText(format.format(this.date), this.style).translate(locale);
+    return new UnlocalizedText(format.format(this.date), this.style).render(commandSender);
   }
 
   @Override

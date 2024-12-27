@@ -41,7 +41,7 @@ public class SettingCommands {
 
     String query = args.getString(0);
 
-    Optional<Setting> search = Setting.search(sender.getLocale(), query, PlayerSettings.settings());
+    Optional<Setting> search = Setting.search(sender, query, PlayerSettings.settings());
 
     if (!search.isPresent()) {
       throw new TranslatableCommandErrorException(Messages.ERRORS_SETTINGS_HELP);
@@ -74,7 +74,7 @@ public class SettingCommands {
 
     String query = args.getString(0);
 
-    Optional<Setting> search = Setting.search(sender.getLocale(), query, PlayerSettings.settings());
+    Optional<Setting> search = Setting.search(sender, query, PlayerSettings.settings());
 
     if (!search.isPresent()) {
       throw new TranslatableCommandErrorException(Messages.ERRORS_SETTINGS_HELP);
@@ -120,7 +120,7 @@ public class SettingCommands {
       Localizable toggle = Messages.GENERIC_TOGGLE.with(ChatColor.YELLOW);
       toggle.style().italic();
       toggle.style().click(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
-          "/toggle " + name.translate(sender.getLocale()).toPlainText()));
+          "/toggle " + name.render(sender).toPlainText()));
 
       sender.sendMessage(toggle);
     }
@@ -145,7 +145,7 @@ public class SettingCommands {
         Iterator<Setting> iterator = list.iterator();
         while (iterator.hasNext()) {
           Setting next = iterator.next();
-          String name = next.getName().translate(sender.getLocale()).toPlainText();
+          String name = next.getName().render(sender).toPlainText();
           if (!name.toLowerCase().contains(query.toLowerCase())) {
             iterator.remove();
           }
@@ -165,8 +165,8 @@ public class SettingCommands {
     page--;
 
     list.sort((o1, o2) -> {
-      String n1 = o1.getName().translate(sender.getLocale()).toPlainText();
-      String n2 = o2.getName().translate(sender.getLocale()).toPlainText();
+      String n1 = o1.getName().render(sender).toPlainText();
+      String n2 = o2.getName().render(sender).toPlainText();
       return n1.compareTo(n2);
     });
 
@@ -190,12 +190,12 @@ public class SettingCommands {
 
     // Click me!
     BaseComponent[] clickMe = new BaseComponent[]{
-        Messages.GENERIC_CLICK_ME.with(ChatColor.WHITE).translate(sender.getLocale())};
+        Messages.GENERIC_CLICK_ME.with(ChatColor.WHITE).render(sender)};
 
     for (Setting setting : paginator.getPage(page)) {
       Localizable name = setting.getName().duplicate();
       name.style().click(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
-          "/setting " + name.translate(sender.getLocale()).toPlainText()));
+          "/setting " + name.render(sender).toPlainText()));
       name.style().hover(new HoverEvent(HoverEvent.Action.SHOW_TEXT, clickMe));
       name.style().italic();
       name.style().color(ChatColor.YELLOW);
@@ -213,7 +213,7 @@ public class SettingCommands {
 
     String query = args.getString(0);
 
-    Optional<Setting> search = Setting.search(sender.getLocale(), query, PlayerSettings.settings());
+    Optional<Setting> search = Setting.search(sender, query, PlayerSettings.settings());
 
     if (!search.isPresent()) {
       throw new TranslatableCommandErrorException(Messages.ERRORS_SETTINGS_HELP);

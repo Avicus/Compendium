@@ -2,9 +2,12 @@ package net.avicus.compendium.locale.text;
 
 import java.util.Date;
 import java.util.Locale;
+
+import lombok.val;
 import net.avicus.compendium.TextStyle;
 import net.avicus.compendium.Time;
 import net.md_5.bungee.api.chat.BaseComponent;
+import org.bukkit.command.CommandSender;
 
 /**
  * A date object that can be translated to any locale with a specific style in the _ago format.
@@ -29,10 +32,13 @@ public class LocalizedTime implements Localizable {
     this(date, TextStyle.create());
   }
 
+
   @Override
-  public BaseComponent translate(Locale locale) {
+  public BaseComponent render(CommandSender commandSender) {
+    Locale locale = commandSender == null ? Locale.getDefault() : commandSender.getLocale();
+
     String time = Time.prettyTime(locale).format(this.date);
-    return new UnlocalizedText(time, this.style).translate(locale);
+    return new UnlocalizedText(time, this.style).render(commandSender);
   }
 
   @Override

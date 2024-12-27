@@ -41,7 +41,7 @@ public class LocaleTests {
     LocalizedText text = new LocalizedText(bundle, "hello", keenan, keenan);
     text.style().color(ChatColor.DARK_RED).bold(true);
 
-    System.out.println(text.translate(Locale.TRADITIONAL_CHINESE).toLegacyText());
+    System.out.println(text.render(null).toLegacyText());
   }
 
   @Test
@@ -53,6 +53,6 @@ public class LocaleTests {
 
     LocalizedText hello = format.with(TextStyle.ofBold(), name);
 
-    System.out.println(hello.translate(new Locale("es")).toLegacyText());
+    System.out.println(hello.render(null).toLegacyText());
   }
 }

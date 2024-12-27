@@ -1,8 +1,8 @@
 package net.avicus.compendium.network;
 
 import com.google.common.collect.Range;
+import com.viaversion.viaversion.api.Via;
 import org.bukkit.entity.Player;
-import us.myles.ViaVersion.api.Via;
 
 public final class Protocol {
 

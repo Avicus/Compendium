@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
-import us.myles.ViaVersion.api.Via;
+import com.viaversion.viaversion.api.Via;
 
 /**
  * A boss bar manager.

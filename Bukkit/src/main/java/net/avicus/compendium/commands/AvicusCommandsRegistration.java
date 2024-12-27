@@ -1,12 +1,15 @@
 package net.avicus.compendium.commands;
 
+import java.lang.reflect.AnnotatedElement;
 import com.sk89q.bukkit.util.CommandsManagerRegistration;
 import com.sk89q.bukkit.util.DynamicPluginCommand;
 import com.sk89q.minecraft.util.commands.NestedCommand;
 import com.sk89q.util.ReflectionUtil;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -18,7 +21,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandMap;
 import org.bukkit.plugin.Plugin;
-import sun.reflect.annotation.AnnotationParser;
 
 /**
  * A custom implementation of {@link CommandsManagerRegistration} which supports the un-registration
@@ -46,22 +48,47 @@ public class AvicusCommandsRegistration extends CommandsManagerRegistration {
    * @return an instance of an annotation with the supplied arguments and type
    */
   private static <A extends Annotation> A createAnnotationInstance(Map<String, Object> customValues,
-      Class<A> annotationType) {
+                                                                   Class<A> annotationType) {
     Map<String, Object> values = new HashMap<>();
 
     // Extract default values from annotation
     for (Method method : annotationType.getDeclaredMethods()) {
-      if (values.containsKey(method.getName())) {
-        continue;
+      if (!customValues.containsKey(method.getName())) {
+        values.put(method.getName(), method.getDefaultValue());
       }
-
-      values.put(method.getName(), method.getDefaultValue());
     }
 
-    //Populate required values
+    // Populate required values
     values.putAll(customValues);
 
-    return (A) AnnotationParser.annotationForMap(annotationType, values);
+    return createDynamicAnnotation(annotationType, values);
+  }
+
+  @SuppressWarnings("unchecked")
+  private static <A extends Annotation> A createDynamicAnnotation(Class<A> annotationType, Map<String, Object> values) {
+    return (A) Proxy.newProxyInstance(
+            annotationType.getClassLoader(),
+            new Class[]{annotationType},
+            new AnnotationInvocationHandler(annotationType, values)
+    );
+  }
+
+  private static class AnnotationInvocationHandler implements InvocationHandler {
+    private final Class<? extends Annotation> annotationType;
+    private final Map<String, Object> values;
+
+    AnnotationInvocationHandler(Class<? extends Annotation> annotationType, Map<String, Object> values) {
+      this.annotationType = annotationType;
+      this.values = values;
+    }
+
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+      if (method.getName().equals("annotationType") && method.getParameterCount() == 0) {
+        return annotationType;
+      }
+      return values.getOrDefault(method.getName(), method.getDefaultValue());
+    }
   }
 
   /**

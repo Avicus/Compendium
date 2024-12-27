@@ -10,6 +10,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import net.avicus.compendium.locale.text.Localizable;
 import net.avicus.compendium.settings.types.SettingType;
+import org.bukkit.command.CommandSender;
 
 /**
  * Represents a configurable option, a setting silly!
@@ -65,7 +66,7 @@ public class Setting<R> {
     this.description = description;
   }
 
-  public static Optional<Setting> search(Locale locale, String query, List<Setting> settings) {
+  public static Optional<Setting> search(CommandSender locale, String query, List<Setting> settings) {
     for (Setting<?> setting : settings) {
       List<String> names = setting.getAllAliases(locale);
       for (String name : names) {
@@ -77,11 +78,11 @@ public class Setting<R> {
     return Optional.empty();
   }
 
-  public List<String> getAllAliases(Locale locale) {
+  public List<String> getAllAliases(CommandSender locale) {
     List<String> result = new ArrayList<>();
-    result.add(this.name.translate(locale).toPlainText());
+    result.add(this.name.render(locale).toPlainText());
     result.addAll(this.aliases.stream()
-        .map(alias -> alias.translate(locale)
+        .map(alias -> alias.render(locale)
             .toPlainText())
         .collect(Collectors.toList()));
     return result;

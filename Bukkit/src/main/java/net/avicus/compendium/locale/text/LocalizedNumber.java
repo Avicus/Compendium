@@ -4,6 +4,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 import net.avicus.compendium.TextStyle;
 import net.md_5.bungee.api.chat.BaseComponent;
+import org.bukkit.command.CommandSender;
 
 /**
  * A number object that can be translated into any locale with min/max decimals and a style.
@@ -42,14 +43,15 @@ public class LocalizedNumber implements Localizable {
     this(number, TextStyle.create());
   }
 
-
   @Override
-  public BaseComponent translate(Locale locale) {
+  public BaseComponent render(CommandSender commandSender) {
+    Locale locale = commandSender == null ? Locale.getDefault() : commandSender.getLocale();
+
     NumberFormat format = NumberFormat.getInstance(locale);
     format.setMinimumFractionDigits(this.minDecimals);
     format.setMaximumFractionDigits(this.maxDecimals);
 
-    return new UnlocalizedText(format.format(this.number), this.style).translate(locale);
+    return new UnlocalizedText(format.format(this.number), this.style).render(commandSender);
   }
 
   @Override

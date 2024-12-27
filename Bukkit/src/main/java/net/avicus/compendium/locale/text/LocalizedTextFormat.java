@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import net.avicus.compendium.TextStyle;
 import net.avicus.compendium.locale.LocaleBundle;
 import net.md_5.bungee.api.chat.BaseComponent;
+import org.bukkit.command.CommandSender;
 
 /**
  * A {@link LocalizedText} that can have a translation inside of it to allow for double translation.
@@ -43,13 +44,14 @@ public class LocalizedTextFormat implements Localizable {
     this.arguments = arguments;
   }
 
+
   @Override
-  public BaseComponent translate(Locale locale) {
-    String text = this.format.translate(locale).toLegacyText();
+  public BaseComponent render(CommandSender commandSender) {
+    String text = this.format.render(commandSender).toLegacyText();
     UnlocalizedText sneaky = new UnlocalizedText(text, this.style, this.arguments);
     sneaky.style().inherit(this.style);
 
-    return sneaky.translate(locale);
+    return sneaky.render(commandSender);
   }
 
   @Override

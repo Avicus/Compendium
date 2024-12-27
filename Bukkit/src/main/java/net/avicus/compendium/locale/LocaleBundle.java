@@ -7,6 +7,7 @@ import java.util.Optional;
 import net.avicus.compendium.locale.text.Localizable;
 import net.avicus.compendium.locale.text.LocalizedFormat;
 import net.avicus.compendium.locale.text.LocalizedText;
+import org.bukkit.Bukkit;
 
 /**
  * A collection of {@link LocaleStrings} and allows retrieval by language.
@@ -149,6 +150,9 @@ public class LocaleBundle {
 
   /** @see LocalizedFormat#LocalizedFormat(LocaleBundle, String). */
   public LocalizedFormat getFormat(String key) {
+    if (!has(getDefaultLocale().get(), key)) {
+      Bukkit.getLogger().warning("Missing format key: " + key);
+    }
     return new LocalizedFormat(this, key);
   }
 

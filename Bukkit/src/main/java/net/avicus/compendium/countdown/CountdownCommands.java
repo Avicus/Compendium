@@ -58,7 +58,7 @@ public class CountdownCommands {
 
     final UnlocalizedFormat format = new UnlocalizedFormat("{0}: {1}");
     final HoverEvent hover = new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{
-        Messages.GENERIC_COUNTDOWN_COMMAND_CANCEL_BUTTON.with().translate(source.getLocale())});
+        Messages.GENERIC_COUNTDOWN_COMMAND_CANCEL_BUTTON.with().render(source)});
     for (Map.Entry<Countdown, CountdownTask> countdown : paginator.getPage(page)) {
       LocalizedNumber number = new LocalizedNumber(countdown.getValue().getTaskId());
       number.style().color(ChatColor.YELLOW);

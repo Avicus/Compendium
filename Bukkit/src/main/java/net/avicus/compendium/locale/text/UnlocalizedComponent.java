@@ -4,6 +4,7 @@ import java.util.Locale;
 import javax.annotation.Nullable;
 import net.avicus.compendium.TextStyle;
 import net.md_5.bungee.api.chat.BaseComponent;
+import org.bukkit.command.CommandSender;
 
 /**
  * A {@link BaseComponent} that can be style like a {@link Localizable}.
@@ -38,8 +39,9 @@ public class UnlocalizedComponent implements Localizable {
         this.style != null ? this.style.duplicate() : null);
   }
 
+
   @Override
-  public BaseComponent translate(Locale locale) {
+  public BaseComponent render(CommandSender commandSender) {
     if (this.style != null) {
       this.style.apply(this.component);
     }

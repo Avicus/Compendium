@@ -3,10 +3,10 @@ package net.avicus.compendium.boss;
 import java.util.UUID;
 import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.entity.Player;
-import us.myles.ViaVersion.api.Via;
-import us.myles.ViaVersion.api.boss.BossColor;
-import us.myles.ViaVersion.api.boss.BossFlag;
-import us.myles.ViaVersion.api.boss.BossStyle;
+import com.viaversion.viaversion.api.Via;
+import com.viaversion.viaversion.api.legacy.bossbar.BossColor;
+import com.viaversion.viaversion.api.legacy.bossbar.BossFlag;
+import com.viaversion.viaversion.api.legacy.bossbar.BossStyle;
 
 /**
  * A modern boss bar.
@@ -26,7 +26,7 @@ public class ModernBossBar extends BossBar {
   /**
    * The boss bar container.
    */
-  private us.myles.ViaVersion.api.boss.BossBar<Player> bar;
+  private com.viaversion.viaversion.api.legacy.bossbar.BossBar bar;
 
   /**
    * Constructs a new modern boss bar.
@@ -35,7 +35,7 @@ public class ModernBossBar extends BossBar {
    */
   ModernBossBar(Player player) {
     // A normal (as seen in versions before 1.9) boss bar has a PROGRESS (SOLID) overlay and is PINK in color
-    this.bar = Via.getAPI().createBossBar("o_o", BossColor.PINK, BossStyle.SOLID);
+    this.bar = Via.getAPI().legacyAPI().createLegacyBossBar("o_o", BossColor.PINK, BossStyle.SOLID);
     this.bar.addPlayer(player.getUniqueId());
   }
 
