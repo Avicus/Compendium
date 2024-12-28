@@ -1,6 +1,7 @@
 package net.avicus.compendium.boss;
 
 import net.md_5.bungee.api.chat.BaseComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 /**
@@ -41,7 +42,11 @@ public class LegacyBossBar extends BossBar {
   public LegacyBossBar setName(BaseComponent[] name) {
     if (name != this.name) {
       super.setName(name);
-      this.manager.bossy.setText(this.player, BaseComponent.toLegacyText(this.name));
+      try {
+        this.manager.bossy.setText(this.player, BaseComponent.toLegacyText(this.name));
+      } catch (Exception e) {
+        Bukkit.getLogger().warning("Failed to set boss bar name for " + this.player.getName());
+      }
     }
 
     return this;

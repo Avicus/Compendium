@@ -95,9 +95,13 @@ public abstract class Countdown {
    */
   protected void updateBossBar(Localizable name, float percent) {
     for (Player player : Bukkit.getOnlinePlayers()) {
-      this.getBossBar(player)
-          .setName(name.render(player))
-          .setPercent(percent);
+      try {
+        this.getBossBar(player)
+                .setName(name.render(player))
+                .setPercent(percent);
+      } catch (Exception e) {
+        Bukkit.getLogger().warning("Failed to update boss bar for " + player.getName());
+      }
     }
   }
 
